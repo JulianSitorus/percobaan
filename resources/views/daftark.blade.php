@@ -62,9 +62,15 @@
                     <button class="input-group-text">&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-magnifying-glass"></i></button>
                 </div>
             </form>
-            <!-- <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" placeholder="Search..."> -->
         </div> 
+        <div class="search-box">
+            <form action="" method="get">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" name="search" placeholder="Search...">
+                    <button class="input-group-text">&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-magnifying-glass"></i></button>
+                </div>
+            </form>
+        </div>
     </div>
 
     <div class ="empat">
