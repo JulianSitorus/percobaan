@@ -1,0 +1,336 @@
+html, body{
+    padding: 0;
+    margin: 0;
+    height: 100%;
+}
+*{
+    margin: 0;
+    padding: 0;
+    font-family:  Arial, sans-serif;
+}
+
+/* div{
+    width: 100px;
+    height: 130px;
+} */
+
+.satu{
+    background-color: #6AB784;
+    width: 100%;
+    height: 80px;
+    position: fixed;
+    z-index: 12;
+}
+.satu img{
+    width: 250px;
+}
+.satu span{
+    float: right;
+    margin: 30px 35px;
+    font-family:  Arial, sans-serif;
+    color: white;
+}
+
+
+.dua{
+    background-color: #302B3C;
+    position: fixed;
+    height: 142%;
+    width: 250px;
+    z-index: 2;
+    z-index: 13;
+    margin-top: 80px;
+}
+.dua header{
+    font-size: 22px;
+    color: white;
+    text-align: center;
+    line-height: 50px;
+    background-color: #3C3846;
+}
+.dua ul{
+    text-decoration: none;
+    list-style: none;
+}
+.dua ul a{
+    display: block;
+    width: 100%;
+    line-height: 45px;
+    font-size: 15px;
+    color: white;
+    padding-left: 30px;
+    box-sizing: border-box;
+    border-top: 1px solid rgba(255,255,255,.1);
+    border-bottom: 1px solid black;
+}
+.dua ul a:hover{
+    color: #6AB784;
+    background-color: #3C3846;
+}
+/* .dua img{
+    width: 200px;
+    padding: 10px;
+} */
+.menu{
+    font-family:  Arial, sans-serif;
+    font-size: 17px;
+    font-weight:normal;
+}
+
+
+.tiga{
+    background-color: white;
+    margin-top: 80px;
+    width: 100%;
+    height: 50px;
+    position: fixed;
+    z-index: 9;
+    border-bottom: 1px solid #6AB784;
+}
+.tiga img{
+    width: 400px;
+    height: 50px;
+    padding: 10px;
+    float: left;
+}
+.tiga h3{
+    font-family: Calibri, sans-serif;
+    font-size: 17px;
+    font-weight: normal;
+    float: left;
+    color: #6AB784;
+    padding: 15px 270px;
+}
+/* search */
+.search-box{
+    /* z-index: -10; */
+    float: right;
+    margin: 10px 35px;
+    background-color: white;
+    height: 18px;
+    padding: 5px 15px;
+    border-radius: 5px;
+    border: 1px solid #6AB784;
+    box-shadow: 1px 1px 1px #888;
+}
+.search-box input{
+    border: none;
+    outline: none;
+    background: none;
+    margin-right: 3px;
+}
+
+.input-group-text{
+    position: relative;
+    z-index: 14;
+    cursor: pointer;
+    border: none;
+    color: white;
+}
+
+.input-group-text::before {
+    content: "";
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    margin-top: -8px;
+    margin-left: -3px;
+    position: absolute;
+    width: 100%;
+    padding: 11px 15px 19px 5px;
+    background-color: #0d6efd; 
+    z-index: -3; 
+  }
+
+
+.empat{
+    background-color: #EEEEEE;
+    margin-top: 80px;
+    width: 100%;
+    height: 110%;
+    position:absolute;
+    z-index: 8;
+}
+.empat2{
+    float: left;
+    background-color: white;
+    width: 80%;
+    height: 87%;
+    margin: 70px 35px 70px 270px;
+}
+.empat2 .tambah{
+    /* float: right; */
+    margin: 20px 20px 10px 20px;
+    background-color: #18b84e;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    padding: 5px 10px;
+}
+.empat2 .tambah:hover{
+    background-color: #6AB784;
+}
+.empat2 p{
+    font-size: 20px;
+    margin: 20px;
+}
+/* jumlah data dibawah tabel dan tombol ganti hlmn */
+.empat2 .info_data{
+    position: absolute;
+    width: 80%;
+}
+.empat2 .jmlh_data{
+    float: left;
+    font-size: 12px;
+}
+.empat2 .hlmn{
+    margin-top: 10px;
+    margin-right: 45px;
+    float: right;
+    font-size: 12px;
+}
+.empat2 #nomor{
+    padding: 4px 9px;
+    background-color: white;
+    border: 0.5px solid #ccc;
+}
+.empat2 #nomor:hover{
+    background-color: #18b858;
+    color: white;
+    border: 0.6px solid #ccc;
+}
+
+table{
+    width: 96%;
+    margin: 20px;
+    float: left;
+    background-color: #d5d5d5;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+table img{
+    width: 60px;
+}
+table td{
+    padding: 5px;
+}
+table th{
+    width: 14%;
+    padding: 10px;
+    background-color:#6AB784;
+}
+
+.button-container {
+    display: flex;
+}
+table .detail{
+    background-color: #18b84e;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    padding: 6px 9px;
+    margin: 20px 5px 20px 5px;
+    /* margin-left: 5px; */
+}
+table .hapus{
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    padding: 6px 9px;
+    margin: 20px 5px 20px 0px;
+}
+table .detail:hover{
+    background-color: #6AB784;
+    position: relative;
+}
+table .detail:hover::after{
+    content: "Detail";
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: black;
+    padding: 5px;
+    border: 1px solid #ccc;
+}
+table .hapus:hover{
+    background-color: rgb(255, 68, 68);
+    position: relative;
+}
+table .hapus:hover::after{
+    content: "Hapus Karyawan";
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: black;
+    padding: 5px;
+    border: 1px solid #ccc;
+}
+table .kiri{
+    border-top-left-radius: 5px;
+    width: 0.2%;
+}
+table .foto{
+    width: 5%;
+}
+table .kanan{
+    width: 1%;
+    border-top-right-radius: 5px;
+} 
+
+table tr:nth-child(odd){
+    background-color: #EEEEEE;
+}
+table tr:nth-child(even){
+    background-color: white;
+}
+
+/* tombol pagination */
+.pagination{
+    list-style: none;
+    display: flex;
+}
+.page-item.active .page-link {
+    display: flex;
+    list-style: none;
+    z-index: 3;
+    color: #fff;
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+.page-item:not(:first-child) .page-link {
+    margin-left: -1px;
+    list-style: none;
+    display: flex;
+}
+ 
+.page-link {
+    padding: 0.375rem 0.75rem;
+    list-style: none;
+    display: flex;
+}
+
+.page-link {
+    /* position: relative; */
+    display: flex;
+    color: #0d6efd;
+    text-decoration: none;
+    list-style: none;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+/* ------------------- */
+/* alert sukses */
+/* .alert-success {
+    color: #0f5132;
+    background-color: #d1e7dd;
+    border-color: #badbcc;
+    margin: 20px 20px 10px 20px;
+}
+.alert {
+    position: relative;
+    padding: 1rem 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+} */

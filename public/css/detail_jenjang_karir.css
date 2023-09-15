@@ -1,0 +1,238 @@
+html, body{
+    padding: 0;
+    margin: 0;
+    height: 100%;
+}
+*{
+    margin: 0;
+    padding: 0;
+    font-family:  Arial, sans-serif;
+}
+
+/* div{
+    width: 100px;
+    height: 130px;
+} */
+
+.satu{
+    background-color: #6AB784;
+    width: 100%;
+    height: 80px;
+}
+.satu img{
+    width: 250px;
+}
+.satu span{
+    float: right;
+    margin: 30px 35px;
+    font-family:  Arial, sans-serif;
+    color: white;
+}
+
+
+.dua{
+    background-color: #302B3C;
+    position: absolute;
+    height: 100%;
+    width: 250px;
+    z-index: 2;
+}
+.dua header{
+    font-size: 22px;
+    color: white;
+    text-align: center;
+    line-height: 50px;
+    background-color: #3C3846;
+}
+.dua ul{
+    text-decoration: none;
+    list-style: none;
+}
+.dua ul a{
+    display: block;
+    width: 100%;
+    line-height: 45px;
+    font-size: 15px;
+    color: white;
+    padding-left: 30px;
+    box-sizing: border-box;
+    border-top: 1px solid rgba(255,255,255,.1);
+    border-bottom: 1px solid black;
+}
+.dua ul a:hover{
+    color: #6AB784;
+    background-color: #3C3846;
+}
+/* .dua img{
+    width: 200px;
+    padding: 10px;
+} */
+.menu{
+    font-family:  Arial, sans-serif;
+    font-size: 17px;
+    font-weight:normal;
+}
+
+
+.tiga{
+    background-color: white;
+    width: 100%;
+    height: 50px;
+    position: absolute;
+    z-index: 1;
+    border-bottom: 1px solid #6AB784;
+}
+.tiga img{
+    width: 400px;
+    height: 50px;
+    padding: 10px;
+    float: left;
+}
+.tiga h3{
+    font-family: Calibri, sans-serif;
+    font-size: 17px;
+    font-weight: normal;
+    float: left;
+    color: #6AB784;
+    padding: 15px 270px;
+}
+/* search */
+.search-box{
+    float: right;
+    margin: 10px 35px;
+    background-color: white;
+    height: 18px;
+    padding: 5px 15px;
+    border-radius: 5px;
+    border: 1px solid #6AB784;
+    box-shadow: 1px 1px 1px #888;
+}
+
+.search-box input{
+    border: none;
+    outline: none;
+    background: none;
+}
+
+.search-box i{
+    color: #302B3C;
+}
+
+
+.empat{
+    background-color: #EEEEEE;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+.empat2{
+    float: left;
+    background-color: white;
+    width: 80%;
+    height: 57%;
+    margin: 70px 35px 70px 270px;
+}
+.empat2 .tambah{
+    float: right;
+    margin: 20px 30px;
+    background-color: #18b84e;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    padding: 5px 10px;
+}
+.empat2 .tambah:hover{
+    background-color: #6AB784;
+}
+
+.empat2 .judul{
+    font-size: 20px;
+    margin: 20px;
+}
+
+
+table th{
+    padding: 7px;
+    border: none;
+    color: white;
+    background-color:#6AB784;
+    font-weight:lighter;
+    font-size: 17px;
+}
+table{
+    width: 96.5%;
+    margin: 20px 20px;
+    background-color: #6AB784;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-collapse: collapse;
+}
+table td{
+    background-color: white;
+    border: none;
+    padding: 8px;
+    font-size: 13px;
+}
+table tr {
+    border-bottom: 1px solid #6AB784;
+  }
+table tbody{
+    overflow: auto;
+    height: 110;
+}
+
+/* tombol edit hapus */
+table .detail{
+    background-color: #18b84e;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    padding: 5px 7px;
+}
+table .hapus{
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    padding: 5px 7px;
+}
+table .detail:hover{
+    background-color: #6AB784;
+    position: relative;
+}
+table .detail:hover::after{
+    content: "Edit";
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: black;
+    padding: 5px;
+    border: 1px solid #ccc;
+}
+table .hapus:hover{
+    background-color: rgb(255, 68, 68);
+    position: relative;
+}
+table .hapus:hover::after{
+    content: "Hapus";
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: black;
+    padding: 5px;
+    border: 1px solid #ccc;
+}
+/* -------------------------- */
+
+.empat2 .tambah{
+    float: left;
+    margin: 12px 20px;
+    background-color: #6AB784;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    padding: 5px 10px;
+}
+.empat2 .tambah:hover{
+    background-color: #18b84e;
+}

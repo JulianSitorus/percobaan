@@ -1,0 +1,265 @@
+html, body{
+    padding: 0;
+    margin: 0;
+    height: 100%;
+}
+*{
+    margin: 0;
+    padding: 0;
+    font-family:  Arial, sans-serif;
+}
+
+/* div{
+    width: 100px;
+    height: 130px;
+} */
+
+.satu{
+    background-color: #6AB784;
+    width: 100%;
+    height: 80px;
+}
+.satu img{
+    width: 250px;
+}
+.satu span{
+    float: right;
+    margin: 30px 35px;
+    font-family:  Arial, sans-serif;
+    color: white;
+}
+
+
+.dua{
+    background-color: #302B3C;
+    position: absolute;
+    height: 100%;
+    width: 250px;
+    z-index: 2;
+}
+.dua header{
+    font-size: 22px;
+    color: white;
+    text-align: center;
+    line-height: 50px;
+    background-color: #3C3846;
+}
+.dua ul{
+    text-decoration: none;
+    list-style: none;
+}
+.dua ul a{
+    display: block;
+    width: 100%;
+    line-height: 45px;
+    font-size: 15px;
+    color: white;
+    padding-left: 30px;
+    box-sizing: border-box;
+    border-top: 1px solid rgba(255,255,255,.1);
+    border-bottom: 1px solid black;
+}
+.dua ul a:hover{
+    color: #6AB784;
+    background-color: #3C3846;
+}
+/* .dua img{
+    width: 200px;
+    padding: 10px;
+} */
+.menu{
+    font-family:  Arial, sans-serif;
+    font-size: 17px;
+    font-weight:normal;
+}
+
+
+.tiga{
+    background-color: white;
+    width: 100%;
+    height: 50px;
+    position: absolute;
+    z-index: 1;
+    border-bottom: 1px solid #6AB784;
+}
+.tiga img{
+    width: 400px;
+    height: 50px;
+    padding: 10px;
+    float: left;
+}
+.tiga h3{
+    font-family: Calibri, sans-serif;
+    font-size: 17px;
+    font-weight: normal;
+    float: left;
+    color: #6AB784;
+    padding: 15px 270px;
+}
+/* search */
+.search-box{
+    float: right;
+    margin: 10px 35px;
+    background-color: white;
+    height: 18px;
+    padding: 5px 15px;
+    border-radius: 5px;
+    border: 1px solid #6AB784;
+    box-shadow: 1px 1px 1px #888;
+}
+
+.search-box input{
+    border: none;
+    outline: none;
+    background: none;
+}
+
+.search-box i{
+    color: #302B3C;
+}
+
+
+.empat{
+    background-color: #EEEEEE;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+.empat2{
+    float: left;
+    background-color: white;
+    width: 80%;
+    height: 89%;
+    margin: 70px 35px 70px 270px;
+}
+
+.empat2 p{
+    font-size: 20px;
+    margin: 20px;
+}
+
+/* jumlah data dibawah tabel dan tombol ganti hlmn */
+.empat2 .info_data{
+    position: absolute;
+    width: 80%;
+}
+.empat2 .jmlh_data{
+    float: left;
+    font-size: 12px;
+}
+.empat2 .hlmn{
+    margin-top: 15px;
+    margin-right: 45px;
+    float: right;
+}
+.empat2 #nomor{
+    padding: 4px 9px;
+    background-color: white;
+    border: 0.5px solid #ccc;
+}
+.empat2 #nomor:hover{
+    background-color: #18b858;
+    color: white;
+    border: 0.6px solid #ccc;
+}
+
+
+table{
+    width: 96%;
+    margin: 20px;
+    float: left;
+    background-color: #d5d5d5;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+table img{
+    width: 60px;
+}
+table td{
+    padding: 5px;
+    font-size: 14px;
+}
+table th{
+    width: 2%;
+    padding: 7px;
+    background-color:#6AB784;
+}
+table .detail{
+    background-color: #18b84e;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    padding: 6px 9px;
+    margin-top: 5px;
+}
+table .tambah{
+    background-color: rgb(0, 115, 255);
+    color: white;
+    border: none;
+    border-radius: 3px;
+    padding: 6px 9px;
+    margin-top: 5px;
+}
+table .detail:hover{
+    background-color: #6AB784;
+    position: relative;
+}
+table .detail:hover::after{
+    content: "Detail";
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: black;
+    padding: 5px;
+    border: 1px solid #ccc;
+}
+table .tambah:hover{
+    background-color: rgb(68, 137, 255);
+    position: relative;
+}
+table .tambah:hover::after{
+    content: "Tambah";
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: black;
+    padding: 5px;
+    border: 1px solid #ccc;
+}
+table .kiri{
+    border-top-left-radius: 5px;
+    width: 0.2%;
+}
+table .foto{
+    width: 1%;
+}
+table .departemen{
+    width: 0.8%;
+}
+table .nilai{
+    font-size: 8px;
+}
+table .desk{
+    font-size: 12px;
+}
+table .kekuatan{
+    width: 5%;
+}
+table .kekurangan{
+    width: 3%;
+}
+table .rekomendasi{
+    width: 3%;
+}
+
+table .kanan{
+    width: 4%;
+    border-top-right-radius: 5px;
+} 
+
+table tr:nth-child(odd){
+    background-color: #EEEEEE;
+}
+table tr:nth-child(even){
+    background-color: white;
+}
