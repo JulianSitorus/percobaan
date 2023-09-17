@@ -116,8 +116,10 @@ html, body{
 .search-box input{
     border: none;
     outline: none;
-    background: none;
     margin-right: 3px;
+}
+.search-box input:-webkit-autofill{
+    -webkit-box-shadow: 0 0 0 1000px white inset;
 }
 
 .input-group-text{
@@ -221,6 +223,7 @@ table th{
 
 .button-container {
     display: flex;
+    justify-content: space-between;
 }
 table .detail{
     background-color: #18b84e;
@@ -229,7 +232,6 @@ table .detail{
     border-radius: 3px;
     padding: 6px 9px;
     margin: 20px 5px 20px 5px;
-    /* margin-left: 5px; */
 }
 table .hapus{
     background-color: red;
@@ -270,7 +272,7 @@ table .kiri{
     width: 0.2%;
 }
 table .foto{
-    width: 5%;
+    width: 6%;
 }
 table .kanan{
     width: 1%;

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/biodata.css">
     <link rel="stylesheet" href="css/fontawesome/css/all.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Document</title>
 </head>
 
@@ -50,10 +51,10 @@
 
     <div class ="tiga">
         <h3>Karyawan > </h3>
-        <div class="search-box">
+        <!-- <div class="search-box">
             <i class="fa-solid fa-magnifying-glass"></i>
             <input type="search" placeholder="Search...">
-        </div> 
+        </div>  -->
     </div>
 
     <div class ="empat">
@@ -62,17 +63,23 @@
             <hr size="3px" color="#EEEEEE">
             <form action="store" method="POST" enctype="multipart/form-data">
                 @csrf
-                <label for="nama_karyawan">Nama</label><input id="nama_karyawan" type="varchar" name="nama_karyawan"><br>
+                <label for="nama_karyawan">Nama</label><input id="nama_karyawan" type="text" name="nama_karyawan" pattern=".*\S+.*" required
+                oninvalid="this.setCustomValidity('Nama karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan nama"><br>
 
-                <label for="tempat_lahir">Tempat Lahir</label><input id="tempat_lahir" type="text" name="tempat_lahir"><br>
+                <label for="tempat_lahir">Tempat Lahir</label><input id="tempat_lahir" type="text" name="tempat_lahir" pattern=".*\S+.*" required
+                oninvalid="this.setCustomValidity('Tempat lahir karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan tempat lahir"><br>
 
-                <label for="tanggal_lahir">Tanggal Lahir</label><input id="tanggal_lahir" type="date" name="tanggal_lahir"><br>
+                <label for="tanggal_lahir">Tanggal Lahir</label><input id="tanggal_lahir" type="date" name="tanggal_lahir" pattern=".*\S+.*" required
+                oninvalid="this.setCustomValidity('Tanggal lahir karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan tanggal lahir"><br>
 
-                <label for="alamat">Alamat</label><input id="alamat" type="text" name="alamat"><br>
+                <label for="alamat">Alamat</label><input id="alamat" type="text" name="alamat" pattern=".*\S+.*" required
+                oninvalid="this.setCustomValidity('Alamat karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan alamat"><br>
 
 
                 <label for="agama">Agama</label>
-                <select name="agama" id="agama">
+                <select name="agama" id="agama" required
+                oninvalid="this.setCustomValidity('Agama karyawan belum terisi!')" 
+                onInput="this.setCustomValidity('')" title="Silahkan pilih agama karyawan">
                     <option value="">Pilih Agama</option>
                     <option value="islam">Islam</option>
                     <option value="kristen">Kristen</option>
@@ -83,28 +90,39 @@
                 </select><br>
 
                 <label for="jenis_kelamin">Jenis Kelamin</label>
-                <select name="jenis_kelamin" id="jenis_kelamin">
+                <select name="jenis_kelamin" id="jenis_kelamin" required
+                oninvalid="this.setCustomValidity('Jenis kelamin karyawan belum terisi!')" 
+                onInput="this.setCustomValidity('')" title="Silahkan pilih jenis kelamin karyawan">
                     <option value="">Pilih Jenis Kelamin</option>
                     <option value="Laki-laki">Laki-laki</option>
                     <option value="Perempuan">Perempuan</option> 
                 </select><br>
 
-                <label for="email">Email</label><input id="email" type="varchar" name="email"><br>
+                <label for="email">Email</label><input id="email" type="varchar" name="email"pattern=".*\S+.*" required
+                oninvalid="this.setCustomValidity('Email karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan email"><br>
 
-                <label for="no_telp">Telepon</label><input id="no_telp" type="char" pattern="[0-9]{12}" name="no_telp"><br>
+                <label for="no_telp">Telepon</label><input id="no_telp" type="char" pattern="[0-9]{12}" name="no_telp" required
+                oninvalid="this.setCustomValidity('Nomor telepon karyawan belum terisi dengan tepat!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan nomor telepon"><br>
 
-                <label for="pendidikan">Pendidikan</label><input id="pendidikan" type="varchar" name="pendidikan"><br>
+                <label for="pendidikan">Pendidikan</label><input id="pendidikan" type="varchar" name="pendidikan" pattern=".*\S+.*" required
+                oninvalid="this.setCustomValidity('Pendidikan karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan pendidikan"><br>
 
-                <label for="pekerjaan_terakhir">Pekerjaan Terakhir</label><input id="pekerjaan_terakhir" type="varchar" name="pekerjaan_terakhir"><br>
+                <label for="pekerjaan_terakhir">Pekerjaan Terakhir</label><input id="pekerjaan_terakhir" type="varchar" name="pekerjaan_terakhir"  pattern=".*\S+.*" required
+                oninvalid="this.setCustomValidity('Pekerjaan terakhir karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan pekerjaan terakhir"><br>
 
-                <label for="departemen">Departemen</label><input id="departemen" type="varchar" name="departemen"><br>
+                <label for="departemen">Departemen</label><input id="departemen" type="varchar" name="departemen" pattern=".*\S+.*" required
+                oninvalid="this.setCustomValidity('Departemen karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan departemen"><br>
 
-                <label for="unit">Unit</label><input id="unit" type="varchar" name="unit"><br>
+                <label for="unit">Unit</label><input id="unit" type="varchar" name="unit" pattern=".*\S+.*" required
+                oninvalid="this.setCustomValidity('Unit karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan unit"><br>
 
-                <label for="posisi">Posisi</label><input id="posisi" type="varchar" name="posisi"><br>
+                <label for="posisi">Posisi</label><input id="posisi" type="varchar" name="posisi" pattern=".*\S+.*" required
+                oninvalid="this.setCustomValidity('Posisi karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan posisi"><br>
 
                 <label for="status">Status</label>
-                <select name="status" id="status">
+                <select name="status" id="status" required
+                oninvalid="this.setCustomValidity('Status karyawan belum terisi!')" 
+                onInput="this.setCustomValidity('')" title="Silahkan pilih status karyawan">
                     <option value="">Pilih Status</option>
                     <option value="Tetap">Tetap</option>
                     <option value="Kontrak">Kontrak</option> 
@@ -119,12 +137,17 @@
                 <div><img src="" id="output" width="180"></div>
                 <br>
                 <hr size="3px" color="#EEEEEE">
-                <input class="simpan" type="submit" name="submit" value="Simpan">
-                <a href="karyawan"><button class="batal">Batal</button></a>
-                <!-- <button class="simpan">Simpan</button>  -->
-            </form>  
+                
+                <!-- <a href="/daftark/"><button class="simpan" type="submit" name="submit" value="Simpan">Simpan</button></a> -->
+                    <input class="simpan" type="submit" name="submit" value="Simpan">
+                <!-- <a href="/daftark"><button class="batal">Batal</button></a>  -->
+            </form> 
+                <div class="display_batal ">
+                    <a href="/daftark"><button class="batal">Batal</button></a>
+                </div>
+                    
+                
         </div>
     </div>
-    
 </body>
 </html>

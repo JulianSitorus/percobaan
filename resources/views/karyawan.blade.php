@@ -4,15 +4,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/karyawan.css">
-    <link rel="stylesheet" href="css/fontawesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/karyawan.css') }}">
+    <!-- <link rel="stylesheet" href="css/karyawan.css"> -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/fontawesome/css/all.css') }}">
+    <!-- <link rel="stylesheet" href="css/fontawesome/css/all.css"> -->
     <title>Document</title>
 </head>
 
 <body>
     
     <div class ="satu">
-        <img src='images/logo.jpg'>
+        <img src="{{ asset('images/logo.jpg') }}">
         <span>Damar Dwi Nughroho <i class="fa fa-circle-user fa-2xl"></i></span>
         
     </div>
@@ -20,23 +22,23 @@
     <div class ="dua">
         <header>Menu</header>
             <ul>
-                <li><a href="daftark">
+                <li><a href="/daftark">
                     <i class="fas fa-id-card">
                         <span class="menu">&emsp;Karyawan</span>
                     </i></a></li>
-                <li><a href="kpi">
+                <li><a href="/kpi">
                     <i class="fas fa-briefcase">
                         <span class="menu">&emsp;KPI</span>
                     </i></a></li>
-                <li><a href="evaluasi">
+                <li><a href="/evaluasi">
                     <i class="fas fa-clipboard-list">
                         <span class="menu">&emsp; Evaluasi</span>
                     </i></a></li>
-                <li><a href="jenjangk">
+                <li><a href="/jenjangk">
                     <i class="fas fa-chart-line">
                         <span class="menu">&emsp;Jenjang Karir</span>
                     </i></a></li>
-                <li><a href="keahlian">
+                <li><a href="/keahlian">
                     <i class="fas fa-users-gear">
                         <span class="menu">&emsp;Keahlian & Pelatihan</span>
                     </i></a></li>
@@ -50,68 +52,69 @@
 
     <div class ="tiga">
         <h3>Karyawan > Detail Karyawan</h3>
-        <div class="search-box">
+        <!-- <div class="search-box">
             <i class="fa-solid fa-magnifying-glass"></i>
             <input type="text" placeholder="Search...">
-        </div> 
+        </div>  -->
     </div>
 
     <div class ="empat">
         <div class="empat2">
-            <p>Detail Karyawan</p>
+            <p>Detail Karyawan {{$daftark->nama_karyawan}}</p>
             <hr size="3px" color="#EEEEEE">
             <div class="foto">
-                <img src='images/karyawan.jpg'>
+                <!-- <div><img src="{{ asset('fotokaryawan/' . $daftark) }}" id="output"></div> -->
+                <img src="{{ asset('fotokaryawan/' . $daftark->foto) }}" alt="Foto Karyawan">
+                <!-- <img src='images/karyawan.jpg'> -->
                 <h3>Posisi</h3>
-                <p>Ketua Departemen HRD</p>
+                <p>{{$daftark->posisi}}</p>
                 <h3>Unit</h3>
-                <p>Rekrutmen</p>
+                <p>{{$daftark->unit}}</p>
                 <h3>Departemen</h3>
-                <p>HRD</p>
-                                
-
+                <p>{{$daftark->departemen}}</p>
             </div>
+            
             <div class="profil">
                 <p class="judul">Biodata</p>
                 <ul>
                     <li class="key">Nama</li>
-                    <li class="value">Ponari Alexander Charles</li>
+                    <li class="value">{{$daftark->nama_karyawan}}</li>
                 </ul>
                 <ul>
                     <li class="key">Tempat & Tanggal Lahir</li>
-                    <li class="value">Yogyakarta, 23 Juli 1990</li>
+                    <li class="value">{{$daftark->tempat_lahir}}, {{ \Carbon\Carbon::parse($daftark->tanggal_lahir)->format('d F Y') }}</li>
                 </ul>
                 <ul>
                     <li class="key">Alamat</li>
-                    <li class="value">Jl. Jupiter XI No. 45</li>
+                    <li class="value">{{$daftark->alamat}}</li>
                 </ul>
                 <ul>
                     <li class="key">Agama</li>
-                    <li class="value">Kristen Protestan</li>
+                    <li class="value">{{$daftark->agama}}</li>
                 </ul>
                 <ul>
                     <li class="key">Jenis Kelamin</li>
-                    <li class="value">Pria</li>
+                    <li class="value">{{$daftark->jenis_kelamin}}</li>
                 </ul>
                 <ul>
                     <li class="key">Email</li>
-                    <li class="value">ponari@gmail.com</li>
+                    <li class="value">{{$daftark->email}}</li>
                 </ul>
                 <ul>
                     <li class="key">Telepon</li>
-                    <li class="value">089976652891</li>
+                    <li class="value">{{$daftark->no_telp}}</li>
                 </ul>
                 <ul>
                     <li class="key">Pendidikan</li>
-                    <li class="value">S1 Manajemen Oxford University</li>
+                    <li class="value">{{$daftark->pendidikan}}</li>
                 </ul>
                 <ul>
                     <li class="key">Pekerjaan Terakhir</li>
-                    <li class="value">Perawat - RSUP Dr. Sardjito</li>
+                    <li class="value">{{$daftark->pekerjaan_terakhir}}</li>
                 </ul>
                 <ul>
                     <li class="key">Status</li>
-                    <li class="value">Tetap</li>
+                    <li class="value">{{$daftark->status}}</li>
                 </ul>
                 <a href="biodata"><button><i class="fa fa-pen-to-square fa-sm"></i> Edit</button></a>
             </div>
@@ -433,10 +436,15 @@
                     </td>
                 </tr>
             </table>
+
             <a href="te_pelatihan"><button class="tambah"><i class="fa-solid fa-plus"></i> Tambah Data</button></a>
             <br><br><br>
             <hr size="3px" color="#EEEEEE">
-            <button class="hapus_kary"><i class="fa fa-trash-can fa-sm"></i> Hapus Karyawan</button>
+            <form action="{{$daftark->id}}" method="POST">
+                @csrf
+                @method('delete')
+                <button class="hapus_kary" type="submit"><i class="fa fa-trash-can fa-sm"></i> Hapus Karyawan</button>
+            </form>
         </div>
         
     </div>

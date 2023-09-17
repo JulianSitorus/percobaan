@@ -45,7 +45,7 @@
                     <i class="fas fa-users-gear">
                         <span class="menu">&emsp;Keahlian & Pelatihan</span>
                     </i></a></li>
-                <li><a href="#">
+                <li><a href="karyawan">
                     <i class="fas fa-right-from-bracket">
                         <span class="menu">&emsp; Keluar</span>
                     </i></a></li>
@@ -57,20 +57,13 @@
         <h3>Karyawan > </h3>
         <div class="search-box">
             <form action="" method="get">
-                <div class="input-group mb-3">
+                <div class="input-group">
                     <input type="text" class="form-control" name="search" placeholder="Search...">
                     <button class="input-group-text">&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-magnifying-glass"></i></button>
                 </div>
             </form>
+
         </div> 
-        <div class="search-box">
-            <form action="" method="get">
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" name="search" placeholder="Search...">
-                    <button class="input-group-text">&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-magnifying-glass"></i></button>
-                </div>
-            </form>
-        </div>
     </div>
 
     <div class ="empat">
@@ -78,11 +71,6 @@
             <p>Daftar Karyawan</p>
             <hr size="3px" color="#EEEEEE">
             <a href="biodata"><button class="tambah"><i class="fa-solid fa-plus"></i> Tambah Karyawan</button></a>
-            <!-- @if ($massage = Session::get('success'))
-                <div class="alert alert-success" role="alert">
-                    {{ $massage }}
-                </div>
-            @endif -->
             <div style="overflow: auto; height: 515px;">
             <table>
                 <tr>
@@ -98,14 +86,16 @@
                 @foreach($daftark as $key => $dk)
                     <tr>
                         <td align="center">{{$daftark-> firstItem() + $key}}</td>
-                        <td align="center"><img src="{{ asset('fotokaryawan/'.$dk->foto) }}" style="width: 60px" alt=""></td>
+                        <td align="center"><img src="{{ asset('fotokaryawan/'.$dk->foto) }}" style="width: 60px; max-height: 60px" alt=""></td>
                         <td>{{$dk->nama_karyawan}} </td>
                         <td>{{$dk->departemen}}</td>
                         <td>{{$dk->unit}}</td>
                         <td>{{$dk->posisi}}</td>
                         <td>{{$dk->status}}</td>
                         <td class="button-container">
-                            <a href="karyawan"><button class="detail"><i class="fa fa-pen-to-square fa-sm"></i></button></a>
+                            <!-- tombol detail -->
+                            <a href="karyawan/{{$dk->id}}"><button class="detail"><i class="fa fa-pen-to-square fa-sm"></i></button></a>
+                            <!-- tombol hapus -->
                             <form action="{{$dk->id}}" method="POST">
                                 @csrf
                                 @method('delete')

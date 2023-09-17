@@ -22,12 +22,12 @@ class DaftarkController extends Controller
         // return view ('daftark',compact(['daftark']));
     }
 
-    // halaman tambah biodata
+    // menampilkan halaman menambah biodata
     public function create(){
         return view('biodata');
     }
 
-    // halaman tambah biodata 
+    // cara tambah biodata 
     public function store(Request $request){
         $daftark = Daftark::create($request->except(['_token','submit']));
         // menambah foto
@@ -35,9 +35,35 @@ class DaftarkController extends Controller
             $request-> file('foto')->move('fotokaryawan/', $request->file('foto')->getClientOriginalName());
             $daftark->foto  = $request->file('foto')->getClientOriginalName();
             $daftark->save();
-        }
+        };
         return redirect('daftark')->with('success', 'Data telah ditambahkan!');
+
+        // pesan error kalo tidak field kosong (gatau berfungsi apa gak ni kodingan)
+        $validateData = $request->validate([
+            'nama_karyawan' => 'required|min:2',
+            'tempat_lahir' => 'required',
+            'tanggal_lahir' => 'required',
+            'alamat' => 'required',
+            'agama' => 'required',
+            'jenis_kelamin' => 'required',
+            'email' => 'required',
+            'no_telp' => 'required',
+            'pendidikan' => 'required',
+            'pekerjaan_terakhir' => 'required',
+            'status' => 'required',
+            'posisi' => 'required',
+            'unit' => 'required',
+            'departemen' => 'required',
+            'foto' => 'required',
+        ]);
     }
+
+    // halaman detail
+    public function show($id){
+        $daftark = Daftark::findOrFail($id);
+        return view('karyawan', ['daftark' => $daftark]);
+    }
+
 
     // hapus biodata
     public function destroy($id){

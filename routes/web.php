@@ -15,18 +15,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// halaman melihat data
+// halaman menampilkan data
 Route::get('/daftark',[DaftarkController::class,'index']); 
 // halaman membuat data 
 Route::get('/biodata',[DaftarkController::class,'create']);
 // menampilkan data redirect ke halaman
 Route::post('/store',[DaftarkController::class,'store']);
-// halaman edit data
-
+// halaman detail data
+Route::get('/karyawan/{id}',[DaftarkController::class, 'show']);
 // untuk menghapus data
 Route::delete('/{id}',[DaftarkController::class,'destroy']);
+Route::delete('/karyawan/{id}',[DaftarkController::class,'destroy']);
 
-
+// Route::get('/daftark', 'DaftarkController@daftark')->name('daftark');
 
 
 Route::get('/', function () {
