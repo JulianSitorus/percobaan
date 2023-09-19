@@ -64,11 +64,30 @@ class DaftarkController extends Controller
         return view('karyawan', ['daftark' => $daftark]);
     }
 
+    // edit
+    public function edit($id){   
+        $daftark = Daftark::find($id);
+        return view('edit_biodata', compact(['daftark']));
+    }
+
+    // update
+    public function update($id, Request $request)
+    {
+        $daftark = Daftark::find($id);
+        $daftark-> update($request->except(['_token','submit']));
+        if($request->hasFile('foto')){
+            $request-> file('foto')->move('fotokaryawan/', $request->file('foto')->getClientOriginalName());
+            $daftark->foto  = $request->file('foto')->getClientOriginalName();
+            $daftark->save();
+        };
+        return view('karyawan', ['daftark' => $daftark]);
+    }
+
 
     // hapus biodata
     public function destroy($id){
         $daftark = Daftark::find($id);
         $daftark->delete();
-        return redirect('daftark')->with('success', 'Data telah dihapus!');;
+        return redirect('daftark')->with('success', 'Data telah dihapus!');
     }
 }

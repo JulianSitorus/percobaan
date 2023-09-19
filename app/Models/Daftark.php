@@ -11,4 +11,9 @@ class Daftark extends Model
     protected $table = 'daftark';
     // protected $fillable = ['nama_karyawan','departemen','unit','posisi','status'];
     protected $guarded=[];
+
+    // public function jenjangkarir()
+    // {
+    //     return $this->hasMany()
+    // }
 }

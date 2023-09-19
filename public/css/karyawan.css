@@ -100,7 +100,15 @@ html, body{
     font-weight: normal;
     float: left;
     color: #6AB784;
-    padding: 15px 270px;
+    padding: 15px 3px 15px 270px;
+}
+.tiga .breadcrumb{
+    font-family: Calibri, sans-serif;
+    font-size: 17px;
+    font-weight: normal;
+    float: left;
+    color: #6AB784;
+    padding: 15px 0px 15px 0px;
 }
 /* search */
 .search-box{
@@ -242,7 +250,7 @@ html, body{
     margin-right: 5px;
 }
 .karir button{
-    margin-top: 127px;
+    margin-top: 15px;
 }
 .profil button:hover, .karir button:hover{
     background-color: #18b84e;

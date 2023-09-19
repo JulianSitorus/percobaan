@@ -5,9 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/karyawan.css') }}">
-    <!-- <link rel="stylesheet" href="css/karyawan.css"> -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/fontawesome/css/all.css') }}">
-    <!-- <link rel="stylesheet" href="css/fontawesome/css/all.css"> -->
+    <script src="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js') }}" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <title>Document</title>
 </head>
 
@@ -51,13 +50,15 @@
     </div>
 
     <div class ="tiga">
-        <h3>Karyawan > Detail Karyawan</h3>
+        <a href="/daftark"><h3>Karyawan ></h3></a><a href="/karyawan/{{$daftark->id}}"><h3 class="breadcrumb">Detail Karyawan</h3></a>
+        <!-- <h3>Karyawan > Detail Karyawan</h3> -->
         <!-- <div class="search-box">
             <i class="fa-solid fa-magnifying-glass"></i>
             <input type="text" placeholder="Search...">
         </div>  -->
     </div>
 
+    
     <div class ="empat">
         <div class="empat2">
             <p>Detail Karyawan {{$daftark->nama_karyawan}}</p>
@@ -116,37 +117,42 @@
                     <li class="key">Status</li>
                     <li class="value">{{$daftark->status}}</li>
                 </ul>
-                <a href="biodata"><button><i class="fa fa-pen-to-square fa-sm"></i> Edit</button></a>
+                <a href="/biodata/{{$daftark->id}}/edit_biodata"><button><i class="fa fa-pen-to-square fa-sm"></i> Edit</button></a>
             </div>
-            <div class="karir">
-                <p class="judul">Jenjang Karir</p>
-                <ul>
-                    <li class="key">HR Administrator</li>
-                    <li class="value">Unit Rekrutmen - Departemen HRD</li>
-                    <li class="value">11/12/2011 - 09/06/2013</li>
-                </ul>
-                <ul>
-                    <li class="key">Sekretaris</li>
-                    <li class="value">Unit Rekrutmen - Departemen HRD</li>
-                    <li class="value">24/01/2013 - 14/05/2014</li>
-                </ul>
-                <ul>
-                    <li class="key">Bendahara</li>
-                    <li class="value">Unit Rekrutmen - Departemen HRD</li>
-                    <li class="value">22/07/2014 - 10/03/2016</li>
-                </ul>
-                <ul>
-                    <li class="key">Wakil Departemen HRD</li>
-                    <li class="value">Unit Rekrutmen - Departemen HRD</li>
-                    <li class="value">12/10/2016 - 24/03/2019</li>
-                </ul>
-                <ul>
-                    <li class="key">Ketua Departemen HRD</li>
-                    <li class="value">Unit Rekrutmen - Departemen HRD</li>
-                    <li class="value">09/12/2019 - Sekarang</li>
-                </ul>
-                <a href="detail_jenjang_karir"><button><i class="fa fa-pen-to-square fa-sm"></i> Detail</button></a>
-            </div>
+
+            
+                <div class="karir">
+                    <p class="judul">Jenjang Karir</p>
+                    <div style="overflow: auto; height: 390px;">
+                        <ul>
+                            <li class="key">HR Administrator</li>
+                            <li class="value">Unit Rekrutmen - Departemen HRD</li>
+                            <li class="value">11/12/2011 - 09/06/2013</li>
+                        </ul>
+                        <ul>
+                            <li class="key">Sekretaris</li>
+                            <li class="value">Unit Rekrutmen - Departemen HRD</li>
+                            <li class="value">24/01/2013 - 14/05/2014</li>
+                        </ul>
+                        <ul>
+                            <li class="key">Bendahara</li>
+                            <li class="value">Unit Rekrutmen - Departemen HRD</li>
+                            <li class="value">22/07/2014 - 10/03/2016</li>
+                        </ul>
+                        <ul>
+                            <li class="key">Wakil Departemen HRD</li>
+                            <li class="value">Unit Rekrutmen - Departemen HRD</li>
+                            <li class="value">12/10/2016 - 24/03/2019</li>
+                        </ul>
+                        <ul>
+                            <li class="key">Ketua Departemen HRD</li>
+                            <li class="value">Unit Rekrutmen - Departemen HRD</li>
+                            <li class="value">09/12/2019 - Sekarang</li>
+                        </ul>
+                          
+                    </div>
+                    <a href="detail_jenjang_karir"><button><i class="fa fa-pen-to-square fa-sm"></i> Detail</button></a>
+                </div>
 
             <!-- Kpi -->
             <div class="judul3"><i class="fas fa-briefcase fa-xl"></i><span>   Key Performance Indicator</span></div>

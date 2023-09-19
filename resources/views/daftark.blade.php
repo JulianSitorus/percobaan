@@ -19,7 +19,6 @@
     <div class ="satu">
         <a href="#"><img src='images/logo.jpg'></a>
         <span>Damar Dwi Nughroho <i class="fa fa-circle-user fa-2xl"></i></span>
-        
     </div>
 
     <div class ="dua">
@@ -54,7 +53,7 @@
     </div>
 
     <div class ="tiga">
-        <h3>Karyawan > </h3>
+        <a href="daftark"><h3>Karyawan</h3></a>
         <div class="search-box">
             <form action="" method="get">
                 <div class="input-group">
@@ -102,8 +101,9 @@
                                 <button class="hapus" type="submit"><i class="fa fa-trash-can fa-sm"></i></button>
                             </form>
                         </td>
+                        
                     </tr>
-                @endforeach                
+                @endforeach                              
             </table>
         </div>
         

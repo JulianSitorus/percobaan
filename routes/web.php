@@ -23,6 +23,10 @@ Route::get('/biodata',[DaftarkController::class,'create']);
 Route::post('/store',[DaftarkController::class,'store']);
 // halaman detail data
 Route::get('/karyawan/{id}',[DaftarkController::class, 'show']);
+// halaman edit biodata karyawan
+Route::get('/biodata/{id}/edit_biodata',[DaftarkController::class, 'edit']);
+// untuk put
+Route::put('/karyawan/{id}',[DaftarkController::class,'update']);
 // untuk menghapus data
 Route::delete('/{id}',[DaftarkController::class,'destroy']);
 Route::delete('/karyawan/{id}',[DaftarkController::class,'destroy']);
