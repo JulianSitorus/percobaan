@@ -32,7 +32,7 @@
                     <i class="fas fa-clipboard-list">
                         <span class="menu">&emsp; Evaluasi</span>
                     </i></a></li>
-                <li><a href="jenjangk">
+                <li><a href="jenjangkarir">
                     <i class="fas fa-chart-line">
                         <span class="menu">&emsp;Jenjang Karir</span>
                     </i></a></li>

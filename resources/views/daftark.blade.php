@@ -36,7 +36,7 @@
                     <i class="fas fa-clipboard-list">
                         <span class="menu">&emsp; Evaluasi</span>
                     </i></a></li>
-                <li><a href="jenjangk">
+                <li><a href="jenjangkarir">
                     <i class="fas fa-chart-line">
                         <span class="menu">&emsp;Jenjang Karir</span>
                     </i></a></li>
@@ -76,9 +76,9 @@
                     <th class="kiri">No</th>
                     <th class="foto">Foto</th>
                     <th>Nama</th>
-                    <th>Departemen</th>
-                    <th>Unit</th>
                     <th>Posisi</th>
+                    <th>Unit</th>
+                    <th>Departemen</th>
                     <th>Status</th>
                     <th class="kanan">Aksi</th>
                 </tr>
@@ -87,9 +87,21 @@
                         <td align="center">{{$daftark-> firstItem() + $key}}</td>
                         <td align="center"><img src="{{ asset('fotokaryawan/'.$dk->foto) }}" style="width: 60px; max-height: 60px" alt=""></td>
                         <td>{{$dk->nama_karyawan}} </td>
-                        <td>{{$dk->departemen}}</td>
-                        <td>{{$dk->unit}}</td>
-                        <td>{{$dk->posisi}}</td>
+                        <td>
+                            @if ($dk->jenjangkarir->isNotEmpty())
+                                {{ $dk->jenjangkarir->last()->posisi }}
+                            @endif
+                        </td>
+                        <td>
+                            @if ($dk->jenjangkarir->isNotEmpty())
+                                {{ $dk->jenjangkarir->last()->unit }}
+                            @endif
+                        </td>
+                        <td>
+                            @if ($dk->jenjangkarir->isNotEmpty())
+                                {{ $dk->jenjangkarir->last()->departemen }}
+                            @endif
+                        </td>
                         <td>{{$dk->status}}</td>
                         <td class="button-container">
                             <!-- tombol detail -->

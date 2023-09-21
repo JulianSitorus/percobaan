@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('jenjangkarir', function (Blueprint $table) {
             $table->id();
+            $table->char('daftark_id');
+            $table->string('posisi');
+            $table->string('unit');
+            $table->string('departemen');
+            $table->date('tanggal_mulai');
+            $table->date('tanggal_selesai');
             $table->timestamps();
         });
     }

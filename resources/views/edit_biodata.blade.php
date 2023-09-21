@@ -33,7 +33,7 @@
                     <i class="fas fa-clipboard-list">
                         <span class="menu">&emsp; Evaluasi</span>
                     </i></a></li>
-                <li><a href="/jenjangk">
+                <li><a href="/jenjangkarir">
                     <i class="fas fa-chart-line">
                         <span class="menu">&emsp;Jenjang Karir</span>
                     </i></a></li>
@@ -112,14 +112,14 @@
                 <label for="pekerjaan_terakhir">Pekerjaan Terakhir</label><input id="pekerjaan_terakhir" value="{{$daftark->pekerjaan_terakhir}}" type="varchar" name="pekerjaan_terakhir"  pattern=".*\S+.*" required
                 oninvalid="this.setCustomValidity('Pekerjaan terakhir karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan pekerjaan terakhir"><br>
 
-                <label for="departemen">Departemen</label><input id="departemen" value="{{$daftark->departemen}}" type="varchar" name="departemen" pattern=".*\S+.*" required
+                <!-- <label for="departemen">Departemen</label><input id="departemen" value="{{$daftark->departemen}}" type="varchar" name="departemen" pattern=".*\S+.*" required
                 oninvalid="this.setCustomValidity('Departemen karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan departemen"><br>
 
                 <label for="unit">Unit</label><input id="unit" value="{{$daftark->unit}}" type="varchar" name="unit" pattern=".*\S+.*" required
                 oninvalid="this.setCustomValidity('Unit karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan unit"><br>
 
                 <label for="posisi">Posisi</label><input id="posisi" value="{{$daftark->posisi}}" type="varchar" name="posisi" pattern=".*\S+.*" required
-                oninvalid="this.setCustomValidity('Posisi karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan posisi"><br>
+                oninvalid="this.setCustomValidity('Posisi karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan posisi"><br> -->
 
                 <label for="status">Status</label>
                 <select name="status" id="status" required
@@ -128,7 +128,7 @@
                     <option value="">Pilih Status</option>
                     <option value="Tetap" @if ($daftark->status == "Tetap") selected @endif>Tetap</option>
                     <option value="Kontrak" @if ($daftark->status == "Kontrak") selected @endif>Kontrak</option> 
-                    <option value="Paruh Waktu" @if ($daftark->status == "Paruh waktu") selected @endif>Paruh Waktu</option>
+                    <option value="Paruh Waktu" @if ($daftark->status == "Paruh Waktu") selected @endif>Paruh Waktu</option>
                     <option value="Harian" @if ($daftark->status == "Harian") selected @endif>Harian</option>
                 </select>
                 <br>

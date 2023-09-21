@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/te_jenjang_karir.css">
-    <link rel="stylesheet" href="css/fontawesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/te_jenjang_karir.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/fontawesome/css/all.css') }}">
     <title>Document</title>
 </head>
 
 <body>
     
     <div class ="satu">
-        <a href="#"><img src='images/logo.jpg'></a>
+    <img src="{{ asset('images/logo.jpg') }}">
         <span>Damar Dwi Nughroho <i class="fa fa-circle-user fa-2xl"></i></span>
         
     </div>
@@ -20,23 +20,23 @@
     <div class ="dua">
         <header>Menu</header>
             <ul>
-                <li><a href="daftark">
+                <li><a href="/daftark">
                     <i class="fas fa-id-card">
                         <span class="menu">&emsp;Karyawan</span>
                     </i></a></li>
-                <li><a href="kpi">
+                <li><a href="/kpi">
                     <i class="fas fa-briefcase">
                         <span class="menu">&emsp;KPI</span>
                     </i></a></li>
-                <li><a href="evaluasi">
+                <li><a href="/evaluasi">
                     <i class="fas fa-clipboard-list">
                         <span class="menu">&emsp; Evaluasi</span>
                     </i></a></li>
-                <li><a href="jenjangk">
+                <li><a href="/jenjangkarir">
                     <i class="fas fa-chart-line">
                         <span class="menu">&emsp;Jenjang Karir</span>
                     </i></a></li>
-                <li><a href="keahlian">
+                <li><a href="/keahlian">
                     <i class="fas fa-users-gear">
                         <span class="menu">&emsp;Keahlian & Pelatihan</span>
                     </i></a></li>
@@ -49,11 +49,9 @@
     </div>
 
     <div class ="tiga">
-        <h3>Karyawan > </h3>
-        <div class="search-box">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="search" placeholder="Search...">
-        </div> 
+        <a href="/daftark"><h3>Karyawan ></h3></a>
+        <a href="/karyawan/{{$daftark->id}}"><h3 class="breadcrumb">Detail Karyawan ></h3></a>
+        <a href="/karyawan/{{$daftark->id}}/detail_jenjangkarir"><h3 class="breadcrumb"> Jenjang Karir</h3></a> 
     </div>
 
     <div class ="empat">

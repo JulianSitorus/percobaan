@@ -33,7 +33,7 @@
                     <i class="fas fa-clipboard-list">
                         <span class="menu">&emsp; Evaluasi</span>
                     </i></a></li>
-                <li><a href="/jenjangk">
+                <li><a href="/jenjangkarir">
                     <i class="fas fa-chart-line">
                         <span class="menu">&emsp;Jenjang Karir</span>
                     </i></a></li>
@@ -50,12 +50,8 @@
     </div>
 
     <div class ="tiga">
-        <a href="/daftark"><h3>Karyawan ></h3></a><a href="/karyawan/{{$daftark->id}}"><h3 class="breadcrumb">Detail Karyawan</h3></a>
-        <!-- <h3>Karyawan > Detail Karyawan</h3> -->
-        <!-- <div class="search-box">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" placeholder="Search...">
-        </div>  -->
+        <a href="/daftark"><h3>Karyawan ></h3></a>
+        <a href="/karyawan/{{$daftark->id}}"><h3 class="breadcrumb">Detail Karyawan</h3></a>
     </div>
 
     
@@ -68,11 +64,23 @@
                 <img src="{{ asset('fotokaryawan/' . $daftark->foto) }}" alt="Foto Karyawan">
                 <!-- <img src='images/karyawan.jpg'> -->
                 <h3>Posisi</h3>
-                <p>{{$daftark->posisi}}</p>
+                <p>
+                    @if ($daftark->jenjangkarir->isNotEmpty())
+                        {{ $daftark->jenjangkarir->last()->posisi }}
+                    @endif
+                </p>
                 <h3>Unit</h3>
-                <p>{{$daftark->unit}}</p>
+                <p>
+                    @if ($daftark->jenjangkarir->isNotEmpty())
+                        {{ $daftark->jenjangkarir->last()->unit }}
+                    @endif
+                </p>
                 <h3>Departemen</h3>
-                <p>{{$daftark->departemen}}</p>
+                <p>
+                    @if ($daftark->jenjangkarir->isNotEmpty())
+                        {{ $daftark->jenjangkarir->last()->departemen }}
+                    @endif
+                </p>
             </div>
             
             <div class="profil">
@@ -124,34 +132,21 @@
                 <div class="karir">
                     <p class="judul">Jenjang Karir</p>
                     <div style="overflow: auto; height: 390px;">
+                    @foreach($daftark->jenjangkarir->reverse() as $dkr)
                         <ul>
-                            <li class="key">HR Administrator</li>
-                            <li class="value">Unit Rekrutmen - Departemen HRD</li>
-                            <li class="value">11/12/2011 - 09/06/2013</li>
+                            <li class="key">
+                                {{$dkr->posisi}}
+                            </li>
+                            <li class="value"> 
+                                Unit {{$dkr->unit}} - Departemen {{$dkr->departemen}}
+                            </li>
+                            <li class="value">
+                                {{ \Carbon\Carbon::parse($dkr->tanggal_mulai)->format('d/m/Y') }} - {{ \Carbon\Carbon::parse($dkr->tanggal_selesai)->format('d/m/Y') }}
+                            </li>
                         </ul>
-                        <ul>
-                            <li class="key">Sekretaris</li>
-                            <li class="value">Unit Rekrutmen - Departemen HRD</li>
-                            <li class="value">24/01/2013 - 14/05/2014</li>
-                        </ul>
-                        <ul>
-                            <li class="key">Bendahara</li>
-                            <li class="value">Unit Rekrutmen - Departemen HRD</li>
-                            <li class="value">22/07/2014 - 10/03/2016</li>
-                        </ul>
-                        <ul>
-                            <li class="key">Wakil Departemen HRD</li>
-                            <li class="value">Unit Rekrutmen - Departemen HRD</li>
-                            <li class="value">12/10/2016 - 24/03/2019</li>
-                        </ul>
-                        <ul>
-                            <li class="key">Ketua Departemen HRD</li>
-                            <li class="value">Unit Rekrutmen - Departemen HRD</li>
-                            <li class="value">09/12/2019 - Sekarang</li>
-                        </ul>
-                          
+                    @endforeach 
                     </div>
-                    <a href="detail_jenjang_karir"><button><i class="fa fa-pen-to-square fa-sm"></i> Detail</button></a>
+                    <a href="/karyawan/{{$daftark->id}}/detail_jenjangkarir"><button><i class="fa fa-pen-to-square fa-sm"></i> Detail</button></a>
                 </div>
 
             <!-- Kpi -->

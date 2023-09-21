@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\DaftarkController;
+use App\Http\Controllers\JenjangkarirController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,7 +32,16 @@ Route::put('/karyawan/{id}',[DaftarkController::class,'update']);
 Route::delete('/{id}',[DaftarkController::class,'destroy']);
 Route::delete('/karyawan/{id}',[DaftarkController::class,'destroy']);
 
-// Route::get('/daftark', 'DaftarkController@daftark')->name('daftark');
+// 1-n karyawan dgn jenjang karir
+Route::get('/jenjangkarir',[DaftarkController::class,'jenjangkarir']);
+
+// halaman detail jenjang karir
+Route::get('/karyawan/{id}/detail_jenjangkarir',[DaftarkController::class,'show_jenjangkarir']);
+// halaman membuat data jenjang karir 
+Route::get('/karyawan/{id}/tambah_jenjangkarir',[DaftarkController::class,'create_jenjangkarir']);
+// menampilkan data redirect ke halaman detail jenjang karir
+Route::post('/store_jenjangkarir',[DaftarkController::class,'store_jenjangkarir']);
+
 
 
 Route::get('/', function () {
@@ -47,9 +57,9 @@ Route::get('/kpi', function () {
 Route::get('/evaluasi', function () {
     return view('evaluasi');
 });
-Route::get('/jenjangk', function () {
-    return view('jenjangk');
-});
+// Route::get('/jenjangkarir', function () {
+//     return view('jenjangkarir');
+// });
 Route::get('/keahlian', function () {
     return view('keahlian');
 });
@@ -60,12 +70,12 @@ Route::get('/karyawan', function () {
 // Route::get('/biodata', function () {
 //     return view('biodata');
 // });
-Route::get('/detail_jenjang_karir', function () {
-    return view('detail_jenjang_karir');
-});
-Route::get('/te_jenjang_karir', function () {
-    return view('te_jenjang_karir');
-});
+// Route::get('/detail_jenjangkarir', function () {
+//     return view('detail_jenjangkarir');
+// });
+// Route::get('/te_jenjangkarir', function () {
+//     return view('te_jenjangkarir');
+// });
 Route::get('/te_kpi', function () {
     return view('te_kpi');
 });

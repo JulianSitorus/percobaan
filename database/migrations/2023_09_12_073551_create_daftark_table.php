@@ -24,9 +24,9 @@ return new class extends Migration
             $table->string('pendidikan');
             $table->string('pekerjaan_terakhir');
             $table->enum('status',['Tetap','Kontrak','Paruh Waktu','Harian']);
-            $table->string('posisi');
-            $table->string('unit');
-            $table->string('departemen');
+            // $table->string('posisi');
+            // $table->string('unit');
+            // $table->string('departemen');
             $table->string('foto');
             $table->timestamps();
             

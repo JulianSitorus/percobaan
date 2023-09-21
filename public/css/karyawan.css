@@ -100,7 +100,7 @@ html, body{
     font-weight: normal;
     float: left;
     color: #6AB784;
-    padding: 15px 3px 15px 270px;
+    padding: 15px 0px 15px 270px;
 }
 .tiga .breadcrumb{
     font-family: Calibri, sans-serif;
@@ -108,7 +108,8 @@ html, body{
     font-weight: normal;
     float: left;
     color: #6AB784;
-    padding: 15px 0px 15px 0px;
+    margin-left: 3px;
+    padding: 15px 0px;
 }
 /* search */
 .search-box{
