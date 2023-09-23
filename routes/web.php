@@ -37,10 +37,12 @@ Route::get('/jenjangkarir',[DaftarkController::class,'jenjangkarir']);
 
 // halaman detail jenjang karir
 Route::get('/karyawan/{id}/detail_jenjangkarir',[DaftarkController::class,'show_jenjangkarir']);
-// halaman membuat data jenjang karir 
+// halaman membuat tambah data jenjang karir 
 Route::get('/karyawan/{id}/tambah_jenjangkarir',[DaftarkController::class,'create_jenjangkarir']);
 // menampilkan data redirect ke halaman detail jenjang karir
-Route::post('/store_jenjangkarir',[DaftarkController::class,'store_jenjangkarir']);
+Route::post('/store_jenjangkarir/{id}',[DaftarkController::class,'store_jenjangkarir']);
+// untuk menghapus salah satu data jenjang karir
+Route::delete('/detail_jenjangkarir/{id}',[DaftarkController::class,'destroy_jenjangkarir']);
 
 
 

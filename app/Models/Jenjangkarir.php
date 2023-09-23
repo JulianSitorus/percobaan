@@ -9,7 +9,7 @@ class Jenjangkarir extends Model
 {
     use HasFactory;
     protected $table = 'jenjangkarir';
-    // protected $fillable = ['departemen','unit','posisi'];
+    // protected $fillable = ['departemen','unit','posisi','tanggal_mulai','tanggal_selesai'];
     protected $guarded=[];
 
     public function daftark()

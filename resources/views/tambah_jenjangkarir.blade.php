@@ -51,28 +51,42 @@
     <div class ="tiga">
         <a href="/daftark"><h3>Karyawan ></h3></a>
         <a href="/karyawan/{{$daftark->id}}"><h3 class="breadcrumb">Detail Karyawan ></h3></a>
-        <a href="/karyawan/{{$daftark->id}}/detail_jenjangkarir"><h3 class="breadcrumb"> Jenjang Karir</h3></a> 
+        <a href="/karyawan/{{$daftark->id}}/detail_jenjangkarir"><h3 class="breadcrumb">Detail Jenjang Karir ></h3></a> 
+        <a href="/karyawan/{{$daftark->id}}/detail_jenjangkarir/tambah_jenjangkarir"><h3 class="breadcrumb">Tambah Jenjang Karir</h3></a> 
     </div>
 
     <div class ="empat">
         <div class="empat2">
-            <p class="judul">Jenjang Karir Karyawan</p>
+            <p class="judul">Tambah Jenjang Karir Karyawan</p>
             <hr size="3px" color="#EEEEEE">
-            <form action="">
-                <label for="posisi">Posisi</label><input id="posisi" type="text" name="posisi"><br>
+            <form action="/store_jenjangkarir/{{$daftark->id}}" method="POST" enctype="multipart/form-data">
+                @csrf
 
-                <label for="unit">Unit</label><input id="unit" type="text" name="unit"><br>
+                <!-- <label for="posisi">daftark id</label><input id="daftark_id" type="char" name="posisi" pattern=".*\S+.*" required
+                oninvalid="this.setCustomValidity('Posisi karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan posisi"><br> -->
+                
+                <label for="posisi">Posisi</label><input id="posisi" type="text" name="posisi" pattern=".*\S+.*" required
+                oninvalid="this.setCustomValidity('Posisi karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan posisi"><br>
 
-                <label for="departemen">Departemen</label><input id="departemen" type="text" name="departemen"><br>
+                <label for="unit">Unit</label><input id="unit" type="text" name="unit" pattern=".*\S+.*" required
+                oninvalid="this.setCustomValidity('Unit karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan unit"><br>
 
-                <label for="mulai_posisi">Mulai</label><input id="mulai_posisi" type="date" name="mulai_posisi"><br>
+                <label for="departemen">Departemen</label><input id="departemen" type="text" name="departemen" pattern=".*\S+.*" required
+                oninvalid="this.setCustomValidity('Departemen karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan departemen"><br>
 
-                <label for="selesai_posisi">Selesai</label><input id="selesai_posisi" type="date" name="selesai_posisi"><br>
+                <label for="tanggal_mulai">Mulai</label><input id="tanggal_mulai" type="date" name="tanggal_mulai" pattern=".*\S+.*" required
+                oninvalid="this.setCustomValidity('Tanngal mulai karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan tanggal mulai"><br>
+
+                <label for="tanggal_selesai">Selesai</label><input id="tanggal_selesai" type="date" name="tanggal_selesai" pattern=".*\S+.*" required
+                oninvalid="this.setCustomValidity('Tanggal selesai karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan tanggal selesai"><br>
 
                 <br>
                 <hr size="3px" color="#EEEEEE">
-                <button class="simpan">Simpan</button> <a href="karyawan"><button class="batal">Batal</button></a>
-            </form>  
+                <input class="simpan" type="submit" name="submit" value="Simpan">
+            </form>
+                <div class="display_batal ">
+                    <a href="/karyawan/{{$daftark->id}}/detail_jenjangkarir"><button class="batal">Batal</button></a>
+                </div>
         </div>
     </div>
     

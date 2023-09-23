@@ -51,12 +51,12 @@
     <div class ="tiga">
         <a href="/daftark"><h3>Karyawan ></h3></a>
         <a href="/karyawan/{{$daftark->id}}"><h3 class="breadcrumb">Detail Karyawan ></h3></a>
-        <a href="/karyawan/{{$daftark->id}}/detail_jenjangkarir"><h3 class="breadcrumb"> Jenjang Karir</h3></a>
+        <a href="/karyawan/{{$daftark->id}}/detail_jenjangkarir"><h3 class="breadcrumb">Detail Jenjang Karir</h3></a>
     </div>
 
     <div class ="empat">
         <div class="empat2">
-            <p class="judul">Jenjang Karir Karyawan</p>
+            <p class="judul">Detail Jenjang Karir Karyawan</p>
             <hr size="3px" color="#EEEEEE">
             <table>
                 <tr>
@@ -74,9 +74,13 @@
                     <td>{{$dkr->departemen}}</td>
                     <td>{{ \Carbon\Carbon::parse($dkr->tanggal_mulai)->format('d/m/Y') }}</td>
                     <td>{{ \Carbon\Carbon::parse($dkr->tanggal_selesai)->format('d/m/Y') }}</td>
-                    <td align="center">
+                    <td class="button-container">
                         <a href="te_jenjang_karir"><button class="detail"><i class="fa fa-pen-to-square fa-sm" ></i></button></a>
-                        <button class="hapus"><i class="fa fa-trash-can fa-sm"></i></button>
+                        <form action="/detail_jenjangkarir/{{$dkr->id}}" method="POST">
+                            @csrf
+                            @method('delete')
+                            <button class="hapus" type="submit"><i class="fa fa-trash-can fa-sm"></i></button>
+                        </form>
                     </td>
                 </tr>
                 @endforeach

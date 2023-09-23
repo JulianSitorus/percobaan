@@ -111,15 +111,6 @@
                 <label for="pekerjaan_terakhir">Pekerjaan Terakhir</label><input id="pekerjaan_terakhir" type="varchar" name="pekerjaan_terakhir"  pattern=".*\S+.*" required
                 oninvalid="this.setCustomValidity('Pekerjaan terakhir karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan pekerjaan terakhir"><br>
 
-                <!-- <label for="departemen">Departemen</label><input id="departemen" type="varchar" name="departemen" pattern=".*\S+.*" required
-                oninvalid="this.setCustomValidity('Departemen karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan departemen"><br>
-
-                <label for="unit">Unit</label><input id="unit" type="varchar" name="unit" pattern=".*\S+.*" required
-                oninvalid="this.setCustomValidity('Unit karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan unit"><br>
-
-                <label for="posisi">Posisi</label><input id="posisi" type="varchar" name="posisi" pattern=".*\S+.*" required
-                oninvalid="this.setCustomValidity('Posisi karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan posisi"><br> -->
-
                 <label for="status">Status</label>
                 <select name="status" id="status" required
                 oninvalid="this.setCustomValidity('Status karyawan belum terisi!')" 

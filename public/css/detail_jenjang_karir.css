@@ -18,6 +18,8 @@ html, body{
     background-color: #6AB784;
     width: 100%;
     height: 80px;
+    position: fixed;
+    z-index: 12;
 }
 .satu img{
     width: 250px;
@@ -32,10 +34,11 @@ html, body{
 
 .dua{
     background-color: #302B3C;
-    position: absolute;
-    height: 100%;
+    position: fixed;
+    height: 200%;
     width: 250px;
-    z-index: 2;
+    z-index: 13;
+    margin-top: 80px;
 }
 .dua header{
     font-size: 22px;
@@ -76,10 +79,11 @@ html, body{
 
 .tiga{
     background-color: white;
+    margin-top: 80px;
     width: 100%;
     height: 50px;
-    position: absolute;
-    z-index: 1;
+    position: fixed;
+    z-index: 9;
     border-bottom: 1px solid #6AB784;
 }
 .tiga img{
@@ -131,7 +135,7 @@ html, body{
 .empat{
     background-color: #EEEEEE;
     width: 100%;
-    height: 100%;
+    /* height: 200%; */
     min-height: 200px;
     position: absolute;
 
@@ -142,7 +146,7 @@ html, body{
     width: 80%;
     /* height: 57%; */
     min-height: 200px;
-    margin: 70px 35px 70px 270px;
+    margin: 150px 35px 70px 270px;
 }
 .empat2 .tambah{
     float: right;
@@ -183,7 +187,7 @@ table td{
     background-color: white;
     border: none;
     padding: 8px;
-    font-size: 13px;
+    font-size: 14px;
 }
 table tr {
     border-bottom: 1px solid #6AB784;
@@ -192,13 +196,21 @@ table tbody{
     overflow: auto;
     height: 110;
 }
+table .aksi{
+    width: 10px;
+}
 
 /* tombol edit hapus */
+.button-container{
+    display: flex;
+
+}
 table .detail{
     background-color: #18b84e;
     color: white;
     border: none;
     border-radius: 3px;
+    margin-right: 10px;
     padding: 5px 7px;
 }
 table .hapus{

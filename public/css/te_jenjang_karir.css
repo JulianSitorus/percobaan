@@ -132,12 +132,15 @@ html, body{
     background-color: #EEEEEE;
     width: 100%;
     height: 100%;
-    position: absolute;
+    /* min-height: 200px; */
+    position:absolute;
+    /* z-index: 8; */
 }
 .empat2{
     float: left;
     background-color: white;
     width: 80%;
+    /* min-height: 200px; */
     height: 56.5%;
     margin: 70px 35px 70px 270px;
 }
@@ -173,8 +176,8 @@ html, body{
 .empat2 #posisi, 
 .empat2 #unit,
 .empat2 #departemen,
-.empat2 #mulai_posisi,
-.empat2 #selesai_posisi{
+.empat2 #tanggal_mulai,
+.empat2 #tanggal_selesai{
     margin-left: 250px;
     margin-top: 15px;
     background-color: white;
@@ -201,7 +204,12 @@ html, body{
 .empat2 .simpan:hover{
     background-color: #18b84e;
 }
+.empat2 .display_batal{
+    display: flex;
+    margin: -40px 10px 15px 150px;
+}
 .empat2 .batal{
+    text-decoration: none;
     padding: 5px 30px;
     border: none;
     border-radius: 3px;

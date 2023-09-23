@@ -67,7 +67,7 @@ class DaftarkController extends Controller
         // ]);
     }
 
-    // halaman detail
+    // halaman detail karyawan
     public function show($id){
         $daftark = Daftark::findOrFail($id);
         return view('karyawan', ['daftark' => $daftark]);
@@ -92,13 +92,13 @@ class DaftarkController extends Controller
         return view('karyawan', ['daftark' => $daftark]);
     }
 
-
     // hapus biodata
     public function destroy($id){
         $daftark = Daftark::find($id);
         $daftark->delete();
         return redirect('daftark')->with('success', 'Data telah dihapus!');
     }
+
 
     // relation ke jenjang karir
     public function jenjangkarir(Request $request)
@@ -121,14 +121,48 @@ class DaftarkController extends Controller
         return view('detail_jenjangkarir', ['daftark' => $daftark]);
     }
 
-    // menampilkan halaman menambah biodata
-    public function create_jenjangkarir(){
-        return view('tambah_jenjangkarir');
+    
+    
+
+    // menampilkan halaman menambah jenjang karir
+    public function create_jenjangkarir($id){
+        $daftark = Daftark::all();
+        $daftark = Daftark::find($id);
+        return view('tambah_jenjangkarir', compact(['daftark']));
     }
 
-    // cara tambah biodata 
-    public function store_jenjangkarir($id, Request $request){
-        $daftark = Daftark::create($request->except(['_token','submit']));
-        return redirect('tambah_jenjangkarir')->with('success', 'Data telah ditambahkan!');
+    // cara tambah jenjangkarir
+    public function store_jenjangkarir(Request $request, $id) {
+        // Temukan objek Daftark berdasarkan id
+        $daftark = Daftark::find($id);
+    
+        if ($daftark) {
+            // Buat objek Jenjangkarir baru
+            $jenjangkarir = new Jenjangkarir([
+                'posisi' => $request->posisi,
+                'unit' => $request->unit,
+                'departemen' => $request->departemen,
+                'tanggal_mulai' => $request->tanggal_mulai,
+                'tanggal_selesai' => $request->tanggal_selesai,
+            ]);
+    
+            // Hubungkan Jenjangkarir dengan Daftark
+            $jenjangkarir->daftark_id = $daftark->id;
+    
+            // Simpan Jenjangkarir
+            $jenjangkarir->save();
+    
+            return redirect('daftark');
+        } else {
+            return redirect('daftark');
+        }
+    }
+
+    // hapus salah satu data jenjenag karir
+    public function destroy_jenjangkarir($id)
+    {
+        $jenjangkarir = Jenjangkarir::find($id);
+        $jenjangkarir->delete();
+        return redirect('detail_jenjangkarir');
     }
 }

@@ -50,7 +50,7 @@
     </div>
 
     <div class ="tiga">
-        <a href="jenjangkarir"><h3>Jenjang Karir</h3>
+        <a href="jenjangkarir"><h3>Jenjang Karir</h3></a>
         <div class="search-box">
             <form action="" method="get">
                 <div class="input-group">
