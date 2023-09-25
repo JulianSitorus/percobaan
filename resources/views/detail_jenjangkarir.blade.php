@@ -75,7 +75,7 @@
                     <td>{{ \Carbon\Carbon::parse($dkr->tanggal_mulai)->format('d/m/Y') }}</td>
                     <td>{{ \Carbon\Carbon::parse($dkr->tanggal_selesai)->format('d/m/Y') }}</td>
                     <td class="button-container">
-                        <a href="te_jenjang_karir"><button class="detail"><i class="fa fa-pen-to-square fa-sm" ></i></button></a>
+                        <a href="/detail_jenjangkarir/{{$dkr->id}}/edit_jenjangkarir"><button class="detail"><i class="fa fa-pen-to-square fa-sm" ></i></button></a>
                         <form action="/detail_jenjangkarir/{{$dkr->id}}" method="POST">
                             @csrf
                             @method('delete')

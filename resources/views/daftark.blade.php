@@ -80,6 +80,7 @@
                     <th>Unit</th>
                     <th>Departemen</th>
                     <th>Status</th>
+                    <th class="kontak">Kontak</th>
                     <th class="kanan">Aksi</th>
                 </tr>
                 @foreach($daftark as $key => $dk)
@@ -103,6 +104,10 @@
                             @endif
                         </td>
                         <td>{{$dk->status}}</td>
+                        <td class="kontak">
+                            {{$dk->no_telp}} <br>
+                            {{$dk->email}}
+                        </td>
                         <td class="button-container">
                             <!-- tombol detail -->
                             <a href="karyawan/{{$dk->id}}"><button class="detail"><i class="fa fa-pen-to-square fa-sm"></i></button></a>

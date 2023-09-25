@@ -280,7 +280,10 @@ table .foto{
 table .kanan{
     width: 1%;
     border-top-right-radius: 5px;
-} 
+}
+table .kontak{
+    font-size: small;
+}
 
 table tr:nth-child(odd){
     background-color: #EEEEEE;

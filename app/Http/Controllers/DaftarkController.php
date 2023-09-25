@@ -25,10 +25,7 @@ class DaftarkController extends Controller
                     })
 
                     ->paginate(12);
-        // $pagination = 12;
-        // $daftark = Daftark::paginate($pagination);
         return view ('daftark',['daftark' => $daftark]);
-        // return view ('daftark',compact(['daftark']));
     }
 
     // menampilkan halaman menambah biodata
@@ -46,26 +43,8 @@ class DaftarkController extends Controller
             $daftark->save();
         };
         return redirect('daftark')->with('success', 'Data telah ditambahkan!');
-
-        // pesan error kalo tidak field kosong (gatau berfungsi apa gak ni kodingan)
-        // $validateData = $request->validate([
-        //     'nama_karyawan' => 'required|min:2',
-        //     'tempat_lahir' => 'required',
-        //     'tanggal_lahir' => 'required',
-        //     'alamat' => 'required',
-        //     'agama' => 'required',
-        //     'jenis_kelamin' => 'required',
-        //     'email' => 'required',
-        //     'no_telp' => 'required',
-        //     'pendidikan' => 'required',
-        //     'pekerjaan_terakhir' => 'required',
-        //     'status' => 'required',
-        //     'posisi' => 'required',
-        //     'unit' => 'required',
-        //     'departemen' => 'required',
-        //     'foto' => 'required',
-        // ]);
     }
+
 
     // halaman detail karyawan
     public function show($id){
@@ -93,36 +72,78 @@ class DaftarkController extends Controller
     }
 
     // hapus biodata
+    // public function destroy($id){
+    //     $daftark = Daftark::find($id);
+    //     $daftark->delete();
+    //     return redirect('daftark')->with('success', 'Data telah dihapus!');
+    // }
+
     public function destroy($id){
+        // Temukan objek Karyawan berdasarkan ID
         $daftark = Daftark::find($id);
-        $daftark->delete();
-        return redirect('daftark')->with('success', 'Data telah dihapus!');
+
+        if ($daftark) {
+            // Hapus semua data Jenjang Karir yang terkait
+            $daftark->jenjangkarir()->delete();
+
+            // Hapus objek Karyawan itu sendiri
+            $daftark->delete();
+
+            // Redirect atau berikan respons yang sesuai
+            return redirect('daftark')->with('success', 'Data karyawan telah dihapus!');
+        } else {
+            // Handle jika Karyawan tidak ditemukan
+            return redirect('daftark')->with('error', 'Karyawan tidak ditemukan.');
+        }
     }
 
-
     // relation ke jenjang karir
-    public function jenjangkarir(Request $request)
-    {   
+    // public function jenjangkarir(Request $request)
+    // {   
+    //     $search = $request->search;
+    //     $jenjangkarir = Jenjangkarir::with('daftark')
+    //                 ->Where('posisi', 'LIKE', '%'.$search.'%')
+    //                 ->orWhere('unit', 'LIKE', '%'.$search.'%')
+    //                 ->orWhere('departemen', 'LIKE', '%'.$search.'%')
+    //                 ->orWhereHas('daftark', function($query) use($search) {
+    //                     $query->where('nama_karyawan', 'LIKE', '%'.$search.'%');
+    //                 })
+    //                 ->paginate(12);
+    //     return view('jenjangkarir', ['jenjangkarir' => $jenjangkarir]);
+    // }
+
+    public function jenjangkarir(Request $request){
         $search = $request->search;
-        $jenjangkarir = Jenjangkarir::with('daftark')
-                    ->Where('posisi', 'LIKE', '%'.$search.'%')
-                    ->orWhere('unit', 'LIKE', '%'.$search.'%')
-                    ->orWhere('departemen', 'LIKE', '%'.$search.'%')
-                    ->orWhereHas('daftark', function($query) use($search) {
-                        $query->where('nama_karyawan', 'LIKE', '%'.$search.'%');
+        $daftark = Daftark::with('jenjangkarir')
+                    ->where('nama_karyawan', 'LIKE', '%'.$search.'%')
+                    ->orWhereHas('jenjangkarir', function($query) use($search) {
+                        $query->where('departemen', 'LIKE', '%'.$search.'%');
                     })
+                    ->orWhereHas('jenjangkarir', function($query) use($search) {
+                        $query->where('unit', 'LIKE', '%'.$search.'%');
+                    })
+                    ->orWhereHas('jenjangkarir', function($query) use($search) {
+                        $query->where('posisi', 'LIKE', '%'.$search.'%');
+                    })
+                    ->orWhereHas('jenjangkarir', function($query) use($search) {
+                        $query->where('tanggal_mulai', 'LIKE', '%'.$search.'%');
+                    })
+                    ->orWhereHas('jenjangkarir', function($query) use($search) {
+                        $query->where('tanggal_selesai', 'LIKE', '%'.$search.'%');
+                    })
+
                     ->paginate(12);
-        return view('jenjangkarir', ['jenjangkarir' => $jenjangkarir]);
+        return view ('jenjangkarir',['daftark' => $daftark]);
     }
 
     // halaman detail jenjang karir
     public function show_jenjangkarir($id){
+        $daftark = Daftark::find($id);
+        // menyimpan id daftark untuk tombol kembali di halaman edit
+        session(['daftark_id' => $daftark->id]);
         $daftark = Daftark::findOrFail($id);
         return view('detail_jenjangkarir', ['daftark' => $daftark]);
     }
-
-    
-    
 
     // menampilkan halaman menambah jenjang karir
     public function create_jenjangkarir($id){
@@ -152,17 +173,45 @@ class DaftarkController extends Controller
             // Simpan Jenjangkarir
             $jenjangkarir->save();
     
-            return redirect('daftark');
+            return redirect('/karyawan/'. $daftark->id . '/detail_jenjangkarir/')->with('success', 'Data jenjang karir telah ditambah!');;
         } else {
-            return redirect('daftark');
+            return redirect('/karyawan/'. $daftark->id . '/detail_jenjangkarir/');
         }
     }
 
-    // hapus salah satu data jenjenag karir
-    public function destroy_jenjangkarir($id)
-    {
+    // edit jenjang karir
+    public function edit_jenjangkarir($id){
+        // mengambil id daftark dari detail jenjang karir
+        $daftark_id = session('daftark_id');
+        $daftark = Daftark::find($daftark_id);
+
         $jenjangkarir = Jenjangkarir::find($id);
-        $jenjangkarir->delete();
-        return redirect('detail_jenjangkarir');
+        return view('edit_jenjangkarir', compact(['jenjangkarir', 'daftark']));
     }
+
+    // put jenjang karir
+    public function update_jenjangkarir($id, Request $request)
+    {   
+        $daftark_id = session('daftark_id');
+        $daftark = Daftark::find($daftark_id);
+
+        $jenjangkarir = Jenjangkarir::find($id);
+        $jenjangkarir->update($request->except(['_token', 'submit']));
+        return redirect('/karyawan/'. $daftark->id . '/detail_jenjangkarir/');
+    }
+
+    // hapus salah satu data jenjang karir
+    public function destroy_jenjangkarir($id){   
+        $jenjangkarir = Jenjangkarir::find($id);
+        
+        if ($jenjangkarir) {
+            $daftark_id = $jenjangkarir->daftark_id; // ambil id Daftark yang terkait dengan Jenjangkarir
+            $jenjangkarir->delete();
+            
+            return redirect('/karyawan/'.$daftark_id. '/detail_jenjangkarir')->with('success', 'Data Jenjangkarir berhasil dihapus.');
+        } else {
+            return redirect('/karyawan')->with('error', 'Jenjangkarir tidak ditemukan.');
+        }
+    }
+
 }

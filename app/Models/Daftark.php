@@ -16,4 +16,9 @@ class Daftark extends Model
     {
         return $this->hasMany('App\Models\Jenjangkarir');
     }
+
+    public function jenjangkarirTerbaru()
+    {
+        return $this->jenjangkarir->last();
+    }
 }

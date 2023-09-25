@@ -75,66 +75,78 @@
                     <th class="ps" colspan="4">Posisi sebelumnya</th>
                     <th class="kanan">Aksi</th>
                 </tr>
-                @foreach($jenjangkarir as $key => $jk)
-                    <tr>
-                        <td align="center">{{ $jenjangkarir-> firstItem() + $key}}</td>
-                        <td align="center"><img src="{{ asset('fotokaryawan/'.$jk->daftark['foto']) }}" style="width: 60px; max-height: 60px" alt=""></td>
-                        <td>
-                            {{$jk->daftark['nama_karyawan']}}
-                        </td>
-                        <td>
+                @foreach($daftark as $key => $dk)
+                <tr>
+
+                    <td align="center">{{$daftark-> firstItem() + $key}}</td>
+                    <td align="center"><img src="{{ asset('fotokaryawan/'.$dk->foto) }}" style="width: 60px; max-height: 60px" alt=""></td>
+                    <td>{{$dk->nama_karyawan}} </td>
+
+                    <td>@if ($dk->jenjangkarir->isNotEmpty())
+                        <ul>
+                            <li class="key">{{ $dk->jenjangkarir->last()->posisi }}</li>
+                            <li class="value">Unit {{ $dk->jenjangkarir->last()->unit }} - Departemen {{ $dk->jenjangkarir->last()->departemen }}</li>
+                            <li class="value">{{ \Carbon\Carbon::parse($dk->jenjangkarir->last()->tanggal_mulai)->format('d/m/Y') }} - {{ \Carbon\Carbon::parse($dk->jenjangkarir->last()->tanggal_selesai)->format('d/m/Y') }}</li>
+                        </ul>          
+                    </td>@endif
+
+                    <td>
+                        @if ($dk->jenjangkarir->count() >= 2)
                             <ul>
-                                <li class="key">{{$jk->posisi}}</li>
-                                <li class="value">Unit {{$jk->unit}} - Departemen {{$jk->departemen}}</li>
-                                <li class="value">{{ \Carbon\Carbon::parse($jk->tanggal_mulai)->format('d/m/Y') }} - {{ \Carbon\Carbon::parse($jk->tanggal_selesai)->format('d/m/Y') }}</li>
+                                <li class="key">{{ $dk->jenjangkarir[$dk->jenjangkarir->count() - 2]->posisi }}</li>
+                                <li class="value">Unit {{ $dk->jenjangkarir[$dk->jenjangkarir->count() - 2]->unit }} - Departemen {{ $dk->jenjangkarir[$dk->jenjangkarir->count() - 2]->departemen }}</li>
+                                <li class="value">{{ \Carbon\Carbon::parse($dk->jenjangkarir[$dk->jenjangkarir->count() - 2]->tanggal_mulai)->format('d/m/Y') }} - {{ \Carbon\Carbon::parse($dk->jenjangkarir[$dk->jenjangkarir->count() - 2]->tanggal_selesai)->format('d/m/Y') }}</li>
                             </ul>
-                        </td>
-                        <td>
+                        @endif
+                    </td>
+
+                    <td>
+                        @if ($dk->jenjangkarir->count() >= 3)
                             <ul>
-                                <li class="key">{{$jk->posisi}}</li>
-                                <li class="value">Unit {{$jk->unit}} - Departemen {{$jk->departemen}}</li>
-                                <li class="value">{{ \Carbon\Carbon::parse($jk->tanggal_mulai)->format('d/m/Y') }} - {{ \Carbon\Carbon::parse($jk->tanggal_selesai)->format('d/m/Y') }}</li>
+                                <li class="key">{{ $dk->jenjangkarir[$dk->jenjangkarir->count() - 3]->posisi }}</li>
+                                <li class="value">Unit {{ $dk->jenjangkarir[$dk->jenjangkarir->count() - 3]->unit }} - Departemen {{ $dk->jenjangkarir[$dk->jenjangkarir->count() - 3]->departemen }}</li>
+                                <li class="value">{{ \Carbon\Carbon::parse($dk->jenjangkarir[$dk->jenjangkarir->count() - 3]->tanggal_mulai)->format('d/m/Y') }} - {{ \Carbon\Carbon::parse($dk->jenjangkarir[$dk->jenjangkarir->count() - 3]->tanggal_selesai)->format('d/m/Y') }}</li>
                             </ul>
-                        </td>
-                        <td>
+                        @endif
+                    </td>
+
+                    <td>
+                        @if ($dk->jenjangkarir->count() >= 4)
                             <ul>
-                                <li class="key">Bendahara</li>
-                                <li class="value">Unit Rekrutmen - Departemen HRD</li>
-                                <li class="value">22/07/2014 - 10/03/2016</li>
-                            </ul> 
-                        </td>
-                        <td>
-                            <ul>
-                                <li class="key">Sekretaris</li>
-                                <li class="value">Unit Rekrutmen - Departemen HRD</li>
-                                <li class="value">24/01/2013 - 14/05/2014</li>
+                                <li class="key">{{ $dk->jenjangkarir[$dk->jenjangkarir->count() - 4]->posisi }}</li>
+                                <li class="value">Unit {{ $dk->jenjangkarir[$dk->jenjangkarir->count() - 4]->unit }} - Departemen {{ $dk->jenjangkarir[$dk->jenjangkarir->count() - 4]->departemen }}</li>
+                                <li class="value">{{ \Carbon\Carbon::parse($dk->jenjangkarir[$dk->jenjangkarir->count() - 4]->tanggal_mulai)->format('d/m/Y') }} - {{ \Carbon\Carbon::parse($dk->jenjangkarir[$dk->jenjangkarir->count() - 4]->tanggal_selesai)->format('d/m/Y') }}</li>
                             </ul>
-                        </td>
-                        <td>
+                        @endif
+                    </td>
+
+                    <td>
+                        @if ($dk->jenjangkarir->count() >= 5)
                             <ul>
-                                <li class="key">HR Administrator</li>
-                                <li class="value">Unit Rekrutmen - Departemen HRD</li>
-                                <li class="value">11/12/2011 - 09/06/2013</li>
+                                <li class="key">{{ $dk->jenjangkarir[$dk->jenjangkarir->count() - 5]->posisi }}</li>
+                                <li class="value">Unit {{ $dk->jenjangkarir[$dk->jenjangkarir->count() - 5]->unit }} - Departemen {{ $dk->jenjangkarir[$dk->jenjangkarir->count() - 5]->departemen }}</li>
+                                <li class="value">{{ \Carbon\Carbon::parse($dk->jenjangkarir[$dk->jenjangkarir->count() - 5]->tanggal_mulai)->format('d/m/Y') }} - {{ \Carbon\Carbon::parse($dk->jenjangkarir[$dk->jenjangkarir->count() - 5]->tanggal_selesai)->format('d/m/Y') }}</li>
                             </ul>
-                        </td>
-                        
-                        <td class="button-container" align="center">
-                            <button class="detail"><i class="fa fa-pen-to-square fa-sm"></i></button>
-                            <a href="karyawan/{{$jk->daftark['id']}}"><button class="tambah"><i class="fa-solid fa-plus"></i></button></a>
-                        </td>
-                    </tr>
+                        @endif
+                    </td>
+
+
+
+
+                    <td class="button-container" align="center">
+                        <a href="karyawan/{{$dk->id}}/detail_jenjangkarir"><button class="detail"><i class="fa fa-pen-to-square fa-sm"></i></button></a>
+                        <a href="karyawan/{{$dk->id}}/tambah_jenjangkarir"><button class="tambah"><i class="fa-solid fa-plus"></i></button></a>
+                    </td>
+
+                </tr>
                 @endforeach
             </div>             
             </table>
         </div>
-        <div class="info_data">
-            <p class="jmlh_data">Menampilkan {{ $jenjangkarir->firstItem() }} - {{ $jenjangkarir->lastItem() }} dari {{ $jenjangkarir->total() }} data</p>
-            <div class="hlmn">
-                {{$jenjangkarir->links('pagination::bootstrap-4')}}
-                <!-- <button id="nomor"><</button><button id="nomor">1</button><button id="nomor">2</button><button id="nomor">3</button><button id="nomor">></button> -->
-            </div>
+        <p class="jmlh_data">Menampilkan {{ $daftark->firstItem() }} - {{ $daftark->lastItem() }} dari {{ $daftark->total() }} data</p>
+        <div class="hlmn">
+            {{$daftark->withQueryString()->links('pagination::bootstrap-4')}}
         </div>
-
     </div>
 </body>
 </html>
