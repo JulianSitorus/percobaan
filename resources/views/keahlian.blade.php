@@ -51,9 +51,13 @@
     <div class ="tiga">
         <h3>Keahlian & Pelatihan > </h3>
         <div class="search-box">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" placeholder="Search...">
-        </div> 
+            <form action="" method="get">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="search" placeholder="Search...">
+                    <button class="input-group-text">&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-magnifying-glass"></i></button>
+                </div>
+            </form>
+        </div>  
     </div>
 
     <div class ="empat">
@@ -70,171 +74,33 @@
                     <th>Pelatihan</th>
                     <th class="kanan">Aksi</th>
                 </tr>
+                @foreach($daftark as $key => $dk)
                 <tr>
-                    <td align="center">1</td>
-                    <td align="center"><img src='images/karyawan.jpg'></td>
-                    <td>Ponari Alexander Charles </td>
-                    <td class="keahlian">Pendidikan Pancasila dan HAM, Jurnalisme, Pendidikan Berbasis Budaya, 
-                        Kurikulum 2013, Kepemimpinan Sekolah, Manajemen Sekolah </td>
-                    <td class="pelatihan">Workshop penulisan artikel ilmiah, Workshop penulisan 
-                        artikel ilmiah internasional, Pelatihan pengembangan E-Book dan Web based course, </td>
+                    <td align="center">{{$daftark-> firstItem() + $key}}</td>
+                    <td align="center"><img src="{{ asset('fotokaryawan/'.$dk->foto) }}" style="width: 60px; max-height: 60px" alt=""></td>
+                    <td>{{$dk->nama_karyawan}} </td>
+                    <td class="keahlian">
+                        @foreach($dk->keahlian as $keahlian)
+                            {{$keahlian->jenis_keahlian}},
+                        @endforeach                    
+                    </td>
+                    <td class="pelatihan">
+                        @foreach($dk->pelatihan as $pelatihan)
+                            {{$pelatihan->nama_pelatihan}},
+                        @endforeach 
+                    </td>
                     <td align="center">
-                        <a href="karyawan"><button class="detail"><i class="fa fa-pen-to-square fa-sm" ></i></button></a>
+                        <a href="karyawan/{{$dk->id}}"><button class="detail"><i class="fa fa-pen-to-square fa-sm" ></i></button></a>
                         <button class="tambah"><i class="fa-solid fa-plus"></i></button>
                     </td>
                 </tr>
-                <tr>
-                    <td align="center">2</td>
-                    <td align="center"><img src='images/karyawan.jpg'></td>
-                    <td>Ponari Alexander Charles </td>
-                    <td class="keahlian">Pendidikan Pancasila dan HAM, Jurnalisme, Pendidikan Berbasis Budaya, 
-                        Kurikulum 2013, Kepemimpinan Sekolah, Manajemen Sekolah </td>
-                    <td class="pelatihan">Workshop penulisan artikel ilmiah, Workshop penulisan 
-                        artikel ilmiah internasional, Pelatihan pengembangan E-Book dan Web based course.</td>
-                    <td align="center">
-                        <a href="karyawan"><button class="detail"><i class="fa fa-pen-to-square fa-sm" ></i></button></a>
-                        <button class="tambah"><i class="fa-solid fa-plus"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td align="center">3</td>
-                    <td align="center"><img src='images/karyawan.jpg'></td>
-                    <td>Ponari Alexander Charles </td>
-                    <td class="keahlian">Pendidikan Pancasila dan HAM, Jurnalisme, Pendidikan Berbasis Budaya, 
-                        Kurikulum 2013, Kepemimpinan Sekolah, Manajemen Sekolah </td>
-                    <td class="pelatihan">Workshop penulisan artikel ilmiah, Workshop penulisan 
-                        artikel ilmiah internasional, Pelatihan pengembangan E-Book dan Web based course.</td>
-                    <td align="center">
-                        <a href="karyawan"><button class="detail"><i class="fa fa-pen-to-square fa-sm" ></i></button></a>
-                        <button class="tambah"><i class="fa-solid fa-plus"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td align="center">4</td>
-                    <td align="center"><img src='images/karyawan.jpg'></td>
-                    <td>Ponari Alexander Charles </td>
-                    <td class="keahlian">Pendidikan Pancasila dan HAM, Jurnalisme, Pendidikan Berbasis Budaya, 
-                        Kurikulum 2013, Kepemimpinan Sekolah, Manajemen Sekolah </td>
-                    <td class="pelatihan">Workshop penulisan artikel ilmiah, Workshop penulisan 
-                        artikel ilmiah internasional, Pelatihan pengembangan E-Book dan Web based course.</td>
-                    <td align="center">
-                        <a href="karyawan"><button class="detail"><i class="fa fa-pen-to-square fa-sm" ></i></button></a>
-                        <button class="tambah"><i class="fa-solid fa-plus"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td align="center">5</td>
-                    <td align="center"><img src='images/karyawan.jpg'></td>
-                    <td>Ponari Alexander Charles </td>
-                    <td class="keahlian">Pendidikan Pancasila dan HAM, Jurnalisme, Pendidikan Berbasis Budaya, 
-                        Kurikulum 2013, Kepemimpinan Sekolah, Manajemen Sekolah </td>
-                    <td class="pelatihan">Workshop penulisan artikel ilmiah, Workshop penulisan 
-                        artikel ilmiah internasional, Pelatihan pengembangan E-Book dan Web based course.</td>
-                    <td align="center">
-                        <a href="karyawan"><button class="detail"><i class="fa fa-pen-to-square fa-sm" ></i></button></a>
-                        <button class="tambah"><i class="fa-solid fa-plus"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td align="center">6</td>
-                    <td align="center"><img src='images/karyawan.jpg'></td>
-                    <td>Ponari Alexander Charles </td>
-                    <td class="keahlian">Pendidikan Pancasila dan HAM, Jurnalisme, Pendidikan Berbasis Budaya, 
-                        Kurikulum 2013, Kepemimpinan Sekolah, Manajemen Sekolah </td>
-                    <td class="pelatihan">Workshop penulisan artikel ilmiah, Workshop penulisan 
-                        artikel ilmiah internasional, Pelatihan pengembangan E-Book dan Web based course.</td>
-                    <td align="center">
-                        <a href="karyawan"><button class="detail"><i class="fa fa-pen-to-square fa-sm" ></i></button></a>
-                        <button class="tambah"><i class="fa-solid fa-plus"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td align="center">7</td>
-                    <td align="center"><img src='images/karyawan.jpg'></td>
-                    <td>Ponari Alexander Charles </td>
-                    <td class="keahlian">Pendidikan Pancasila dan HAM, Jurnalisme, Pendidikan Berbasis Budaya, 
-                        Kurikulum 2013, Kepemimpinan Sekolah, Manajemen Sekolah </td>
-                    <td class="pelatihan">Workshop penulisan artikel ilmiah, Workshop penulisan 
-                        artikel ilmiah internasional, Pelatihan pengembangan E-Book dan Web based course, </td>
-                    <td align="center">
-                        <a href="karyawan"><button class="detail"><i class="fa fa-pen-to-square fa-sm" ></i></button></a>
-                        <button class="tambah"><i class="fa-solid fa-plus"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td align="center">8</td>
-                    <td align="center"><img src='images/karyawan.jpg'></td>
-                    <td>Ponari Alexander Charles </td>
-                    <td class="keahlian">Pendidikan Pancasila dan HAM, Jurnalisme, Pendidikan Berbasis Budaya, 
-                        Kurikulum 2013, Kepemimpinan Sekolah, Manajemen Sekolah </td>
-                    <td class="pelatihan">Workshop penulisan artikel ilmiah, Workshop penulisan 
-                        artikel ilmiah internasional, Pelatihan pengembangan E-Book dan Web based course.</td>
-                    <td align="center">
-                        <a href="karyawan"><button class="detail"><i class="fa fa-pen-to-square fa-sm" ></i></button></a>
-                        <button class="tambah"><i class="fa-solid fa-plus"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td align="center">9</td>
-                    <td align="center"><img src='images/karyawan.jpg'></td>
-                    <td>Ponari Alexander Charles </td>
-                    <td class="keahlian">Pendidikan Pancasila dan HAM, Jurnalisme, Pendidikan Berbasis Budaya, 
-                        Kurikulum 2013, Kepemimpinan Sekolah, Manajemen Sekolah </td>
-                    <td class="pelatihan">Workshop penulisan artikel ilmiah, Workshop penulisan 
-                        artikel ilmiah internasional, Pelatihan pengembangan E-Book dan Web based course.</td>
-                    <td align="center">
-                        <a href="karyawan"><button class="detail"><i class="fa fa-pen-to-square fa-sm" ></i></button></a>
-                        <button class="tambah"><i class="fa-solid fa-plus"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td align="center">10</td>
-                    <td align="center"><img src='images/karyawan.jpg'></td>
-                    <td>Ponari Alexander Charles </td>
-                    <td class="keahlian">Pendidikan Pancasila dan HAM, Jurnalisme, Pendidikan Berbasis Budaya, 
-                        Kurikulum 2013, Kepemimpinan Sekolah, Manajemen Sekolah </td>
-                    <td class="pelatihan">Workshop penulisan artikel ilmiah, Workshop penulisan 
-                        artikel ilmiah internasional, Pelatihan pengembangan E-Book dan Web based course.</td>
-                    <td align="center">
-                        <a href="karyawan"><button class="detail"><i class="fa fa-pen-to-square fa-sm" ></i></button></a>
-                        <button class="tambah"><i class="fa-solid fa-plus"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td align="center">11</td>
-                    <td align="center"><img src='images/karyawan.jpg'></td>
-                    <td>Ponari Alexander Charles </td>
-                    <td class="keahlian">Pendidikan Pancasila dan HAM, Jurnalisme, Pendidikan Berbasis Budaya, 
-                        Kurikulum 2013, Kepemimpinan Sekolah, Manajemen Sekolah </td>
-                    <td class="pelatihan">Workshop penulisan artikel ilmiah, Workshop penulisan 
-                        artikel ilmiah internasional, Pelatihan pengembangan E-Book dan Web based course.</td>
-                    <td align="center">
-                        <a href="karyawan"><button class="detail"><i class="fa fa-pen-to-square fa-sm" ></i></button></a>
-                        <button class="tambah"><i class="fa-solid fa-plus"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td align="center">12</td>
-                    <td align="center"><img src='images/karyawan.jpg'></td>
-                    <td>Ponari Alexander Charles </td>
-                    <td class="keahlian">Pendidikan Pancasila dan HAM, Jurnalisme, Pendidikan Berbasis Budaya, 
-                        Kurikulum 2013, Kepemimpinan Sekolah, Manajemen Sekolah </td>
-                    <td class="pelatihan">Workshop penulisan artikel ilmiah, Workshop penulisan 
-                        artikel ilmiah internasional, Pelatihan pengembangan E-Book dan Web based course.</td>
-                    <td align="center">
-                        <a href="karyawan"><button class="detail"><i class="fa fa-pen-to-square fa-sm" ></i></button></a>
-                        <button class="tambah"><i class="fa-solid fa-plus"></i></button>
-                    </td>
-                </tr>
+                @endforeach
             </div>
             </table>
         </div>
-        
-        <div class="info_data">
-            <p class="jmlh_data">Tampil 1-12 / 60 data</p>
-            <div class="hlmn">
-                <button id="nomor"><</button><button id="nomor">1</button><button id="nomor">2</button><button id="nomor">3</button><button id="nomor">></button>
-            </div>
+        <p class="jmlh_data">Menampilkan {{ $daftark->firstItem() }} - {{ $daftark->lastItem() }} dari {{ $daftark->total() }} data</p>
+        <div class="hlmn">
+            {{$daftark->withQueryString()->links('pagination::bootstrap-4')}}
         </div>
 
     </div>

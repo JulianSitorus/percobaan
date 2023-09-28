@@ -98,6 +98,7 @@ html, body{
 }
 /* search */
 .search-box{
+    /* z-index: -10; */
     float: right;
     margin: 10px 35px;
     background-color: white;
@@ -107,16 +108,35 @@ html, body{
     border: 1px solid #6AB784;
     box-shadow: 1px 1px 1px #888;
 }
-
 .search-box input{
     border: none;
     outline: none;
-    background: none;
+    margin-right: 3px;
+}
+.search-box input:-webkit-autofill{
+    -webkit-box-shadow: 0 0 0 1000px white inset;
 }
 
-.search-box i{
-    color: #302B3C;
+.input-group-text{
+    position: relative;
+    z-index: 14;
+    cursor: pointer;
+    border: none;
+    color: white;
 }
+
+.input-group-text::before {
+    content: "";
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    margin-top: -8px;
+    margin-left: -3px;
+    position: absolute;
+    width: 100%;
+    padding: 11px 15px 19px 5px;
+    background-color: #0d6efd; 
+    z-index: -3; 
+  }
 
 
 .empat{
@@ -150,6 +170,7 @@ html, body{
     margin-top: 15px;
     margin-right: 45px;
     float: right;
+    font-size: 12px;
 }
 .empat2 #nomor{
     padding: 4px 9px;
@@ -187,7 +208,7 @@ table .detail{
     border: none;
     border-radius: 3px;
     padding: 6px 9px;
-    margin-top: 5px;
+    margin: 16px 0px 16px 0px;
 }
 table .tambah{
     background-color: rgb(0, 115, 255);
@@ -195,7 +216,7 @@ table .tambah{
     border: none;
     border-radius: 3px;
     padding: 6px 9px;
-    margin-top: 5px;
+    margin: 16px 0px 16px 0px;
 }
 table .detail:hover{
     background-color: #6AB784;
@@ -246,4 +267,40 @@ table tr:nth-child(odd){
 }
 table tr:nth-child(even){
     background-color: white;
+}
+
+/* tombol pagination */
+.pagination{
+    list-style: none;
+    display: flex;
+}
+.page-item.active .page-link {
+    display: flex;
+    list-style: none;
+    z-index: 3;
+    color: #fff;
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+.page-item:not(:first-child) .page-link {
+    margin-left: -1px;
+    list-style: none;
+    display: flex;
+}
+ 
+.page-link {
+    padding: 0.375rem 0.75rem;
+    list-style: none;
+    display: flex;
+}
+
+.page-link {
+    /* position: relative; */
+    display: flex;
+    color: #0d6efd;
+    text-decoration: none;
+    list-style: none;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }

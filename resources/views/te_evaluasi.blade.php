@@ -124,7 +124,7 @@
                         <td align="center">2</td>
                         <td><u><b><i>Kuantitas dan Kualitas Kerja</u></b></i> - dalam mengerjakan pekerjaan/program/proyek bagaimanakah tingkat efisiensi dan efektif kerjanya, bagaimana kecepatan kerjanya, produktifitasnya,ketelitian, kemampuan merencanakan dan ketepatan dalam membuat laporan PJUM.</td>
                         <td><div class="penilaian">
-                        <label class="nilai">1</label>
+                                <label class="nilai">1</label>
                                 <input id="buruk" type="radio" name="tingkat_keahlian">
                                 <label class="nilai">2</label>
                                 <input id="dibawah_standard" type="radio" name="tingkat_keahlian">

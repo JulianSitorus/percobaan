@@ -325,50 +325,25 @@
                     <th>Tingkat Keahlian</th>
                     <th class="aksi">Aksi</th>
                 </tr>
+                @foreach($daftark->keahlian->reverse() as $dkk)
                 <tr>
-                    <td>Pendidikan Pancasila dan HAM</td>
-                    <td>Baik</td>
-                    <td align="center">
-                        <a href="karyawan"><button class="detail"><i class="fa fa-pen-to-square fa-sm" ></i></button></a>
-                        <button class="hapus"><i class="fa fa-trash-can fa-sm"></i></button>
+                    <td>{{$dkk->jenis_keahlian}}</td>
+                    <td class="tingkat_keahlian">{{$dkk->tingkat_keahlian}}</td>
+                    <td align="center" class="button-container">
+                        <a href="/karyawan/{{$dkk->id}}/edit_keahlian"><button class="detail"><i class="fa fa-pen-to-square fa-sm" ></i></button></a>
+                        <form action="{{ route('keahlian.destroy', ['id' => $dkk->id]) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button class="hapus" type="submit"><i class="fa fa-trash-can fa-sm"></i></button>
+                        </form>
                     </td>
                 </tr>
-                <tr>
-                    <td>Jurnalisme</td>
-                    <td>Standar</td>
-                    <td align="center">
-                        <a href="karyawan"><button class="detail"><i class="fa fa-pen-to-square fa-sm" ></i></button></a>
-                        <button class="hapus"><i class="fa fa-trash-can fa-sm"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Pendidikan Berbasis Budaya</td>
-                    <td>Sangat Baik</td>
-                    <td align="center">
-                        <a href="karyawan"><button class="detail"><i class="fa fa-pen-to-square fa-sm" ></i></button></a>
-                        <button class="hapus"><i class="fa fa-trash-can fa-sm"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Narasumber</td>
-                    <td>Dibawah Standar</td>
-                    <td align="center">
-                        <a href="karyawan"><button class="detail"><i class="fa fa-pen-to-square fa-sm" ></i></button></a>
-                        <button class="hapus"><i class="fa fa-trash-can fa-sm"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Mengemudi</td>
-                    <td>Sangat Baik</td>
-                    <td align="center">
-                        <a href="karyawan"><button class="detail"><i class="fa fa-pen-to-square fa-sm" ></i></button></a>
-                        <button class="hapus"><i class="fa fa-trash-can fa-sm"></i></button>
-                    </td>
-                </tr>
+                @endforeach
             </table>
-            <a href="te_keahlian"><button class="tambah"><i class="fa-solid fa-plus"></i> Tambah Data</button></a><br>
+            <a href="{{$daftark->id}}/tambah_keahlian"><button class="tambah"><i class="fa-solid fa-plus"></i> Tambah Data</button></a><br>
             
-            
+
+            <!-- Pelatihan -->
             <div class="judul2"><i class="fas fa-book fa-xl"></i><span>   Pelatihan</span></div>
             <!-- <div style="overflow: auto; height: 231px"> -->
             <table>
@@ -381,67 +356,29 @@
                     <th class="lokasi">Lokasi</th>
                     <th class="aksi">Aksi</th>
                 </tr>
+                @foreach($daftark->pelatihan->reverse() as $dkp)
                 <tr>
-                    <td>Workshop penulisan artikel ilmiah</td>
-                    <td>Fakultas Ekonomi UGM</td>
-                    <td>12/05/2015</td>
-                    <td>04/06/2015</td>
-                    <td>Yogyakarta, UGM</td>
-                    <td align="center">
-                        <a href="karyawan"><button class="detail"><i class="fa fa-pen-to-square fa-sm" ></i></button></a>
-                        <button class="hapus"><i class="fa fa-trash-can fa-sm"></i></button>
+                    <td>{{$dkp->nama_pelatihan}}</td>
+                    <td>{{$dkp->penyelenggara}}</td>
+                    <td>{{ \Carbon\Carbon::parse($dkp->tanggal_mulai)->format('d/m/Y') }}</td>   
+                    <td>{{ \Carbon\Carbon::parse($dkp->tanggal_selesai)->format('d/m/Y') }}</td>
+                    <td>{{$dkp->lokasi}}</td>
+                    <td align="center" class="button-container">
+                        <a href="/karyawan/{{$dkp->id}}/edit_pelatihan"><button class="detail"><i class="fa fa-pen-to-square fa-sm" ></i></button></a>
+                        <form action="{{ route('pelatihan.destroy', ['id' => $dkp->id]) }}" method="POST">
+                            @csrf
+                            @method('delete')
+                            <button class="hapus" type="submit"><i class="fa fa-trash-can fa-sm"></i></button>
+                        </form>
                     </td>
                 </tr>
-                <tr>
-                    <td>Workshop penulisan artikel ilmiah internasional</td>
-                    <td>LP3M Univ Katholik Widya Mandala</td>
-                    <td>12/05/2015</td>
-                    <td>04/06/2015</td>
-                    <td>Madiun</td>
-                    <td align="center">
-                        <a href="karyawan"><button class="detail"><i class="fa fa-pen-to-square fa-sm" ></i></button></a>
-                        <button class="hapus"><i class="fa fa-trash-can fa-sm"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Pelatihan pengembangan E-Book dan Web based course</td>
-                    <td>Apple Academy Binus</td>
-                    <td>12/05/2015</td>
-                    <td>04/06/2015</td>
-                    <td>Jakarta</td>
-                    <td align="center">
-                        <a href="karyawan"><button class="detail"><i class="fa fa-pen-to-square fa-sm" ></i></button></a>
-                        <button class="hapus"><i class="fa fa-trash-can fa-sm"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Workshop penulisan artikel ilmiah internasional</td>
-                    <td>LP3M Univ Katholik Widya Mandala</td>
-                    <td>12/05/2015</td>
-                    <td>04/06/2015</td>
-                    <td>Madiun</td>
-                    <td align="center">
-                        <a href="karyawan"><button class="detail"><i class="fa fa-pen-to-square fa-sm" ></i></button></a>
-                        <button class="hapus"><i class="fa fa-trash-can fa-sm"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Pelatihan Microsoft Excel</td>
-                    <td>Lembaga Pelatihan Komputer Indonesia</td>
-                    <td>15/05/2015</td>
-                    <td>30/06/2015</td>
-                    <td>Yogyakarta</td>
-                    <td align="center">
-                        <a href="karyawan"><button class="detail"><i class="fa fa-pen-to-square fa-sm" ></i></button></a>
-                        <button class="hapus"><i class="fa fa-trash-can fa-sm"></i></button>
-                    </td>
-                </tr>
+                @endforeach
             </table>
+            <a href="{{$daftark->id}}/tambah_pelatihan"><button class="tambah"><i class="fa-solid fa-plus"></i> Tambah Data</button></a>
 
-            <a href="te_pelatihan"><button class="tambah"><i class="fa-solid fa-plus"></i> Tambah Data</button></a>
             <br><br><br>
             <hr size="3px" color="#EEEEEE">
-            <form action="{{$daftark->id}}" method="POST">
+            <form action="{{ route('daftark.destroy', ['id' => $daftark->id]) }}" method="POST">
                 @csrf
                 @method('delete')
                 <button class="hapus_kary" type="submit"><i class="fa fa-trash-can fa-sm"></i> Hapus Karyawan</button>

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Daftark;
 use App\Models\Jenjangkarir;
+use App\Models\Keahlian;
+use App\Models\Pelatihan;
 use Illuminate\Http\Request;
 
 class DaftarkController extends Controller
@@ -42,13 +44,14 @@ class DaftarkController extends Controller
             $daftark->foto  = $request->file('foto')->getClientOriginalName();
             $daftark->save();
         };
-        return redirect('daftark')->with('success', 'Data telah ditambahkan!');
+        return redirect('daftark')->with('success', 'Data Karyawan telah ditambahkan!');
     }
 
 
     // halaman detail karyawan
     public function show($id){
         $daftark = Daftark::findOrFail($id);
+        session(['daftark_id' => $daftark->id]);
         return view('karyawan', ['daftark' => $daftark]);
     }
 
@@ -78,6 +81,8 @@ class DaftarkController extends Controller
     //     return redirect('daftark')->with('success', 'Data telah dihapus!');
     // }
 
+    
+
     public function destroy($id){
         // Temukan objek Karyawan berdasarkan ID
         $daftark = Daftark::find($id);
@@ -85,6 +90,8 @@ class DaftarkController extends Controller
         if ($daftark) {
             // Hapus semua data Jenjang Karir yang terkait
             $daftark->jenjangkarir()->delete();
+            $daftark->keahlian()->delete();
+            $daftark->pelatihan()->delete();
 
             // Hapus objek Karyawan itu sendiri
             $daftark->delete();
@@ -96,6 +103,9 @@ class DaftarkController extends Controller
             return redirect('daftark')->with('error', 'Karyawan tidak ditemukan.');
         }
     }
+
+
+    // ------------------------------------------------------------------------------------------------
 
     // relation ke jenjang karir
     // public function jenjangkarir(Request $request)
@@ -112,6 +122,7 @@ class DaftarkController extends Controller
     //     return view('jenjangkarir', ['jenjangkarir' => $jenjangkarir]);
     // }
 
+    
     public function jenjangkarir(Request $request){
         $search = $request->search;
         $daftark = Daftark::with('jenjangkarir')
@@ -213,5 +224,159 @@ class DaftarkController extends Controller
             return redirect('/karyawan')->with('error', 'Jenjangkarir tidak ditemukan.');
         }
     }
+    
+    // ------------------------------------------------------------------------------------------------
 
+    // relation ke keahlian
+    public function keahlian(Request $request){
+        $search = $request->search;
+        $daftark = Daftark::with('keahlian')
+                    ->where('nama_karyawan', 'LIKE', '%'.$search.'%')
+                    ->orWhereHas('keahlian', function($query) use($search) {
+                        $query->where('jenis_keahlian', 'LIKE', '%'.$search.'%');
+                    })
+                    ->paginate(12);
+        return view ('keahlian',['daftark' => $daftark]);
+    }
+
+    // menampilkan halaman tambah keahlian
+    public function create_keahlian($id){
+        $daftark = Daftark::all();
+        $daftark = Daftark::find($id);
+        return view('tambah_keahlian', compact(['daftark']));
+    }
+
+    // cara tambah keahlian
+    public function store_keahlian(Request $request, $id) {
+        // Temukan objek Daftark berdasarkan id
+        $daftark = Daftark::find($id);
+    
+        if ($daftark) {
+            // Buat objek Jenjangkarir baru
+            $keahllian = new Keahlian([
+                'jenis_keahlian' => $request->jenis_keahlian,
+                'tingkat_keahlian' => $request->tingkat_keahlian,
+            ]);
+    
+            // Hubungkan Jenjangkarir dengan Daftark
+            $keahllian->daftark_id = $daftark->id;
+    
+            // Simpan Jenjangkarir
+            $keahllian->save();
+    
+            return redirect('/karyawan/'. $daftark->id )->with('success', 'Data jenjang karir telah ditambah!');;
+        } else {
+            return redirect('/karyawan/'. $daftark->id );
+        }
+    }
+
+    // edit keahlian
+    public function edit_keahlian($id){
+        // mengambil id daftark dari detail jenjang karir
+        $daftark_id = session('daftark_id');
+        $daftark = Daftark::find($daftark_id);
+
+        $keahlian = Keahlian::find($id);
+        return view('edit_keahlian', compact(['keahlian', 'daftark']));
+    }
+
+    // put keahlian
+    public function update_keahlian($id, Request $request)
+    {   
+        $daftark_id = session('daftark_id');
+        $daftark = Daftark::find($daftark_id);
+
+        $keahlian = Keahlian::find($id);
+        $keahlian->update($request->except(['_token', 'submit']));
+        return redirect('/karyawan/'. $daftark->id );
+    }
+
+    // hapus keahlian
+    public function destroy_keahlian($id){
+        $daftark_id = session('daftark_id');
+        $daftark = Daftark::find($daftark_id);
+
+        $keahlian = Keahlian::find($id);
+        $keahlian->delete();
+        return redirect('/karyawan/'. $daftark->id);
+    }
+
+    // ------------------------------------------------------------------------------------------------
+
+    // relation ke pelatihan
+    public function pelatihan(Request $request){
+        $search = $request->search;
+        $daftark = Daftark::with('pelatihan')
+                    ->where('nama_karyawan', 'LIKE', '%'.$search.'%')
+                    ->orWhereHas('keahlian', function($query) use($search) {
+                        $query->where('nama_pelatihan', 'LIKE', '%'.$search.'%');
+                    })
+                    ->paginate(12);
+        return view ('keahlian',['daftark' => $daftark]);
+    }
+
+    // menampilkan halaman tambah pelatihan
+    public function create_pelatihan($id){
+        $daftark = Daftark::all();
+        $daftark = Daftark::find($id);
+        return view('tambah_pelatihan', compact(['daftark']));
+    }
+
+    // cara tambah pelatihan
+    public function store_pelatihan(Request $request, $id) {
+        // Temukan objek Daftark berdasarkan id
+        $daftark = Daftark::find($id);
+    
+        if ($daftark) {
+            // Buat objek Jenjangkarir baru
+            $pelatihan = new Pelatihan([
+                'nama_pelatihan' => $request->nama_pelatihan,
+                'penyelenggara' => $request->penyelenggara,
+                'tanggal_mulai' => $request->tanggal_mulai,
+                'tanggal_selesai' => $request->tanggal_selesai,
+                'lokasi' => $request->lokasi,
+            ]);
+    
+            // Hubungkan Jenjangkarir dengan Daftark
+            $pelatihan->daftark_id = $daftark->id;
+    
+            // Simpan Jenjangkarir
+            $pelatihan->save();
+    
+            return redirect('/karyawan/'. $daftark->id )->with('success', 'Data pelatihan telah ditambah!');;
+        } else {
+            return redirect('/karyawan/'. $daftark->id );
+        }
+    }
+
+    // edit pelatihan
+    public function edit_pelatihan($id){
+        // mengambil id daftark dari detail jenjang karir
+        $daftark_id = session('daftark_id');
+        $daftark = Daftark::find($daftark_id);
+
+        $pelatihan = Pelatihan::find($id);
+        return view('edit_pelatihan', compact(['pelatihan', 'daftark']));
+    }
+
+    // put keahlian
+    public function update_pelatihan($id, Request $request)
+    {   
+        $daftark_id = session('daftark_id');
+        $daftark = Daftark::find($daftark_id);
+
+        $pelatihan = Pelatihan::find($id);
+        $pelatihan->update($request->except(['_token', 'submit']));
+        return redirect('/karyawan/'. $daftark->id );
+    }
+
+    // hapus pelatihan
+    public function destroy_pelatihan($id){
+        $daftark_id = session('daftark_id');
+        $daftark = Daftark::find($daftark_id);
+
+        $pelatihan = Pelatihan::find($id);
+        $pelatihan->delete();
+        return redirect('/karyawan/'. $daftark->id);
+    }
 }

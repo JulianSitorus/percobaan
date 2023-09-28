@@ -3,6 +3,7 @@
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\DaftarkController;
 use App\Http\Controllers\JenjangkarirController;
+use App\Http\Controllers\Keahlian;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,7 +17,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// halaman menampilkan data
+// --------------------------------------------DAFTAR KARYAWAN---------------------------------------------------
+
+// halaman menampilkan data daftrak
 Route::get('/daftark',[DaftarkController::class,'index']); 
 // halaman membuat data 
 Route::get('/biodata',[DaftarkController::class,'create']);
@@ -26,11 +29,13 @@ Route::post('/store',[DaftarkController::class,'store']);
 Route::get('/karyawan/{id}',[DaftarkController::class, 'show']);
 // halaman edit biodata karyawan
 Route::get('/biodata/{id}/edit_biodata',[DaftarkController::class, 'edit']);
-// untuk put
-Route::put('/karyawan/{id}',[DaftarkController::class,'update']);
+// untuk put biodata
+Route::put('/karyawan/{id}',[DaftarkController::class,'update'])->name('biodata.update');
 // untuk menghapus data
 Route::delete('/{id}',[DaftarkController::class,'destroy']);
-Route::delete('/karyawan/{id}',[DaftarkController::class,'destroy']);
+Route::delete('/karyawan/{id}', [DaftarkController::class, 'destroy'])->name('daftark.destroy');
+
+// -------------------------------------------JENJANG KARIR-----------------------------------------------------
 
 // 1-n karyawan dgn jenjang karir
 Route::get('/jenjangkarir',[DaftarkController::class,'jenjangkarir']);
@@ -47,6 +52,47 @@ Route::get('/detail_jenjangkarir/{id}/edit_jenjangkarir',[DaftarkController::cla
 Route::put('/detail_jenjangkarir/{id}',[DaftarkController::class, 'update_jenjangkarir']);
 // untuk menghapus salah satu data jenjang karir
 Route::delete('/detail_jenjangkarir/{id}',[DaftarkController::class,'destroy_jenjangkarir']);
+
+// ---------------------------------------------KEAHLIAN-------------------------------------------------------
+
+// 1-n karyawan dgn keahlian
+Route::get('/keahlian',[DaftarkController::class,'keahlian']);
+
+// halaman membuat tambah data keahlian 
+Route::get('/karyawan/{id}/tambah_keahlian',[DaftarkController::class,'create_keahlian']);
+// menampilkan data redirect ke halaman karyawan
+Route::post('/store_keahlian/{id}',[DaftarkController::class,'store_keahlian']);
+// halaman edit keahlian
+Route::get('/karyawan/{id}/edit_keahlian',[DaftarkController::class, 'edit_keahlian']);
+// untuk put keahlian
+Route::put('/keahlian/{id}',[DaftarkController::class, 'update_keahlian'])->name('keahlian.update');
+// untuk menghapus salah satu data keahlian
+Route::delete('/keahlian/{id}', [DaftarkController::class, 'destroy_keahlian'])->name('keahlian.destroy');
+
+// ---------------------------------------------PELATIHAN------------------------------------------------------
+
+// 1-n karyawan dgn pelatihan
+Route::get('/pelatihan',[DaftarkController::class,'pelatihan']);
+
+// halaman membuat tambah data pelatihan
+Route::get('/karyawan/{id}/tambah_pelatihan',[DaftarkController::class,'create_pelatihan']);
+// menampilkan data redirect ke halaman detail jenjang karir
+Route::post('/store_pelatihan/{id}',[DaftarkController::class,'store_pelatihan']);
+// halaman edit pelatihan
+Route::get('/karyawan/{id}/edit_pelatihan',[DaftarkController::class, 'edit_pelatihan']);
+// untuk put pelatihan
+Route::put('/pelatihan/{id}',[DaftarkController::class, 'update_pelatihan'])->name('pelatihan.update');
+// untuk menghapus salah satu data jenjang karir
+Route::delete('/pelatihan/{id}',[DaftarkController::class,'destroy_pelatihan'])->name('pelatihan.destroy');
+
+
+
+
+
+
+
+
+
 
 
 
@@ -66,12 +112,12 @@ Route::get('/evaluasi', function () {
 // Route::get('/jenjangkarir', function () {
 //     return view('jenjangkarir');
 // });
-Route::get('/keahlian', function () {
-    return view('keahlian');
-});
-Route::get('/karyawan', function () {
-    return view('karyawan');
-});
+// Route::get('/keahlian', function () {
+//     return view('keahlian');
+// });
+// Route::get('/karyawan', function () {
+//     return view('karyawan');
+// });
 
 // Route::get('/biodata', function () {
 //     return view('biodata');
@@ -88,12 +134,12 @@ Route::get('/te_kpi', function () {
 Route::get('/te_evaluasi', function () {
     return view('te_evaluasi');
 });
-Route::get('/te_keahlian', function () {
-    return view('te_keahlian');
-});
-Route::get('/te_pelatihan', function () {
-    return view('te_pelatihan');
-});
+// Route::get('/te_keahlian', function () {
+//     return view('te_keahlian');
+// });
+// Route::get('/te_pelatihan', function () {
+//     return view('te_pelatihan');
+// });
 
 
 Route::get('/about', function () {

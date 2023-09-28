@@ -80,7 +80,7 @@
                     <th>Unit</th>
                     <th>Departemen</th>
                     <th>Status</th>
-                    <th class="kontak">Kontak</th>
+                    <th>Kontak</th>
                     <th class="kanan">Aksi</th>
                 </tr>
                 @foreach($daftark as $key => $dk)

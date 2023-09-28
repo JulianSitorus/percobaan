@@ -94,7 +94,16 @@ html, body{
     font-weight: normal;
     float: left;
     color: #6AB784;
-    padding: 15px 270px;
+    padding: 15px 0px 15px 270px;
+}
+.tiga .breadcrumb{
+    font-family: Calibri, sans-serif;
+    font-size: 17px;
+    font-weight: normal;
+    float: left;
+    color: #6AB784;
+    margin-left: 3px;
+    padding: 15px 0px ;
 }
 /* search */
 .search-box{
@@ -162,9 +171,9 @@ html, body{
     position: absolute;
 }
 .empat2 #nama_pelatihan, 
-.empat2 #penyelanggara,
-.empat2 #mulai,
-.empat2 #selesai,
+.empat2 #penyelenggara,
+.empat2 #tanggal_mulai,
+.empat2 #tanggal_selesai,
 .empat2 #lokasi{
     margin-left: 250px;
     margin-top: 15px;
@@ -192,7 +201,12 @@ html, body{
 .empat2 .simpan:hover{
     background-color: #18b84e;
 }
+.empat2 .display_batal{
+    display: flex;
+    margin: -42px 10px 15px 150px;
+}
 .empat2 .batal{
+    text-decoration: none;
     padding: 5px 30px;
     border: none;
     border-radius: 3px;

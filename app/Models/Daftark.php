@@ -17,8 +17,14 @@ class Daftark extends Model
         return $this->hasMany('App\Models\Jenjangkarir');
     }
 
-    public function jenjangkarirTerbaru()
+    public function keahlian()
     {
-        return $this->jenjangkarir->last();
+        return $this->hasMany('App\Models\Keahlian');
     }
+
+    public function pelatihan()
+    {
+        return $this->hasMany('App\Models\Pelatihan');
+    }
+    
 }

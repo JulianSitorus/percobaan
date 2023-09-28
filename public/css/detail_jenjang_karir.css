@@ -203,7 +203,6 @@ table .aksi{
 /* tombol edit hapus */
 .button-container{
     display: flex;
-
 }
 table .detail{
     background-color: #18b84e;

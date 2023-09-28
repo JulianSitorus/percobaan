@@ -62,7 +62,7 @@
         <div class="empat2">
             <p class="judul">Edit Biodata Karyawan</p>
             <hr size="3px" color="#EEEEEE">
-            <form action="/karyawan/{{$daftark->id}}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('biodata.update', ['id' => $daftark->id]) }}" method="POST" enctype="multipart/form-data">
                 @method('put')
                 @csrf
                 <label for="nama_karyawan">Nama</label><input id="nama_karyawan" value="{{$daftark->nama_karyawan}}" type="text" name="nama_karyawan" pattern=".*\S+.*" required

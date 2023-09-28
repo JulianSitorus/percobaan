@@ -72,7 +72,7 @@
                     <th class="foto">Foto</th>
                     <th class="nama">Nama</th>
                     <th class="posisi_s">Posisi Sekarang</th>
-                    <th class="ps" colspan="4">Posisi sebelumnya</th>
+                    <th class="ps1" colspan="4">Posisi sebelumnya</th>
                     <th class="kanan">Aksi</th>
                 </tr>
                 @foreach($daftark as $key => $dk)
@@ -90,7 +90,7 @@
                         </ul>          
                     </td>@endif
 
-                    <td>
+                    <td class="ps">
                         @if ($dk->jenjangkarir->count() >= 2)
                             <ul>
                                 <li class="key">{{ $dk->jenjangkarir[$dk->jenjangkarir->count() - 2]->posisi }}</li>
@@ -100,7 +100,7 @@
                         @endif
                     </td>
 
-                    <td>
+                    <td class="ps">
                         @if ($dk->jenjangkarir->count() >= 3)
                             <ul>
                                 <li class="key">{{ $dk->jenjangkarir[$dk->jenjangkarir->count() - 3]->posisi }}</li>
@@ -110,7 +110,7 @@
                         @endif
                     </td>
 
-                    <td>
+                    <td class="ps">
                         @if ($dk->jenjangkarir->count() >= 4)
                             <ul>
                                 <li class="key">{{ $dk->jenjangkarir[$dk->jenjangkarir->count() - 4]->posisi }}</li>
@@ -120,7 +120,7 @@
                         @endif
                     </td>
 
-                    <td>
+                    <td class="ps">
                         @if ($dk->jenjangkarir->count() >= 5)
                             <ul>
                                 <li class="key">{{ $dk->jenjangkarir[$dk->jenjangkarir->count() - 5]->posisi }}</li>
@@ -129,10 +129,6 @@
                             </ul>
                         @endif
                     </td>
-
-
-
-
                     <td class="button-container" align="center">
                         <a href="karyawan/{{$dk->id}}/detail_jenjangkarir"><button class="detail"><i class="fa fa-pen-to-square fa-sm"></i></button></a>
                         <a href="karyawan/{{$dk->id}}/tambah_jenjangkarir"><button class="tambah"><i class="fa-solid fa-plus"></i></button></a>
