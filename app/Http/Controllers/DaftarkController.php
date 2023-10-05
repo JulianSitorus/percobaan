@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Daftark;
+use App\Models\Evaluasi;
 use App\Models\Jenjangkarir;
 use App\Models\Keahlian;
 use App\Models\Pelatihan;
@@ -15,6 +16,8 @@ class DaftarkController extends Controller
         $search = $request->search;
         $daftark = Daftark::with('jenjangkarir')
                     ->where('nama_karyawan', 'LIKE', '%'.$search.'%')
+                    ->orWhere('no_telp', 'LIKE', '%'.$search.'%')
+                    ->orWhere('email', 'LIKE', '%'.$search.'%')
                     ->orWhere('status', 'LIKE', '%'.$search.'%')
                     ->orWhereHas('jenjangkarir', function($query) use($search) {
                         $query->where('departemen', 'LIKE', '%'.$search.'%');
@@ -53,6 +56,7 @@ class DaftarkController extends Controller
         $daftark = Daftark::findOrFail($id);
         session(['daftark_id' => $daftark->id]);
         return view('karyawan', ['daftark' => $daftark]);
+        
     }
 
     // edit
@@ -74,15 +78,7 @@ class DaftarkController extends Controller
         return view('karyawan', ['daftark' => $daftark]);
     }
 
-    // hapus biodata
-    // public function destroy($id){
-    //     $daftark = Daftark::find($id);
-    //     $daftark->delete();
-    //     return redirect('daftark')->with('success', 'Data telah dihapus!');
-    // }
-
-    
-
+    // hapus biodata  
     public function destroy($id){
         // Temukan objek Karyawan berdasarkan ID
         $daftark = Daftark::find($id);
@@ -104,6 +100,168 @@ class DaftarkController extends Controller
         }
     }
 
+    // ------------------------------------------------------------------------------------------------
+
+    public function evaluasi(Request $request){
+        
+        $search = $request->search;
+        $daftark = Daftark::with('evaluasi', 'jenjangkarir')
+                    ->where('nama_karyawan', 'LIKE', '%'.$search.'%')
+                    ->orWhereHas('jenjangkarir', function($query) use($search) {
+                        $query->where('departemen', 'LIKE', '%'.$search.'%');
+                    })
+                    ->orWhereHas('jenjangkarir', function($query) use($search) {
+                        $query->where('posisi', 'LIKE', '%'.$search.'%');
+                    })
+                    ->orWhereHas('evaluasi', function($query) use($search) {
+                        $query->where('tanggal_evaluasi', 'LIKE', '%'.$search.'%');
+                    })
+                    ->orWhereHas('evaluasi', function($query) use($search) {
+                        $query->where('total_keseluruhan', 'LIKE', '%'.$search.'%');
+                    })
+                    ->orWhereHas('evaluasi', function($query) use($search) {
+                        $query->where('total_keseluruhan2', 'LIKE', '%'.$search.'%');
+                    })
+                    ->orWhereHas('evaluasi', function($query) use($search) {
+                        $query->where('kerja', 'LIKE', '%'.$search.'%');
+                    })
+                    ->orWhereHas('evaluasi', function($query) use($search) {
+                        $query->where('rekomendasi', 'LIKE', '%'.$search.'%');
+                    })
+                    ->orWhereHas('evaluasi', function($query) use($search) {
+                        $query->where('komentar_kekuatan', 'LIKE', '%'.$search.'%');
+                    })
+                    ->orWhereHas('evaluasi', function($query) use($search) {
+                        $query->where('komentar_kelemahan', 'LIKE', '%'.$search.'%');
+                    })
+                    ->orWhereHas('evaluasi', function($query) use($search) {
+                        $query->where('komentar_pelatihan', 'LIKE', '%'.$search.'%');
+                    })
+                    ->paginate(12);  
+        
+        $daftarks = Daftark::with('jenjangkarir')->get();
+        
+
+        return view ('evaluasi', [
+            'daftark' => $daftark,
+            'daftarks' => $daftarks,
+        ]);
+    }
+
+    // menampilkan halaman tambah evaluasi
+    public function create_evaluasi($id){
+        
+        $daftark = Daftark::all();
+        $daftark = Daftark::find($id);
+        return view('tambah_evaluasi', compact(['daftark']));
+    }
+
+    // request tambah evaluasi
+    public function store_evaluasi(Request $request, $id) {
+        $totalKeseluruhan = $request->input('total_keseluruhan');
+        $totalKeseluruhan2 = $request->input('total_keseluruhan2');
+
+        $daftark = Daftark::find($id);
+        
+        if ($daftark) {
+            // Buat objek evaluasi baru
+            $evaluasi = new Evaluasi([                
+                'nama_kd' => $request->nama_kd,
+                'tempat_evaluasi' => $request->tempat_evaluasi,
+                'tanggal_evaluasi' => $request->tanggal_evaluasi,
+                'tipe_evaluasi' => $request->tipe_evaluasi,
+
+                'tingkat_keahlian_pertanyaan_1' => $request->tingkat_keahlian_pertanyaan_1,
+                'komentar_pertanyaan_1' => $request->komentar_pertanyaan_1,
+                'tingkat_keahlian_pertanyaan_2' => $request->tingkat_keahlian_pertanyaan_2,
+                'komentar_pertanyaan_2' => $request->komentar_pertanyaan_2,
+                'tingkat_keahlian_pertanyaan_3' => $request->tingkat_keahlian_pertanyaan_3,
+                'komentar_pertanyaan_3' => $request->komentar_pertanyaan_3,
+                'tingkat_keahlian_pertanyaan_4' => $request->tingkat_keahlian_pertanyaan_4,
+                'komentar_pertanyaan_4' => $request->komentar_pertanyaan_4,
+                'tingkat_keahlian_pertanyaan_5' => $request->tingkat_keahlian_pertanyaan_5,
+                'komentar_pertanyaan_5' => $request->komentar_pertanyaan_5,
+                'tingkat_keahlian_pertanyaan_6' => $request->tingkat_keahlian_pertanyaan_6,
+                'komentar_pertanyaan_6' => $request->komentar_pertanyaan_6,
+                'tingkat_keahlian_pertanyaan_7' => $request->tingkat_keahlian_pertanyaan_7,
+                'komentar_pertanyaan_7' => $request->komentar_pertanyaan_7,
+                'tingkat_keahlian_pertanyaan_8' => $request->tingkat_keahlian_pertanyaan_8,
+                'komentar_pertanyaan_8' => $request->komentar_pertanyaan_8,
+                'tingkat_keahlian_pertanyaan_9' => $request->tingkat_keahlian_pertanyaan_9,
+                'komentar_pertanyaan_9' => $request->komentar_pertanyaan_9,
+                'tingkat_keahlian_pertanyaan_10' => $request->tingkat_keahlian_pertanyaan_10,
+                'komentar_pertanyaan_10' => $request->komentar_pertanyaan_10,
+
+                'tingkat_keahlian2_pertanyaan_1' => $request->tingkat_keahlian2_pertanyaan_1,
+                'komentar2_pertanyaan_1' => $request->komentar2_pertanyaan_1,
+                'tingkat_keahlian2_pertanyaan_2' => $request->tingkat_keahlian2_pertanyaan_2,
+                'komentar2_pertanyaan_2' => $request->komentar2_pertanyaan_2,
+                'tingkat_keahlian2_pertanyaan_3' => $request->tingkat_keahlian2_pertanyaan_3,
+                'komentar2_pertanyaan_3' => $request->komentar2_pertanyaan_3,
+                'tingkat_keahlian2_pertanyaan_4' => $request->tingkat_keahlian2_pertanyaan_4,
+                'komentar2_pertanyaan_4' => $request->komentar2_pertanyaan_4,
+                'tingkat_keahlian2_pertanyaan_5' => $request->tingkat_keahlian2_pertanyaan_5,
+                'komentar2_pertanyaan_5' => $request->komentar2_pertanyaan_5,
+
+                'total_keseluruhan' => $totalKeseluruhan,
+                'total_keseluruhan2' => $totalKeseluruhan2,
+
+                'kerja' => $request->kerja,
+                'komentar_kerja' => $request->komentar_kerja,
+                'rekomendasi' => $request->rekomendasi,
+                'komentar_rekomendasi' => $request->komentar_rekomendasi,
+
+                'komentar_kekuatan' => $request->komentar_kekuatan,
+                'komentar_kelemahan' => $request->komentar_kelemahan,
+
+                'komentar_pelatihan' => $request->komentar_pelatihan,
+
+                'komentar_catatan' => $request->komentar_catatan,
+            ]);
+
+            session(['totalKeseluruhan2' => $totalKeseluruhan2]);
+            
+            $evaluasi->daftark_id = $daftark->id;
+
+            // Simpan evaluasi
+            $evaluasi->save();
+
+            return redirect('/karyawan/'. $daftark->id )->with('success', 'Data jenjang karir telah ditambah!');;
+        } else {
+            return redirect('/karyawan/'. $daftark->id );
+        }
+    }
+
+    // edit evaluasi
+    public function edit_evaluasi($id){
+        // mengambil id daftark dari detail jenjang karir
+        $daftark_id = session('daftark_id');
+        $daftark = Daftark::find($daftark_id);
+
+        $evaluasi = Evaluasi::find($id);
+        return view('edit_evaluasi', compact(['evaluasi', 'daftark']));
+    }
+
+    // put evaluasi
+    public function update_evaluasi($id, Request $request)
+    {   
+        $daftark_id = session('daftark_id');
+        $daftark = Daftark::find($daftark_id);
+
+        $evaluasi = Evaluasi::find($id);
+        $evaluasi->update($request->except(['_token', 'submit']));
+        return redirect('/karyawan/'. $daftark->id );
+    }
+
+    // hapus keahlian
+    public function destroy_evaluasi($id){
+        $daftark_id = session('daftark_id');
+        $daftark = Daftark::find($daftark_id);
+
+        $evaluasi = Evaluasi::find($id);
+        $evaluasi->delete();
+        return redirect('/karyawan/'. $daftark->id);
+    }
 
     // ------------------------------------------------------------------------------------------------
 
@@ -252,7 +410,7 @@ class DaftarkController extends Controller
         $daftark = Daftark::find($id);
     
         if ($daftark) {
-            // Buat objek Jenjangkarir baru
+            // Buat objek Keahlian baru
             $keahllian = new Keahlian([
                 'jenis_keahlian' => $request->jenis_keahlian,
                 'tingkat_keahlian' => $request->tingkat_keahlian,

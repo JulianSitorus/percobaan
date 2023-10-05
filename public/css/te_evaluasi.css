@@ -203,7 +203,12 @@ html, body{
 .empat2 .simpan:hover{
     background-color: #18b84e;
 }
+.empat2 .display_batal{
+    display: flex;
+    margin: -40px 10px 15px 130px;
+}
 .empat2 .batal{
+    text-decoration: none;
     padding: 5px 30px;
     border: none;
     border-radius: 3px;

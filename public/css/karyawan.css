@@ -373,7 +373,13 @@ table .j_skor{
 table .j_skor_a{
     width: 8%;
 }
-
+/* evaluasi */
+table .tgl_eva{
+    width: 5px;
+}
+table .hsl_kine{
+    width: 5px;
+}
 /* tabel keahlian */
 table .tingkat_keahlian{
     padding-left: 300px;
@@ -394,6 +400,9 @@ table .lokasi{
 }
 table .aksi{
     width: 7%;
+}
+table .aksi1{
+    width: 5%;
 }
 /* ------ */
 

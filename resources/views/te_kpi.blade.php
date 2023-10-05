@@ -50,10 +50,6 @@
 
     <div class ="tiga">
         <h3>Karyawan > </h3>
-        <div class="search-box">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" placeholder="Search...">
-        </div> 
     </div>
 
     <div class ="empat">
@@ -66,7 +62,6 @@
             <label for="tanggal_dibuat">KPI Disetujui Bersama</label><input id="tanggal_dibuat" type="date" name="tanggal_dibuat">
             <label for="tanggal_mulai">Periode Pelaksanaan</label><input id="tanggal_mulai" type="date" name="tanggal_mulai"> - <input id="tanggal_berakhir" type="date" name="tanggal_berakhir"><br>
             <label for="deskripsi_kpi">Deskripsi KPI</label>
-            <!-- <input id="deskripsi_kpi" type="text" name="deskripsi_kpi"> -->
             <textarea id="deskripsi_kpi" type="komentar"></textarea>
             
             <br><br>
@@ -113,80 +108,37 @@
                     <th class="j_skor">Skor</th>
                     <th class="j_skor_a">Skor Akhir</th>
                 </tr>
+                @for ($i = 0; $i < 5; $i++)
                 <tr>
-                    <td><textarea id="area" type="komentar">Rekrutment</textarea></td>
+                    <td><textarea id="area" type="komentar" >Rekrutment</textarea></td>
                     <td><textarea id="kpi" type="komentar">% jumlah kebutuhan karyawan baru yg dapat dipenuhi dengan tepat waktu (< 45 hari )</textarea></td>
-                    <td class="background"><input id="bobot" type="text" value="15%"></td>
-                    <td class="background"><input id="target" type="text" value="100%"></td>
-                    <td class="background"><input id="real" type="text" value="90%"></td>
-                    <td class="background"><input id="skor" type="text" value="0,90"></td>
-                    <td class="background"><input id="skor_a" type="text" value="14"></td>
+                    <td class="background"><input id="bobot_{{ $i }}" class="bobot-input"></td>
+                    <td class="background"><input id="target"></td>
+                    <td class="background"><input id="real"></td>
+                    <td class="background"><input id="skor"></td>
+                    <td class="background"><input id="skor_a"></td>
                 </tr>
+                @endfor
+            </table>
+                
+            <table class="tabel_total_kpi">
                 <tr>
-                    <td><textarea id="area" type="komentar"></textarea></td>
-                    <td><textarea id="kpi" type="komentar">Rata-rata score evaluasi karyawan baru setelah bekerja selama 3 bulan</textarea></td>
-                    <td class="background"><input id="bobot" type="text" value="20%"></td>
-                    <td class="background"><input id="target" type="text" value="80"></td>
-                    <td class="background"><input id="real" type="text" value="82"></td>
-                    <td class="background"><input id="skor" type="text" value="1,03"></td>
-                    <td class="background"><input id="skor_a" type="text" value="21"></td>
-                </tr>
-                <tr>
-                    <td><textarea id="area" type="komentar">Performance Management</textarea></td>
-                    <td><textarea id="kpi" type="komentar">% jumlah karyawan level supervisor keatas yang sudah menyusun KPI individu</textarea></td>
-                    <td class="background"><input id="bobot" type="text" value="10%"></td>
-                    <td class="background"><input id="target" type="text" value="90%"></td>
-                    <td class="background"><input id="real" type="text" value="100%"></td>
-                    <td class="background"><input id="skor" type="text" value="1,11"></td>
-                    <td class="background"><input id="skor_a" type="text" value="11"></td>
-                </tr>
-                <tr>
-                    <td><textarea id="area" type="komentar">Training&Development</textarea></td>
-                    <td><textarea id="kpi" type="komentar">Jumlah training per karyawan( per kapita ) per tahun</textarea></td>
-                    <td class="background"><input id="bobot" type="text" value="10%"></td>
-                    <td class="background"><input id="target" type="text" value="30 jam"></td>
-                    <td class="background"><input id="real" type="text" value="28 jam"></td>
-                    <td class="background"><input id="skor" type="text" value="0,93"></td>
-                    <td class="background"><input id="skor_a" type="text" value="9"></td>
-                </tr>
-                <tr>
-                    <td><textarea id="area" type="komentar">Employee retention and Productivity</textarea></td>
-                    <td><textarea id="kpi" type="komentar">Great employee turn over ( great employee yang dimaksud adalah karyawan “Star”)</textarea></td>
-                    <td class="background"><input id="bobot" type="text" value="10%"></td>
-                    <td class="background"><input id="target" type="text" value="Mak 1%"></td>
-                    <td class="background"><input id="real" type="text" value="1,50%"></td>
-                    <td class="background"><input id="skor" type="text" value="0,67"></td>
-                    <td class="background"><input id="skor_a" type="text" value="7"></td>
-                </tr>
-                <tr>
-                    <td><textarea id="area" type="komentar"></textarea></td>
-                    <td><textarea id="kpi" type="komentar">Revenue per employee</textarea></td>
-                    <td class="background"><input id="bobot" type="text" value="10%"></td>
-                    <td class="background"><input id="target" type="text" value="2 M/ karyawan"></td>
-                    <td class="background"><input id="real" type="text" value="2.2M/karyawan"></td>
-                    <td class="background"><input id="skor" type="text" value="1,10"></td>
-                    <td class="background"><input id="skor_a" type="text" value="12"></td>
-                </tr>
-                <tr>
-                    <td colspan="2">
+                    <td class="hijau">
                         <div class="total" ><b>Total</b></div>
                     </td>
-                    <td class="background"><input id="bobot" type="text"></td>
-                    <td  class="background" colspan="3">
+
+                    <td class="background"><input class="total-bobot" id="total-bobot" readonly></td>
+
+                    <td class="background1">
                         <div class="total" ><b></b></div>
                     </td>
-                    <!-- <td><input id="bobot" type="text"></td>
-                    <td><input id="bobot" type="text"></td>
-                    <td><input id="bobot" type="text"></td> -->
-                    <td class="background"><input id="bobot" type="text"></td>
-                </tr>
-            </table>
-            <button class="tambah"><i class="fas fa-plus"><span> Tambah Baris</span></i></button>
 
-            <!-- <a href="coba">
-                    <i class="fas fa-id-card">
-                        <span class="menu">&emsp;Karyawan</span>
-                    </i></a> -->
+                    <td class="background"><input id="skor_a"></td>
+                </tr>
+                
+            </table>
+
+            <button class="tambah" id="tambah-baris"><i class="fas fa-plus"><span> Tambah Baris</span></i></button>
 
             <div class="catatan">
                 <p class="judul2">*Catatan</p>
@@ -200,5 +152,99 @@
         </div>
     </div>
     
+    <script>
+    // Ambil tombol "tambah baris" dan tabel
+    var tombolTambahBaris = document.getElementById("tambah-baris");
+    var tabel = document.querySelector(".tabel_kpi");
+
+    // Hitung jumlah baris saat ini
+    var jumlahBaris = 5;
+
+    // Tambahkan event listener untuk tombol "tambah baris"
+    tombolTambahBaris.addEventListener("click", function() {
+        // Buat elemen <tr> baru
+        var newRow = document.createElement("tr");
+
+        // Isi elemen <td> dalam baris baru dengan elemen textarea untuk kolom pertama dan kedua
+        for (var i = 0; i < 7; i++) {
+            var newCell = document.createElement("td");
+            var newElement;
+
+            if (i < 2) {
+                newElement = document.createElement("textarea");
+            } else {
+                newElement = document.createElement("input");
+                newCell.classList.add("background");
+            }
+            
+            // Tetapkan ID CSS ke elemen <td>
+            newCell.id = "css-id-" + jumlahBaris + "-" + i;
+
+            newCell.appendChild(newElement);
+            newRow.appendChild(newCell);
+        }
+
+        // Tambahkan baris baru ke dalam tabel
+        tabel.appendChild(newRow);
+
+        // Tambahkan 1 ke jumlah baris
+        jumlahBaris++;
+    });
+
+    // ===============================================================================================================
+
+    // Ambil semua elemen input dengan class "bobot-input"
+    var inputBobotList = document.querySelectorAll(".bobot-input");
+
+    // Tambahkan event listener untuk memantau perubahan input
+    inputBobotList.forEach(function(inputBobot) {
+        inputBobot.addEventListener("input", function() {
+            // Ambil nilai yang dimasukkan oleh pengguna
+            var inputValue = inputBobot.value;
+            
+            // Hapus semua karakter "%" dari nilai yang dimasukkan
+            var cleanedValue = inputValue.replace("%", "");
+            
+            // Pastikan nilainya adalah angka (gunakan regular expression)
+            if (/^\d+$/.test(cleanedValue)) {
+                // Tambahkan tanda "%" pada ujung kanan nilai yang dimasukkan
+                inputBobot.value = cleanedValue + "%";
+            } else {
+                // Jika bukan angka, tampilkan pesan kesalahan atau lakukan tindakan lain sesuai kebutuhan
+                inputBobot.value = "";
+            }
+        });
+    });
+
+    // ===============================================================================================================
+
+    // Ambil semua elemen input dengan class "bobot-input"
+    var inputBobotList = document.querySelectorAll(".bobot-input");
+
+    // Ambil elemen input yang menampilkan total bobot
+    var inputTotalBobot = document.getElementById("total-bobot");
+
+    // Tambahkan event listener untuk memantau perubahan input
+    inputBobotList.forEach(function(inputBobot) {
+        inputBobot.addEventListener("input", function() {
+            // Ambil nilai yang dimasukkan oleh pengguna dari semua input bobot
+            var totalBobot = 0;
+            inputBobotList.forEach(function(input) {
+                var inputValue = input.value.replace("%", ""); // Hapus tanda "%"
+                if (!isNaN(inputValue) && inputValue !== "") {
+                    totalBobot += parseFloat(inputValue);
+                }
+            });
+
+            // Tampilkan total bobot dalam elemen input total bobot
+            inputTotalBobot.value = totalBobot.toFixed(2).replace(/\.0{2}$/, "")+ "%";
+        });
+    });
+
+</script>
+
+
+
+
 </body>
 </html>

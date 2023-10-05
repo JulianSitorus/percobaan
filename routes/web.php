@@ -35,6 +35,24 @@ Route::put('/karyawan/{id}',[DaftarkController::class,'update'])->name('biodata.
 Route::delete('/{id}',[DaftarkController::class,'destroy']);
 Route::delete('/karyawan/{id}', [DaftarkController::class, 'destroy'])->name('daftark.destroy');
 
+// -------------------------------------------------KPI---------------------------------------------------------
+
+// ------------------------------------------------EVALUASI-----------------------------------------------------
+
+// 1-n karyawan dgn evaluasi
+Route::get('/evaluasi',[DaftarkController::class,'evaluasi']);
+
+// halaman membuat tambah data evaluasi 
+Route::get('/karyawan/{id}/tambah_evaluasi',[DaftarkController::class,'create_evaluasi']);
+// menampilkan data redirect ke halaman karyawan
+Route::post('/store_evaluasi/{id}',[DaftarkController::class,'store_evaluasi']);
+// halaman edit evaluasi
+Route::get('/karyawan/{id}/edit_evaluasi',[DaftarkController::class, 'edit_evaluasi']);
+// untuk put evaluasi
+Route::put('/evaluasi/{id}',[DaftarkController::class, 'update_evaluasi'])->name('evaluasi.update');
+// untuk menghapus salah satu data evaluasi
+Route::delete('/evaluasi/{id}', [DaftarkController::class, 'destroy_evaluasi'])->name('evaluasi.destroy');
+
 // -------------------------------------------JENJANG KARIR-----------------------------------------------------
 
 // 1-n karyawan dgn jenjang karir
@@ -106,10 +124,10 @@ Route::get('/', function () {
 Route::get('/kpi', function () {
     return view('kpi');
 });
-Route::get('/evaluasi', function () {
-    return view('evaluasi');
-});
-// Route::get('/jenjangkarir', function () {
+// Route::get('/evaluasi', function () {
+//     return view('evaluasi');
+// });
+// // Route::get('/jenjangkarir', function () {
 //     return view('jenjangkarir');
 // });
 // Route::get('/keahlian', function () {
@@ -131,8 +149,8 @@ Route::get('/evaluasi', function () {
 Route::get('/te_kpi', function () {
     return view('te_kpi');
 });
-Route::get('/te_evaluasi', function () {
-    return view('te_evaluasi');
+Route::get('/tambah_evaluasi', function () {
+    return view('tambah_evaluasi');
 });
 // Route::get('/te_keahlian', function () {
 //     return view('te_keahlian');

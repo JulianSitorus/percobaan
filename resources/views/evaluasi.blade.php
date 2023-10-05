@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/evaluasi.css">
     <link rel="stylesheet" href="css/fontawesome/css/all.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>var totalKeseluruhan2 = localStorage.getItem("totalKeseluruhan2");</script>
+
     <title>Document</title>
 </head>
 
@@ -49,10 +52,14 @@
     </div>
 
     <div class ="tiga">
-        <h3>Evaluasi > </h3>
+        <h3>Evaluasi</h3>
         <div class="search-box">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" placeholder="Search...">
+            <form action="" method="get">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="search" placeholder="Search...">
+                    <button class="input-group-text">&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-magnifying-glass"></i></button>
+                </div>
+            </form>
         </div> 
     </div>
 
@@ -75,220 +82,80 @@
                     <th class="rekomendasi">Rekomendasi</th>
                     <th class="kanan">Aksi</th>
                 </tr>
+                @foreach($daftark as $key => $dk)
                 <tr>
-                    <td align="center">1</td>
-                    <td align="center"><img src='images/karyawan.jpg'></td>
-                    <td class="desk">Ponari Alexander Charles <br> Keuangan - Staff</td>
-                    <td>19/05/2022</td>
-                    <td align="center">46</td>
-                    <td align="center">23</td>
-                    <td>Standard</td>
-                    <td>Kontrak diperpanjang</td>
-                    <td class ="desk">Mampu mampu menyelesaikan tugas sebelum deadline</td>
-                    <td class ="desk">Tidak menguasai ms excel</td>
-                    <td class ="desk">disarankan untuk melakukan pelatihan excel</td>
-                    <td align="center">
-                        <a href="te_evaluasi"><button class="detail"><i class="fa fa-pen-to-square fa-sm"></i></button></a>
-                        <a href="te_evaluasi"><button class="tambah"><i class="fa-solid fa-plus"></i></button></a>
+                    <td align="center">{{$daftark-> firstItem() + $key}}</td>
+                    <td align="center"><img src="{{ asset('fotokaryawan/'.$dk->foto) }}" style="width: 60px; max-height: 60px" alt=""></td>
+                    <td class="desk">{{$dk->nama_karyawan}}<br>
+                        @if ($dk->jenjangkarir->isNotEmpty())
+                            {{$dk->jenjangkarir->last()->posisi}} - {{$dk->jenjangkarir->last()->departemen}}
+                        @endif
                     </td>
+                    <td align="center">
+                        @if ($dk->evaluasi->isNotEmpty())
+                            {{ \Carbon\Carbon::parse($dk->evaluasi->last()->tanggal_evaluasi)->format('d/m/Y') }}
+                        @endif
+                    </td>
+
+                    <td align="center">
+                        @if ($dk->evaluasi->isNotEmpty())
+                            {{ $dk->evaluasi->last()->total_keseluruhan }}
+                        @endif
+                    </td>
+                    
+                    <td align="center"> 
+                        @if ($dk->evaluasi->isNotEmpty())
+                            {{ $dk->evaluasi->last()->total_keseluruhan2 }}
+                        @endif
+                    </td>     
+                    <td>
+                        @if ($dk->evaluasi->isNotEmpty())
+                            {{ $dk->evaluasi->last()->kerja }}
+                        @endif
+                    </td>
+                    <td>@if ($dk->evaluasi->isNotEmpty())
+                            {{ $dk->evaluasi->last()->rekomendasi }}
+                        @endif
+                    </td>
+                    <td class ="desk">
+                        @if ($dk->evaluasi->isNotEmpty())
+                            {{ $dk->evaluasi->last()->komentar_kekuatan }}
+                        @endif
+                    </td>
+                    <td class ="desk">
+                        @if ($dk->evaluasi->isNotEmpty())
+                            {{ $dk->evaluasi->last()->komentar_kelemahan }}
+                        @endif
+                    </td>
+                    <td class ="desk">
+                        @if ($dk->evaluasi->isNotEmpty())
+                            {{ $dk->evaluasi->last()->komentar_pelatihan }}
+                        @endif
+                    </td>
+                    <td align="center">
+                        @if ($dk->evaluasi->isNotEmpty())
+                        <a href="karyawan/{{$dk->evaluasi->last()->id}}/edit_evaluasi"><button class="detail"><i class="fa fa-pen-to-square fa-sm"></i></button></a>
+                        @endif
+                        <a href="karyawan/{{$dk->id}}/tambah_evaluasi"><button class="tambah"><i class="fa-solid fa-plus"></i></button></a>
+                    </td>
+                
                 </tr>
-                <tr>
-                    <td align="center">2</td>
-                    <td align="center"><img src='images/karyawan.jpg'></td>
-                    <td class="desk">Ponari Alexander Charles <br> Keuangan - Staff</td>
-                    <td>19/05/2022</td>
-                    <td align="center">46</td>
-                    <td align="center">23</td>
-                    <td>Dibawah standard</td>
-                    <td>Dipromosi untuk level lebih tinggi</td>
-                    <td class ="desk">Mampu mampu menyelesaikan tugas sebelum deadline</td>
-                    <td class ="desk">Tidak menguasai ms excel</td>
-                    <td class ="desk">disarankan untuk melakukan pelatihan excel</td>
-                    <td align="center">
-                        <a href="te_evaluasi"><button class="detail"><i class="fa fa-pen-to-square fa-sm"></i></button></a>
-                        <a href="te_evaluasi"><button class="tambah"><i class="fa-solid fa-plus"></i></button></a>
-                    </td>
-                </tr> 
-                <tr>
-                    <td align="center">3</td>
-                    <td align="center"><img src='images/karyawan.jpg'></td>
-                    <td class="desk">Ponari Charles <br> Keuangan - Staff</td>
-                    <td>19/05/2022</td>
-                    <td align="center">46</td>
-                    <td align="center">23</td>
-                    <td>Standard</td>
-                    <td>Kontrak diperpanjang</td>
-                    <td class ="desk">Mampu mampu menyelesaikan tugas sebelum deadline</td>
-                    <td class ="desk">Tidak menguasai ms excel</td>
-                    <td class ="desk">disarankan untuk melakukan pelatihan excel</td>
-                    <td align="center">
-                        <a href="te_evaluasi"><button class="detail"><i class="fa fa-pen-to-square fa-sm"></i></button></a>
-                        <a href="te_evaluasi"><button class="tambah"><i class="fa-solid fa-plus"></i></button></a>
-                    </td>
-                </tr> 
-                <tr>
-                    <td align="center">4</td>
-                    <td align="center"><img src='images/karyawan.jpg'></td>
-                    <td class="desk">Ponari Alexander Charles <br> Keuangan - Staff</td>
-                    <td>19/05/2022</td>
-                    <td align="center">46</td>
-                    <td align="center">23</td>
-                    <td>Dibawah standard</td>
-                    <td>Kontrak tidak diperpanjang</td>
-                    <td class ="desk">Mampu mampu menyelesaikan tugas sebelum deadline</td>
-                    <td class ="desk">Tidak menguasai ms excel</td>
-                    <td class ="desk">disarankan untuk melakukan pelatihan excel</td>
-                    <td align="center">
-                        <a href="te_evaluasi"><button class="detail"><i class="fa fa-pen-to-square fa-sm"></i></button></a>
-                        <a href="te_evaluasi"><button class="tambah"><i class="fa-solid fa-plus"></i></button></a>
-                    </td>
-                </tr> 
-                <tr>
-                    <td align="center">5</td>
-                    <td align="center"><img src='images/karyawan.jpg'></td>
-                    <td class="desk">Ponari Alexander Charles <br> Keuangan - Staff</td>
-                    <td>19/05/2022</td>
-                    <td align="center">46</td>
-                    <td align="center">23</td>
-                    <td>Dibawah standard</td>
-                    <td>Kontrak tidak diperpanjang</td>
-                    <td class ="desk">Mampu mampu menyelesaikan tugas sebelum deadline</td>
-                    <td class ="desk">Tidak menguasai ms excel</td>
-                    <td class ="desk">disarankan untuk melakukan pelatihan excel</td>
-                    <td align="center">
-                        <a href="te_evaluasi"><button class="detail"><i class="fa fa-pen-to-square fa-sm"></i></button></a>
-                        <a href="te_evaluasi"><button class="tambah"><i class="fa-solid fa-plus"></i></button></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td align="center">6</td>
-                    <td align="center"><img src='images/karyawan.jpg'></td>
-                    <td class="desk">Ponari Alexander Charles <br> Keuangan - Staff</td>
-                    <td>19/05/2022</td>
-                    <td align="center">46</td>
-                    <td align="center">23</td>
-                    <td>Melebihi standard</td>
-                    <td>Dipromosi untuk level lebih tinggi</td>
-                    <td class ="desk">Mampu mampu menyelesaikan tugas sebelum deadline</td>
-                    <td class ="desk">Tidak menguasai ms excel</td>
-                    <td class ="desk">disarankan untuk melakukan pelatihan excel</td>
-                    <td align="center">
-                        <a href="te_evaluasi"><button class="detail"><i class="fa fa-pen-to-square fa-sm"></i></button></a>
-                        <a href="te_evaluasi"><button class="tambah"><i class="fa-solid fa-plus"></i></button></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td align="center">7</td>
-                    <td align="center"><img src='images/karyawan.jpg'></td>
-                    <td class="desk">Ponari Alexander Charles <br> Keuangan - Staff</td>
-                    <td>19/05/2022</td>
-                    <td align="center">46</td>
-                    <td align="center">23</td>
-                    <td>Standard</td>
-                    <td>Kontrak diperpanjang</td>
-                    <td class ="desk">Mampu mampu menyelesaikan tugas sebelum deadline</td>
-                    <td class ="desk">Tidak menguasai ms excel</td>
-                    <td class ="desk">disarankan untuk melakukan pelatihan excel</td>
-                    <td align="center">
-                        <a href="te_evaluasi"><button class="detail"><i class="fa fa-pen-to-square fa-sm"></i></button></a>
-                        <a href="te_evaluasi"><button class="tambah"><i class="fa-solid fa-plus"></i></button></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td align="center">8</td>
-                    <td align="center"><img src='images/karyawan.jpg'></td>
-                    <td class="desk">Ponari Alexander Charles <br> Keuangan - Staff</td>
-                    <td>19/05/2022</td>
-                    <td align="center">46</td>
-                    <td align="center">23</td>
-                    <td>Standard</td>
-                    <td>Kontrak diperpanjang</td>
-                    <td class ="desk">Mampu mampu menyelesaikan tugas sebelum deadline</td>
-                    <td class ="desk">Tidak menguasai ms excel</td>
-                    <td class ="desk">disarankan untuk melakukan pelatihan excel</td>
-                    <td align="center">
-                        <a href="te_evaluasi"><button class="detail"><i class="fa fa-pen-to-square fa-sm"></i></button></a>
-                        <a href="te_evaluasi"><button class="tambah"><i class="fa-solid fa-plus"></i></button></a>
-                    </td>
-                </tr> 
-                <tr>
-                    <td align="center">9</td>
-                    <td align="center"><img src='images/karyawan.jpg'></td>
-                    <td class="desk">Ponari Alexander Charles <br> Keuangan - Staff</td>
-                    <td>19/05/2022</td>
-                    <td align="center">46</td>
-                    <td align="center">23</td>
-                    <td>Standard</td>
-                    <td>Kontrak diperpanjang</td>
-                    <td class ="desk">Mampu mampu menyelesaikan tugas sebelum deadline</td>
-                    <td class ="desk">Tidak menguasai ms excel</td>
-                    <td class ="desk">disarankan untuk melakukan pelatihan excel</td>
-                    <td align="center">
-                        <a href="te_evaluasi"><button class="detail"><i class="fa fa-pen-to-square fa-sm"></i></button></a>
-                        <a href="te_evaluasi"><button class="tambah"><i class="fa-solid fa-plus"></i></button></a>
-                    </td>
-                </tr> 
-                <tr>
-                    <td align="center">10</td>
-                    <td align="center"><img src='images/karyawan.jpg'></td>
-                    <td class="desk">Ponari Alexander Charles <br> Keuangan - Staff</td>
-                    <td>19/05/2022</td>
-                    <td align="center">46</td>
-                    <td align="center">23</td>
-                    <td>Standard</td>
-                    <td>Kontrak diperpanjang</td>
-                    <td class ="desk">Mampu mampu menyelesaikan tugas sebelum deadline</td>
-                    <td class ="desk">Tidak menguasai ms excel</td>
-                    <td class ="desk">disarankan untuk melakukan pelatihan excel</td>
-                    <td align="center">
-                        <a href="te_evaluasi"><button class="detail"><i class="fa fa-pen-to-square fa-sm"></i></button></a>
-                        <a href="te_evaluasi"><button class="tambah"><i class="fa-solid fa-plus"></i></button></a>
-                    </td>
-                </tr> 
-                <tr>
-                    <td align="center">11</td>
-                    <td align="center"><img src='images/karyawan.jpg'></td>
-                    <td class="desk">Ponari Alexander Charles <br> Keuangan - Staff</td>
-                    <td>19/05/2022</td>
-                    <td align="center">46</td>
-                    <td align="center">23</td>
-                    <td>Standard</td>
-                    <td>Kontrak diperpanjang</td>
-                    <td class ="desk">Mampu mampu menyelesaikan tugas sebelum deadline</td>
-                    <td class ="desk">Tidak menguasai ms excel</td>
-                    <td class ="desk">disarankan untuk melakukan pelatihan excel</td>
-                    <td align="center">
-                        <a href="te_evaluasi"><button class="detail"><i class="fa fa-pen-to-square fa-sm"></i></button></a>
-                        <a href="te_evaluasi"><button class="tambah"><i class="fa-solid fa-plus"></i></button></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td align="center">12</td>
-                    <td align="center"><img src='images/karyawan.jpg'></td>
-                    <td class="desk">Ponari Alexander Charles <br> Keuangan - Staff</td>
-                    <td>19/05/2022</td>
-                    <td align="center">46</td>
-                    <td align="center">23</td>
-                    <td>Standard</td>
-                    <td>Kontrak diperpanjang</td>
-                    <td class ="desk">Mampu mampu menyelesaikan tugas sebelum deadline</td>
-                    <td class ="desk">Tidak menguasai ms excel</td>
-                    <td class ="desk">disarankan untuk melakukan pelatihan excel</td>
-                    <td align="center">
-                        <a href="te_evaluasi"><button class="detail"><i class="fa fa-pen-to-square fa-sm"></i></button></a>
-                        <a href="te_evaluasi"><button class="tambah"><i class="fa-solid fa-plus"></i></button></a>
-                    </td>
-                </tr>
+                @endforeach
+                
+                
             </div>              
             </table>
         </div>
-        <div class="info_data">
-            <p class="jmlh_data">Tampil 1-12 / 60 data</p>
-            <div class="hlmn">
-                <button id="nomor"><</button><button id="nomor">1</button><button id="nomor">2</button><button id="nomor">3</button><button id="nomor">></button>
-            </div>
+        <p class="jmlh_data">Menampilkan {{ $daftark->firstItem() }} - {{ $daftark->lastItem() }} dari {{ $daftark->total() }} data</p>
+        <div class="hlmn">
+            {{$daftark->withQueryString()->links('pagination::bootstrap-4')}}
         </div>
 
     </div>
+
+    <script>                
+   </script>
+
+
 </body>
 </html>

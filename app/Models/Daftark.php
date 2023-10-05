@@ -12,6 +12,11 @@ class Daftark extends Model
     // protected $fillable = ['nama_karyawan','departemen','unit','posisi','status'];
     protected $guarded=[];
 
+    public function evaluasi()
+    {
+        return $this->hasMany('App\Models\Evaluasi');
+    }
+
     public function jenjangkarir()
     {
         return $this->hasMany('App\Models\Jenjangkarir');

@@ -170,7 +170,7 @@
                     <td>KPI sebagai senior di HRD</td>
                     <td>100%</td>
                     <td>94</td>
-                    <td align="center">
+                    <td align="center" class="button-container">
                         <a href="te_kpi"><button class="detail"><i class="fa fa-pen-to-square fa-sm" ></i></button></a>
                         <button class="hapus"><i class="fa fa-trash-can fa-sm"></i></button>
                     </td>
@@ -222,7 +222,7 @@
                     <td>KPI sebagai staff junior di HRD</td>
                     <td>100%</td>
                     <td>95</td>
-                    <td align="center">
+                    <td align="center" class="button-container">
                         <a href="te_kpi"><button class="detail"><i class="fa fa-pen-to-square fa-sm" ></i></button></a>
                         <button class="hapus"><i class="fa fa-trash-can fa-sm"></i></button>
                     </td>
@@ -234,87 +234,37 @@
             <div class="judul2"><i class="fas fa-clipboard-list fa-xl"></i><span>   Evaluasi</span></div>
             <table>
                 <tr>
-                    <th>Departemen</th>
-                    <th>Posisi</th>
-                    <th>Tanggal Evaluasi</th>
-                    <th colspan="2">Hasil Kinerja</th>
+                    <th class="tgl_eva">Tanggal Evaluasi</th>
+                    <th>Kinerja</th>
+                    <th>Perilaku</th>
+                    <th class="hsl_kine" colspan="2">Hasil Kinerja</th>
                     <th>Kekuatan</th>
                     <th>Kekurangan</th>
                     <th>Rekomendasi Pelatihan</th>
                     <th class="aksi">Aksi</th>
                 </tr>
+                @foreach($daftark->evaluasi->reverse() as $dke)
                 <tr>
-                    <td>Keuangan</td>
-                    <td>Staff</td>
-                    <td>19/05/2022</td>
-                    <td>Standard</td>
-                    <td>Kontrak Diperpanjang</td>
-                    <td>Mampu menyelesaikan tugas sebelum deadline</td>
-                    <td>Tidak menguasai ms excel</td>
-                    <td>disarankan untuk melakukan pelatihan excel</td>
-                    <td align="center">
-                        <a href="te_evaluasi"><button class="detail"><i class="fa fa-pen-to-square fa-sm" ></i></button></a>
-                        <button class="hapus"><i class="fa fa-trash-can fa-sm"></i></button>
+                    <td align="center">{{ \Carbon\Carbon::parse($dke->tanggal_evaluasi)->format('d/m/Y') }}</td>
+                    <td align="center">{{ $dke->total_keseluruhan }}</td>
+                    <td align="center">{{ $dke->total_keseluruhan2 }}</td>
+                    <td>{{$dke->kerja}}</td>
+                    <td>{{$dke->rekomendasi}}</td>
+                    <td>{{$dke->komentar_kekuatan}}</td>
+                    <td>{{$dke->komentar_kelemahan}}</td>
+                    <td>{{$dke->komentar_pelatihan}}</td>
+                    <td align="center" class="button-container">
+                        <a href="/karyawan/{{$dke->id}}/edit_evaluasi"><button class="detail"><i class="fa fa-pen-to-square fa-sm" ></i></button></a>
+                        <form action="{{ route('evaluasi.destroy', ['id' => $dke->id]) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button class="hapus" type="submit"><i class="fa fa-trash-can fa-sm"></i></button>
+                        </form>
                     </td>
                 </tr>
-                <tr>
-                    <td>Keuangan</td>
-                    <td>Staff</td>
-                    <td>19/05/2022</td>
-                    <td>Standard</td>
-                    <td>Kontrak Diperpanjang</td>
-                    <td>Mampu menyelesaikan tugas sebelum deadline</td>
-                    <td>Tidak menguasai ms excel</td>
-                    <td>disarankan untuk melakukan pelatihan excel</td>
-                    <td align="center">
-                        <a href="te_evaluasi"><button class="detail"><i class="fa fa-pen-to-square fa-sm" ></i></button></a>
-                        <button class="hapus"><i class="fa fa-trash-can fa-sm"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Keuangan</td>
-                    <td>Staff</td>
-                    <td>19/05/2022</td>
-                    <td>Standard</td>
-                    <td>Kontrak Diperpanjang</td>
-                    <td>Mampu menyelesaikan tugas sebelum deadline</td>
-                    <td>Tidak menguasai ms excel</td>
-                    <td>disarankan untuk melakukan pelatihan excel</td>
-                    <td align="center">
-                        <a href="te_evaluasi"><button class="detail"><i class="fa fa-pen-to-square fa-sm" ></i></button></a>
-                        <button class="hapus"><i class="fa fa-trash-can fa-sm"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Keuangan</td>
-                    <td>Staff</td>
-                    <td>19/05/2022</td>
-                    <td>Standard</td>
-                    <td>Kontrak Diperpanjang</td>
-                    <td>Mampu menyelesaikan tugas sebelum deadline</td>
-                    <td>Tidak menguasai ms excel</td>
-                    <td>disarankan untuk melakukan pelatihan excel</td>
-                    <td align="center">
-                        <a href="te_evaluasi"><button class="detail"><i class="fa fa-pen-to-square fa-sm" ></i></button></a>
-                        <button class="hapus"><i class="fa fa-trash-can fa-sm"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Keuangan</td>
-                    <td>Staff</td>
-                    <td>19/05/2022</td>
-                    <td>Standard</td>
-                    <td>Kontrak Diperpanjang</td>
-                    <td>Mampu menyelesaikan tugas sebelum deadline</td>
-                    <td>Tidak menguasai ms excel</td>
-                    <td>disarankan untuk melakukan pelatihan excel</td>
-                    <td align="center">
-                        <a href="te_evaluasi"><button class="detail"><i class="fa fa-pen-to-square fa-sm" ></i></button></a>
-                        <button class="hapus"><i class="fa fa-trash-can fa-sm"></i></button>
-                    </td>
-                </tr>
+                @endforeach
             </table>
-            <a href="te_evaluasi"><button class="tambah"><i class="fa-solid fa-plus"></i> Tambah Data</button></a><br>
+            <a href="{{$daftark->id}}/tambah_evaluasi"><button class="tambah"><i class="fa-solid fa-plus"></i> Tambah Data</button></a><br>
 
             <!-- Keahlian -->
             <div class="judul2"><i class="fas fa-kitchen-set fa-xl"></i><span>   Keahlian</span></div>
@@ -354,7 +304,7 @@
                     <th class="waktu">Mulai</th>
                     <th class="waktu">Selesai</th>
                     <th class="lokasi">Lokasi</th>
-                    <th class="aksi">Aksi</th>
+                    <th class="aksi1">Aksi</th>
                 </tr>
                 @foreach($daftark->pelatihan->reverse() as $dkp)
                 <tr>
