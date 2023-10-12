@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('kpi', function (Blueprint $table) {
             $table->id();
+            $table->char('daftark_id'); 
             
             $table->string('supervisor');
             $table->string('jabatan_supervisor');
@@ -22,11 +23,12 @@ return new class extends Migration
             $table->text('deskripsi_kpi');
 
             $table->text('area')->nullable();
-            $table->text('key')->nullable();
-            $table->integer('bobot');
-            $table->integer('target');
-            $table->integer('realisasi');
+            $table->text('ket')->nullable();
+            $table->string('bobot')->nullable();
+            $table->string('target')->nullable();
+            $table->integer('realisasi')->nullable();
             $table->integer('skor')->nullable();
+            $table->enum('jenis_perhitungan',['skor-1','skor-2']);
             $table->integer('skor_akhir')->nullable();
 
             $table->integer('total_bobot')->nullable();

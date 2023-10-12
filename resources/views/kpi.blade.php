@@ -51,8 +51,12 @@
     <div class ="tiga">
         <h3>KPI > </h3>
         <div class="search-box">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" placeholder="Search...">
+            <form action="" method="get">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="search" placeholder="Search...">
+                    <button class="input-group-text">&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-magnifying-glass"></i></button>
+                </div>
+            </form>
         </div> 
     </div>
 
@@ -75,7 +79,64 @@
                     <th class="j_skor_a">Skor Akhir</th>
                     <th class="kanan">Aksi</th>
                 </tr>
-                <tr>
+                @foreach($daftark as $key => $dk)
+                    <tr>
+                        <td align="center">{{$daftark-> firstItem() + $key}}</td>
+                        <td align="center"><img src="{{ asset('fotokaryawan/'.$dk->foto) }}" style="width: 60px; max-height: 60px" alt=""></td>
+                        <td>{{$dk->nama_karyawan}} </td>
+                        <td>
+                            @if ($dk->jenjangkarir->isNotEmpty())
+                                {{$dk->jenjangkarir->last()->posisi}} <br> {{$dk->jenjangkarir->last()->departemen}}
+                            @endif
+                        </td>
+                        <td>
+                            @if ($dk->kpi->isNotEmpty())
+                                {{$dk->kpi->last()->tanggal_kpi}}
+                            @endif
+                        </td>
+                        <td>
+                            @if ($dk->kpi->isNotEmpty())
+                                {{$dk->kpi->last()->supervisor}}
+                            @endif
+                        </td>
+                        <td>
+                            @if ($dk->kpi->isNotEmpty())
+                                {{ \Carbon\Carbon::parse($dk->kpi->last()->mulai_pelaksanaan)->format('d/m/Y') }} - {{ \Carbon\Carbon::parse($dk->kpi->last()->selesai_pelaksanaan)->format('d/m/Y') }}
+                            @endif
+                        </td>
+                        <td>
+                            @if ($dk->kpi->isNotEmpty())
+                                {{$dk->kpi->last()->deskripsi_kpi}}
+                            @endif
+                        </td>
+                        <td align="center">
+                            @if ($dk->kpi->isNotEmpty())
+                                {{$dk->kpi->last()->total_bobot}}
+                            @endif
+                        </td>
+                        <td align="center">
+                            @if ($dk->kpi->isNotEmpty())
+                                {{$dk->kpi->last()->total_skor_akhir}}
+                            @endif
+                        </td>
+                        <td align="center">
+                            <a href="te_kpi"><button class="detail"><i class="fa fa-pen-to-square fa-sm"></i></button></a>
+                            <a href="te_kpi"><button class="tambah"><i class="fa-solid fa-plus"></i></button></a>
+                        </td>
+                    </tr>
+                @endforeach
+                
+            </table>    
+        </div>
+        <p class="jmlh_data">Menampilkan {{ $daftark->firstItem() }} - {{ $daftark->lastItem() }} dari {{ $daftark->total() }} data</p>
+        <div class="hlmn">
+            {{$daftark->withQueryString()->links('pagination::bootstrap-4')}}
+        </div>
+    </div>
+</body>
+</html>
+
+<!-- <tr>
                     <td align="center">1</td>
                     <td align="center"><img src='images/karyawan.jpg'></td>
                     <td>Ponari Alexander Charles</td>
@@ -90,196 +151,4 @@
                       <a href="te_kpi"><button class="detail"><i class="fa fa-pen-to-square fa-sm"></i></button></a>
                       <a href="te_kpi"><button class="tambah"><i class="fa-solid fa-plus"></i></button></a>
                     </td>
-                </tr>
-                <tr>
-                    <td align="center">2</td>
-                    <td align="center"><img src='images/karyawan.jpg'></td>
-                    <td>Alexis Sanches</td>
-                    <td>Staff Departemen Keuangan</td>
-                    <td>08/08/2017</td>
-                    <td>Bambang Pamungkas S.E</td>
-                    <td>10/08/2017 - 15/11/2018</td>
-                    <td>Memerikas laporan keuangan departemen Keswa</td>
-                    <td align="center">100%</td>
-                    <td align="center">97</td>
-                    <td align="center">
-                      <a href="te_kpi"><button class="detail"><i class="fa fa-pen-to-square fa-sm"></i></button></a>
-                      <a href="te_kpi"><button class="tambah"><i class="fa-solid fa-plus"></i></button></a>
-                    </td>
-                </tr> 
-                <tr>
-                    <td align="center">3</td>
-                    <td align="center"><img src='images/karyawan.jpg'></td>
-                    <td>David Geraldi</td>
-                    <td>Bendahara</td>
-                    <td>08/08/2017</td>
-                    <td>Bambang Pamungkas S.E</td>
-                    <td>10/08/2017 - 15/11/2018</td>
-                    <td>Audit keuangan seluruh departemen Satunama</td>
-                    <td align="center">100%</td>
-                    <td align="center">97</td>
-                    <td align="center">
-                      <a href="te_kpi"><button class="detail"><i class="fa fa-pen-to-square fa-sm"></i></button></a>
-                      <a href="te_kpi"><button class="tambah"><i class="fa-solid fa-plus"></i></button></a>
-                    </td>
-                </tr> 
-                <tr>
-                    <td align="center">4</td>
-                    <td align="center"><img src='images/karyawan.jpg'></td>
-                    <td>Januar Momosuke</td>
-                    <td>Sekretaris RPJM</td>
-                    <td>08/08/2017</td>
-                    <td>Bambang Pamungkas S.E</td>
-                    <td>10/08/2017 - 15/11/2018</td>
-                    <td>Merekap keperluan kantor</td>
-                    <td align="center">100%</td>
-                    <td align="center">97</td>
-                    <td align="center">
-                      <a href="te_kpi"><button class="detail"><i class="fa fa-pen-to-square fa-sm"></i></button></a>
-                      <a href="te_kpi"><button class="tambah"><i class="fa-solid fa-plus"></i></button></a>
-                    </td>
-                </tr> 
-                <tr>
-                    <td align="center">5</td>
-                    <td align="center"><img src='images/karyawan.jpg'></td>
-                    <td>Indah Permata Sari</td>
-                    <td>Kepala Eksekutif Satunama</td>
-                    <td>08/08/2017</td>
-                    <td>-</td>
-                    <td>10/08/2017 - 15/11/2018</td>
-                    <td>Pengawasan pembangunan ruangan baru </td>
-                    <td align="center">100%</td>
-                    <td align="center">97</td>
-                    <td align="center">
-                      <a href="te_kpi"><button class="detail"><i class="fa fa-pen-to-square fa-sm"></i></button></a>
-                      <a href="te_kpi"><button class="tambah"><i class="fa-solid fa-plus"></i></button></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td align="center">6</td>
-                    <td align="center"><img src='images/karyawan.jpg'></td>
-                    <td>Gading Marten</td>
-                    <td>Staff Keswa</td>
-                    <td>08/08/2017</td>
-                    <td>Bambang Pamungkas S.E</td>
-                    <td>10/08/2017 - 15/11/2018</td>
-                    <td>Penanganan dan Pemeliharaan ODGJ</td>
-                    <td align="center">100%</td>
-                    <td align="center">97</td>
-                    <td align="center">
-                      <a href="te_kpi"><button class="detail"><i class="fa fa-pen-to-square fa-sm"></i></button></a>
-                      <a href="te_kpi"><button class="tambah"><i class="fa-solid fa-plus"></i></button></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td align="center">7</td>
-                    <td align="center"><img src='images/karyawan.jpg'></td>
-                    <td>Ponari Alexander Charles</td>
-                    <td>Wakil Departemen HRD</td>
-                    <td>08/08/2017</td>
-                    <td>Bambang Pamungkas S.E</td>
-                    <td>10/08/2017 - 15/11/2018</td>
-                    <td>Audit keuangan dan keperluan departemen HRD</td>
-                    <td align="center">100%</td>
-                    <td align="center">97</td>
-                    <td align="center">
-                      <a href="te_kpi"><button class="detail"><i class="fa fa-pen-to-square fa-sm"></i></button></a>
-                      <a href="te_kpi"><button class="tambah"><i class="fa-solid fa-plus"></i></button></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td align="center">8</td>
-                    <td align="center"><img src='images/karyawan.jpg'></td>
-                    <td>Alexis Sanches</td>
-                    <td>Staff Departemen Keuangan</td>
-                    <td>08/08/2017</td>
-                    <td>Bambang Pamungkas S.E</td>
-                    <td>10/08/2017 - 15/11/2018</td>
-                    <td>Memerikas laporan keuangan departemen Keswa</td>
-                    <td align="center">100%</td>
-                    <td align="center">97</td>
-                    <td align="center">
-                      <a href="te_kpi"><button class="detail"><i class="fa fa-pen-to-square fa-sm"></i></button></a>
-                      <a href="te_kpi"><button class="tambah"><i class="fa-solid fa-plus"></i></button></a>
-                    </td>
-                </tr> 
-                <tr>
-                    <td align="center">9</td>
-                    <td align="center"><img src='images/karyawan.jpg'></td>
-                    <td>David Geraldi</td>
-                    <td>Bendahara</td>
-                    <td>08/08/2017</td>
-                    <td>Bambang Pamungkas S.E</td>
-                    <td>10/08/2017 - 15/11/2018</td>
-                    <td>Audit keuangan seluruh departemen Satunama</td>
-                    <td align="center">100%</td>
-                    <td align="center">97</td>
-                    <td align="center">
-                      <a href="te_kpi"><button class="detail"><i class="fa fa-pen-to-square fa-sm"></i></button></a>
-                      <a href="te_kpi"><button class="tambah"><i class="fa-solid fa-plus"></i></button></a>
-                    </td>
-                </tr> 
-                <tr>
-                    <td align="center">10</td>
-                    <td align="center"><img src='images/karyawan.jpg'></td>
-                    <td>Januar Momosuke</td>
-                    <td>Sekretaris RPJM</td>
-                    <td>08/08/2017</td>
-                    <td>Bambang Pamungkas S.E</td>
-                    <td>10/08/2017 - 15/11/2018</td>
-                    <td>Merekap keperluan kantor</td>
-                    <td align="center">100%</td>
-                    <td align="center">97</td>
-                    <td align="center">
-                      <a href="te_kpi"><button class="detail"><i class="fa fa-pen-to-square fa-sm"></i></button></a>
-                      <a href="te_kpi"><button class="tambah"><i class="fa-solid fa-plus"></i></button></a>
-                    </td>
-                </tr> 
-                <tr>
-                    <td align="center">11</td>
-                    <td align="center"><img src='images/karyawan.jpg'></td>
-                    <td>Indah Permata Sari</td>
-                    <td>Kepala Eksekutif Satunama</td>
-                    <td>08/08/2017</td>
-                    <td>-</td>
-                    <td>10/08/2017 - 15/11/2018</td>
-                    <td>Pengawasan pembangunan ruangan baru </td>
-                    <td align="center">100%</td>
-                    <td align="center">97</td>
-                    <td align="center">
-                      <a href="te_kpi"><button class="detail"><i class="fa fa-pen-to-square fa-sm"></i></button></a>
-                      <a href="te_kpi"><button class="tambah"><i class="fa-solid fa-plus"></i></button></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td align="center">12</td>
-                    <td align="center"><img src='images/karyawan.jpg'></td>
-                    <td>Gading Marten</td>
-                    <td>Staff Keswa</td>
-                    <td>08/08/2017</td>
-                    <td>Bambang Pamungkas S.E</td>
-                    <td>10/08/2017 - 15/11/2018</td>
-                    <td>Penanganan dan Pemeliharaan ODGJ</td>
-                    <td align="center">100%</td>
-                    <td align="center">97</td>
-                    <td align="center">
-                      <a href="te_kpi"><button class="detail"><i class="fa fa-pen-to-square fa-sm"></i></button></a>
-                      <a href="te_kpi"><button class="tambah"><i class="fa-solid fa-plus"></i></button></a>
-                    </td>
-                </tr>
-            <!-- </div>               -->
-            </table>    
-        </div>
-        <div class="info_data">
-            <p class="jmlh_data">Tampil 1-12 / 60 data</p>
-            <div class="hlmn">
-                <button id="nomor"><</button><button id="nomor">1</button><button id="nomor">2</button><button id="nomor">3</button><button id="nomor">></button>
-            </div>
-        </div>
-        
-
-        
-
-    </div>
-</body>
-</html>
+                </tr> -->

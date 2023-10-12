@@ -118,7 +118,7 @@
                     <td class="background"><input id="realisasi-{{ $i }}"></td>
                     <td class="background"><input id="skor-{{ $i }}" class="skor" readonly></td>
                     <td class="background">
-                        <select id="jenis-perhitungan-{{ $i }}">
+                        <select id="jenis_perhitungan-{{ $i }}">
                             <option value="skor-1">R/T</option>
                             <option value="skor-2">T/R</option>
                         </select>
@@ -361,7 +361,7 @@
         var bobotInput = document.getElementById("bobot-" + index);
         var realisasiInput = document.getElementById("realisasi-" + index);
         var targetInput = document.getElementById("target-" + index);
-        var jenisPerhitunganSelect = document.getElementById("jenis-perhitungan-" + index);
+        var jenisPerhitunganSelect = document.getElementById("jenis_perhitungan-" + index);
 
         // biar responsif
         realisasiInput.addEventListener("input", hitungSkor);
@@ -383,7 +383,7 @@
             // var angka2 = parseFloat(inputText.match(/\d+/)); // Menggunakan ekspresi reguler
             // var target = isNaN(angka2) ? 0 : angka2; // Jika tidak ada angka yang ditemukan, atur ke 0
             
-            var jenisPerhitungan = document.getElementById("jenis-perhitungan-" + index).value;
+            var jenisPerhitungan = document.getElementById("jenis_perhitungan-" + index).value;
 
             var skor;
 

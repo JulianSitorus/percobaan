@@ -100,26 +100,43 @@ class DaftarkController extends Controller
         }
     }
     // ======================================================= KPI ===========================================================
-    // public function kpi(Request $request){
-    //     $search = $request->search;
-    //     $daftark = Daftark::with('kpi')
-    //                 ->where('nama_karyawan', 'LIKE', '%'.$search.'%')
-    //                 ->orWhere('no_telp', 'LIKE', '%'.$search.'%')
-    //                 ->orWhere('email', 'LIKE', '%'.$search.'%')
-    //                 ->orWhere('status', 'LIKE', '%'.$search.'%')
-    //                 ->orWhereHas('jenjangkarir', function($query) use($search) {
-    //                     $query->where('departemen', 'LIKE', '%'.$search.'%');
-    //                 })
-    //                 ->orWhereHas('jenjangkarir', function($query) use($search) {
-    //                     $query->where('unit', 'LIKE', '%'.$search.'%');
-    //                 })
-    //                 ->orWhereHas('jenjangkarir', function($query) use($search) {
-    //                     $query->where('posisi', 'LIKE', '%'.$search.'%');
-    //                 })
 
-    //                 ->paginate(12);
-    //     return view ('daftark',['daftark' => $daftark]);
-    // }
+    public function kpi(Request $request){
+        $search = $request->search;
+        $daftark = Daftark::with('kpi')
+                    ->where('nama_karyawan', 'LIKE', '%'.$search.'%')
+                    // ->orWhere('no_telp', 'LIKE', '%'.$search.'%')
+                    ->orWhereHas('jenjangkarir', function($query) use($search) {
+                        $query->where('departemen', 'LIKE', '%'.$search.'%');
+                    })
+                    ->orWhereHas('jenjangkarir', function($query) use($search) {
+                        $query->where('posisi', 'LIKE', '%'.$search.'%');
+                    })
+                    ->orWhereHas('kpi', function($query) use($search) {
+                        $query->where('tanggal_kpi', 'LIKE', '%'.$search.'%');
+                    })
+                    ->orWhereHas('kpi', function($query) use($search) {
+                        $query->where('supervisor', 'LIKE', '%'.$search.'%');
+                    })
+                    ->orWhereHas('kpi', function($query) use($search) {
+                        $query->where('mulai_pelaksanaan', 'LIKE', '%'.$search.'%');
+                    })
+                    ->orWhereHas('kpi', function($query) use($search) {
+                        $query->where('selesai_pelaksanaan', 'LIKE', '%'.$search.'%');
+                    })
+                    ->orWhereHas('kpi', function($query) use($search) {
+                        $query->where('deskripsi_kpi', 'LIKE', '%'.$search.'%');
+                    })
+                    ->orWhereHas('kpi', function($query) use($search) {
+                        $query->where('total_bobot', 'LIKE', '%'.$search.'%');
+                    })
+                    ->orWhereHas('kpi', function($query) use($search) {
+                        $query->where('total_skor_akhir', 'LIKE', '%'.$search.'%');
+                    })
+                    ->orderBy('nama_karyawan', 'asc')
+                    ->paginate(12);
+        return view ('kpi',['daftark' => $daftark]);
+    }
 
 
 
