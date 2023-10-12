@@ -76,6 +76,7 @@
                     <th class="kanan">Aksi</th>
                 </tr>
                 @foreach($daftark as $key => $dk)
+
                 <tr>
 
                     <td align="center">{{$daftark-> firstItem() + $key}}</td>

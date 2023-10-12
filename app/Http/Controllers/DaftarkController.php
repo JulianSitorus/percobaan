@@ -28,7 +28,7 @@ class DaftarkController extends Controller
                     ->orWhereHas('jenjangkarir', function($query) use($search) {
                         $query->where('posisi', 'LIKE', '%'.$search.'%');
                     })
-
+                    ->orderBy('nama_karyawan', 'asc')
                     ->paginate(12);
         return view ('daftark',['daftark' => $daftark]);
     }
@@ -99,8 +99,31 @@ class DaftarkController extends Controller
             return redirect('daftark')->with('error', 'Karyawan tidak ditemukan.');
         }
     }
+    // ======================================================= KPI ===========================================================
+    // public function kpi(Request $request){
+    //     $search = $request->search;
+    //     $daftark = Daftark::with('kpi')
+    //                 ->where('nama_karyawan', 'LIKE', '%'.$search.'%')
+    //                 ->orWhere('no_telp', 'LIKE', '%'.$search.'%')
+    //                 ->orWhere('email', 'LIKE', '%'.$search.'%')
+    //                 ->orWhere('status', 'LIKE', '%'.$search.'%')
+    //                 ->orWhereHas('jenjangkarir', function($query) use($search) {
+    //                     $query->where('departemen', 'LIKE', '%'.$search.'%');
+    //                 })
+    //                 ->orWhereHas('jenjangkarir', function($query) use($search) {
+    //                     $query->where('unit', 'LIKE', '%'.$search.'%');
+    //                 })
+    //                 ->orWhereHas('jenjangkarir', function($query) use($search) {
+    //                     $query->where('posisi', 'LIKE', '%'.$search.'%');
+    //                 })
 
-    // ------------------------------------------------------------------------------------------------
+    //                 ->paginate(12);
+    //     return view ('daftark',['daftark' => $daftark]);
+    // }
+
+
+
+    // ======================================================= EVALUASI ===========================================================
 
     public function evaluasi(Request $request){
         
@@ -137,6 +160,7 @@ class DaftarkController extends Controller
                     ->orWhereHas('evaluasi', function($query) use($search) {
                         $query->where('komentar_pelatihan', 'LIKE', '%'.$search.'%');
                     })
+                    ->orderBy('nama_karyawan', 'asc')
                     ->paginate(12);  
         
         $daftarks = Daftark::with('jenjangkarir')->get();
@@ -263,7 +287,7 @@ class DaftarkController extends Controller
         return redirect('/karyawan/'. $daftark->id);
     }
 
-    // ------------------------------------------------------------------------------------------------
+    // ======================================================= JENJANG KARIR ===========================================================
 
     // relation ke jenjang karir
     // public function jenjangkarir(Request $request)
@@ -300,7 +324,7 @@ class DaftarkController extends Controller
                     ->orWhereHas('jenjangkarir', function($query) use($search) {
                         $query->where('tanggal_selesai', 'LIKE', '%'.$search.'%');
                     })
-
+                    ->orderBy('nama_karyawan', 'asc')
                     ->paginate(12);
         return view ('jenjangkarir',['daftark' => $daftark]);
     }
@@ -383,7 +407,7 @@ class DaftarkController extends Controller
         }
     }
     
-    // ------------------------------------------------------------------------------------------------
+    // ======================================================= KEAHLIAN ===========================================================
 
     // relation ke keahlian
     public function keahlian(Request $request){
@@ -393,6 +417,7 @@ class DaftarkController extends Controller
                     ->orWhereHas('keahlian', function($query) use($search) {
                         $query->where('jenis_keahlian', 'LIKE', '%'.$search.'%');
                     })
+                    ->orderBy('nama_karyawan', 'asc')
                     ->paginate(12);
         return view ('keahlian',['daftark' => $daftark]);
     }
@@ -469,6 +494,7 @@ class DaftarkController extends Controller
                     ->orWhereHas('keahlian', function($query) use($search) {
                         $query->where('nama_pelatihan', 'LIKE', '%'.$search.'%');
                     })
+                    ->orderBy('nama_karyawan', 'asc')
                     ->paginate(12);
         return view ('keahlian',['daftark' => $daftark]);
     }

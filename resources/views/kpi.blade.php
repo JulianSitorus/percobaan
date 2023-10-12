@@ -72,7 +72,7 @@
                     <th class="periode">Periode Pelaksanaan</th>
                     <th class="deskripsi_kpi">Deskripsi KPI</th>
                     <th class="j_bobot">Total Bobot</th>
-                    <th class="j_skor_a">Total Skor Akhir</th>
+                    <th class="j_skor_a">Skor Akhir</th>
                     <th class="kanan">Aksi</th>
                 </tr>
                 <tr>

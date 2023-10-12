@@ -589,8 +589,6 @@
             // Simpan total keseluruhan di local storage
             localStorage.setItem("totalKeseluruhan", totalKeseluruhan.toString());
 
-            
-
             // Tampilkan total keseluruhan dalam elemen HTML
             totalKeseluruhanElement.textContent = totalKeseluruhan.toString();
 

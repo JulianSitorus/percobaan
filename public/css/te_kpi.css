@@ -310,6 +310,9 @@ table th{
     width: 18.5%;
     background-color: #EEEEEE;
 }
+.total-bobot , #total_skor_akhir, .skor, .skor_akhir {
+    background-color: #eeeeee9f;
+}
 
 
 
@@ -363,9 +366,10 @@ table .j_area{
 table .j_kpi{
     width: 47%;
 }
-table .j_bobot, table .j_target, table .j_real, table .j_skor, table .j_skor_a{
+table .j_bobot, table .j_target, table .j_realisasi, table .j_skor, table .j_skor_akhir{
     width: 6%;
 }
+
 
 table input{
     width: 99%;

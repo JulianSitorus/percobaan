@@ -24,6 +24,7 @@ return new class extends Migration
             $table->text('area')->nullable();
             $table->text('key')->nullable();
             $table->integer('bobot');
+            $table->integer('target');
             $table->integer('realisasi');
             $table->integer('skor')->nullable();
             $table->integer('skor_akhir')->nullable();

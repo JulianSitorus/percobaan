@@ -37,6 +37,9 @@ Route::delete('/karyawan/{id}', [DaftarkController::class, 'destroy'])->name('da
 
 // -------------------------------------------------KPI---------------------------------------------------------
 
+// 1-n karyawan dgn kpi
+// Route::get('/kpi',[DaftarkController::class,'kpi']);
+
 // ------------------------------------------------EVALUASI-----------------------------------------------------
 
 // 1-n karyawan dgn evaluasi
