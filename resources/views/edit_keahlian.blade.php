@@ -60,37 +60,37 @@
             <hr size="3px" color="#EEEEEE">
             
             <form action="{{ route('keahlian.update', ['id' => $keahlian->id]) }}" method="POST" enctype="multipart/form-data">
-            @method('put')
-            @csrf
-            <label class="key" for="jenis_keahlian">Jenis Keahlian</label>
-            <input id="jenis_keahlian" value="{{$keahlian->jenis_keahlian}}" type="text" name="jenis_keahlian" pattern=".*\S+.*" required
-                oninvalid="this.setCustomValidity('Jenis keahlian karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan jenis keahlian"><br>
+                @method('put')
+                @csrf
+                <label class="key" for="jenis_keahlian">Jenis Keahlian</label>
+                <input id="jenis_keahlian" value="{{$keahlian->jenis_keahlian}}" type="text" name="jenis_keahlian" pattern=".*\S+.*" required
+                    oninvalid="this.setCustomValidity('Jenis keahlian karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan jenis keahlian"><br>
 
-                <p class="key">Tingkat Keahlian</p>
-                <div>
-                    <input id="sb" type="radio" value="Sangat Baik" name="tingkat_keahlian" @if ($keahlian->tingkat_keahlian == "Sangat Baik") checked @endif required>
-                    <label for="sb">Sangat Baik</label>
-                </div>  
-                <div>
-                    <input id="b" type="radio" value="Baik" name="tingkat_keahlian" @if ($keahlian->tingkat_keahlian == "Baik") checked @endif required>
-                    <label for="b">Baik</label>
-                </div>
-                <div>
-                    <input id="s" type="radio" value="Standar" name="tingkat_keahlian" @if ($keahlian->tingkat_keahlian == "Standar") checked @endif required>
-                    <label for="s">Standar</label>
-                </div>  
-                <div>
-                    <input id="ds" type="radio" value="Dibawah Standar" name="tingkat_keahlian" @if ($keahlian->tingkat_keahlian == "Dibawah Standar") checked @endif required>
-                    <label for="ds">Dibawah Standar</label>
-                </div>
-                <div>
-                    <input id="brk" type="radio" value="Buruk" name="tingkat_keahlian" @if ($keahlian->tingkat_keahlian == "Buruk") checked @endif required>
-                    <label for="brk">Buruk</label>
-                </div>
+                    <p class="key">Tingkat Keahlian</p>
+                    <div>
+                        <input id="sb" type="radio" value="Sangat Baik" name="tingkat_keahlian" @if ($keahlian->tingkat_keahlian == "Sangat Baik") checked @endif required>
+                        <label for="sb">Sangat Baik</label>
+                    </div>  
+                    <div>
+                        <input id="b" type="radio" value="Baik" name="tingkat_keahlian" @if ($keahlian->tingkat_keahlian == "Baik") checked @endif required>
+                        <label for="b">Baik</label>
+                    </div>
+                    <div>
+                        <input id="s" type="radio" value="Standar" name="tingkat_keahlian" @if ($keahlian->tingkat_keahlian == "Standar") checked @endif required>
+                        <label for="s">Standar</label>
+                    </div>  
+                    <div>
+                        <input id="ds" type="radio" value="Dibawah Standar" name="tingkat_keahlian" @if ($keahlian->tingkat_keahlian == "Dibawah Standar") checked @endif required>
+                        <label for="ds">Dibawah Standar</label>
+                    </div>
+                    <div>
+                        <input id="brk" type="radio" value="Buruk" name="tingkat_keahlian" @if ($keahlian->tingkat_keahlian == "Buruk") checked @endif required>
+                        <label for="brk">Buruk</label>
+                    </div>
 
-            <br/>
-            <hr size="3px" color="#EEEEEE">
-            <input class="simpan" type="submit" name="submit" value="Simpan">
+                <br/>
+                <hr size="3px" color="#EEEEEE">
+                <input class="simpan" type="submit" name="submit" value="Simpan">
             </form>  
                 <div class="display_batal ">
                     @if ($daftark)

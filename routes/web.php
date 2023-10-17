@@ -40,6 +40,17 @@ Route::delete('/karyawan/{id}', [DaftarkController::class, 'destroy'])->name('da
 // 1-n karyawan dgn kpi
 Route::get('/kpi',[DaftarkController::class,'kpi']);
 
+// halaman membuat tambah data kpi 
+Route::get('/karyawan/{id}/tambah_kpi',[DaftarkController::class,'create_kpi']);
+// menampilkan data redirect ke halaman karyawan
+Route::post('/store_kpi/{id}',[DaftarkController::class,'store_kpi']);
+// halaman edit kpi
+Route::get('/karyawan/{id}/edit_kpi',[DaftarkController::class, 'edit_kpi']);
+// untuk put kpi
+Route::put('/kpi/{id}',[DaftarkController::class, 'update_kpi'])->name('kpi.update');
+// untuk menghapus salah satu data kpi
+Route::delete('/kpi/{id}', [DaftarkController::class, 'destroy_kpi'])->name('kpi.destroy');
+
 // ------------------------------------------------EVALUASI-----------------------------------------------------
 
 // 1-n karyawan dgn evaluasi
@@ -149,9 +160,9 @@ Route::get('/', function () {
 // Route::get('/te_jenjangkarir', function () {
 //     return view('te_jenjangkarir');
 // });
-Route::get('/te_kpi', function () {
-    return view('te_kpi');
-});
+// Route::get('/te_kpi', function () {
+//     return view('te_kpi');
+// });
 Route::get('/tambah_evaluasi', function () {
     return view('tambah_evaluasi');
 });

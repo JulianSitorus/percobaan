@@ -26,13 +26,14 @@ return new class extends Migration
             $table->text('ket')->nullable();
             $table->string('bobot')->nullable();
             $table->string('target')->nullable();
-            $table->integer('realisasi')->nullable();
-            $table->integer('skor')->nullable();
-            $table->enum('jenis_perhitungan',['skor-1','skor-2']);
-            $table->integer('skor_akhir')->nullable();
+            $table->string('realisasi')->nullable();
 
-            $table->integer('total_bobot')->nullable();
-            $table->integer('total_skor_akhir')->nullable();
+            $table->enum('jenis_perhitungan',['skor-1','skor-2']);
+            $table->float('skor')->nullable();
+            $table->float('skor_akhir')->nullable();
+
+            $table->string('total_bobot')->nullable();
+            $table->float('total_skor_akhir')->nullable();
 
             $table->text('komentar_catatan')->nullable();
 

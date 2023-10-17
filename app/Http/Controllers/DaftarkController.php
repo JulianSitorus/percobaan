@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Daftark;
+use App\Models\Kpi;
 use App\Models\Evaluasi;
 use App\Models\Jenjangkarir;
 use App\Models\Keahlian;
@@ -138,7 +139,94 @@ class DaftarkController extends Controller
         return view ('kpi',['daftark' => $daftark]);
     }
 
+    // menampilkan halaman tambah kpi
+    public function create_kpi($id){
+        $daftark = Daftark::all();
+        $daftark = Daftark::find($id);
+        return view('tambah_kpi', compact(['daftark']));
+    }    
 
+    //  request tambah evaluasi
+     public function store_kpi(Request $request, $id) {
+        $skor = $request->input('skor');
+        $skor_akhir = $request->input('skor_akhir');
+        $total_bobot = $request->input('total_bobot');
+        $total_skor_akhir = $request->input('total_skor_akhir');
+
+        $daftark = Daftark::find($id);
+        
+        if ($daftark) {
+            $kpi = new Kpi([                
+                'supervisor' => $request->supervisor,
+                'jabatan_supervisor' => $request->jabatan_supervisor,
+                'tanggal_kpi' => $request->tanggal_kpi,
+                'mulai_pelaksanaan' => $request->mulai_pelaksanaan,
+                'selesai_pelaksanaan' => $request->selesai_pelaksanaan,
+                'deskripsi_kpi' => $request->deskripsi_kpi,
+
+                'area' => $request->area,
+                'ket' => $request->ket,
+                'bobot' => $request->bobot,
+                'target' => $request->target,
+                'realisasi' => $request->realisasi,
+                'jenis_perhitungan' => $request->jenis_perhitungan,
+
+                'skor' => $skor,
+                'skor_akhir' => $skor_akhir,
+
+                'total_bobot' => $total_bobot,
+                'total_skor_akhir' => $total_skor_akhir,
+
+                'komentar_catatan' => $request->komentar_catatan,
+            ]);
+
+            session(['skor' => $skor]);
+            session(['skor_akhir' => $skor_akhir]);
+            session(['total_bobot' => $total_bobot]);
+            session(['total_skor_akhir' => $total_skor_akhir]);
+            
+            $kpi->daftark_id = $daftark->id;
+
+            // Simpan evaluasi
+            $kpi->save();
+
+            return redirect('/karyawan/'. $daftark->id )->with('success', 'Kpi telah ditambah!');;
+        } else {
+            return redirect('/karyawan/'. $daftark->id );
+        }
+    }
+
+     // edit kpi
+     public function edit_kpi($id){
+        // mengambil id daftark 
+        $daftark_id = session('daftark_id');
+        $daftark = Daftark::find($daftark_id);
+
+        $kpi = Kpi::find($id);
+        return view('edit_kpi', compact(['kpi', 'daftark']));
+    }
+
+    // put kpi
+    public function update_kpi($id, Request $request)
+    {   
+        $daftark_id = session('daftark_id');
+        $daftark = Daftark::find($daftark_id);
+
+        $kpi = Kpi::find($id);
+        $kpi->update($request->except(['_token', 'submit']));
+        return redirect('/karyawan/'. $daftark->id );
+    }
+
+    // hapus kpi
+    public function destroy_kpi($id){
+        $daftark_id = session('daftark_id');
+        $daftark = Daftark::find($daftark_id);
+
+        $kpi = Kpi::find($id);
+        $kpi->delete();
+        return redirect('/karyawan/'. $daftark->id);
+    }
+    
 
     // ======================================================= EVALUASI ===========================================================
 
@@ -191,7 +279,6 @@ class DaftarkController extends Controller
 
     // menampilkan halaman tambah evaluasi
     public function create_evaluasi($id){
-        
         $daftark = Daftark::all();
         $daftark = Daftark::find($id);
         return view('tambah_evaluasi', compact(['daftark']));
@@ -306,22 +393,7 @@ class DaftarkController extends Controller
 
     // ======================================================= JENJANG KARIR ===========================================================
 
-    // relation ke jenjang karir
-    // public function jenjangkarir(Request $request)
-    // {   
-    //     $search = $request->search;
-    //     $jenjangkarir = Jenjangkarir::with('daftark')
-    //                 ->Where('posisi', 'LIKE', '%'.$search.'%')
-    //                 ->orWhere('unit', 'LIKE', '%'.$search.'%')
-    //                 ->orWhere('departemen', 'LIKE', '%'.$search.'%')
-    //                 ->orWhereHas('daftark', function($query) use($search) {
-    //                     $query->where('nama_karyawan', 'LIKE', '%'.$search.'%');
-    //                 })
-    //                 ->paginate(12);
-    //     return view('jenjangkarir', ['jenjangkarir' => $jenjangkarir]);
-    // }
-
-    
+    // relation ke jenjang karir    
     public function jenjangkarir(Request $request){
         $search = $request->search;
         $daftark = Daftark::with('jenjangkarir')
@@ -529,7 +601,6 @@ class DaftarkController extends Controller
         $daftark = Daftark::find($id);
     
         if ($daftark) {
-            // Buat objek Jenjangkarir baru
             $pelatihan = new Pelatihan([
                 'nama_pelatihan' => $request->nama_pelatihan,
                 'penyelenggara' => $request->penyelenggara,

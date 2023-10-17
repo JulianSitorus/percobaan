@@ -170,7 +170,7 @@ html, body{
 }
 .empat2 #supervisor,
 .empat2 #jabatan_supervisor,
-.empat2 #tanggal_dibuat{
+.empat2 #tanggal_kpi{
     margin-left: 250px;
     margin-top: 15px;
     background-color: white;
@@ -182,7 +182,7 @@ html, body{
     font-size: 17px;
     box-shadow: inset 1px 1px 0px rgba(0, 0, 0, 0.5);
 }
-.empat2 #tanggal_mulai, .empat2 #tanggal_berakhir{
+.empat2 #mulai_pelaksanaan, .empat2 #selesai_pelaksanaan{
     margin-left: 250px;
     margin-top: 15px;
     background-color: white;
@@ -194,7 +194,7 @@ html, body{
     font-size: 17px;
     box-shadow: inset 1px 1px 0px rgba(0, 0, 0, 0.5);
 }
-.empat2 #tanggal_berakhir{
+.empat2 #selesai_pelaksanaan{
     margin-left: 0px;
 }
 .empat2 #deskripsi_kpi{
@@ -217,6 +217,10 @@ html, body{
 }
 .empat2 .simpan:hover{
     background-color: #18b84e;
+}
+.empat2 .display_batal{
+    display: flex;
+    margin: -40px 10px 15px 130px;
 }
 .empat2 .batal{
     padding: 5px 30px;
@@ -310,7 +314,7 @@ table th{
     width: 18.5%;
     background-color: #EEEEEE;
 }
-.total-bobot , #total_skor_akhir, .skor, .skor_akhir {
+.total_bobot , #total_skor_akhir, .skor, .skor_akhir {
     background-color: #eeeeee9f;
 }
 

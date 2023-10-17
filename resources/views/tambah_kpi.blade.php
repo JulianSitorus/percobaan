@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/te_kpi.css">
-    <link rel="stylesheet" href="css/fontawesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/te_kpi.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/fontawesome/css/all.css') }}">
     <title>Document</title>
 </head>
 
 <body>
     
     <div class ="satu">
-        <a href="#"><img src='images/logo.jpg'></a>
+        <img src="{{ asset('images/logo.jpg') }}">
         <span>Damar Dwi Nughroho <i class="fa fa-circle-user fa-2xl"></i></span>
         
     </div>
@@ -20,23 +20,23 @@
     <div class ="dua">
         <header>Menu</header>
             <ul>
-                <li><a href="daftark">
+                <li><a href="/daftark">
                     <i class="fas fa-id-card">
                         <span class="menu">&emsp;Karyawan</span>
                     </i></a></li>
-                <li><a href="kpi">
+                <li><a href="/kpi">
                     <i class="fas fa-briefcase">
                         <span class="menu">&emsp;KPI</span>
                     </i></a></li>
-                <li><a href="evaluasi">
+                <li><a href="/evaluasi">
                     <i class="fas fa-clipboard-list">
                         <span class="menu">&emsp; Evaluasi</span>
                     </i></a></li>
-                <li><a href="jenjangkarir">
+                <li><a href="/jenjangkarir">
                     <i class="fas fa-chart-line">
                         <span class="menu">&emsp;Jenjang Karir</span>
                     </i></a></li>
-                <li><a href="keahlian">
+                <li><a href="/keahlian">
                     <i class="fas fa-users-gear">
                         <span class="menu">&emsp;Keahlian & Pelatihan</span>
                     </i></a></li>
@@ -56,105 +56,143 @@
         <div class="empat2">
             <p class="judul">Key Performance Indicator Karyawan</p>
             <hr size="3px" color="#EEEEEE">
-            
-            <label for="supervisor">Supervisor Langsung</label><input id="supervisor" type="text" name="supervisor">
-            <label for="jabatan_supervisor">Jabatan Supervisor</label><input id="jabatan_supervisor" type="text" name="jabatan_supervisor"><br>
-            <label for="tanggal_dibuat">KPI Disetujui Bersama</label><input id="tanggal_dibuat" type="date" name="tanggal_dibuat">
-            <label for="tanggal_mulai">Periode Pelaksanaan</label><input id="tanggal_mulai" type="date" name="tanggal_mulai"> - <input id="tanggal_berakhir" type="date" name="tanggal_berakhir"><br>
-            <label for="deskripsi_kpi">Deskripsi KPI</label>
-            <textarea id="deskripsi_kpi" type="komentar"></textarea>
-            
-            <br><br>
-            <hr size="3px" color="#EEEEEE">
-            <br>
 
-            <p align="center" style="font-size: 14px;"><b>Keterangan Pengisian:</b></p>
-            <div class="tabel_info">
-                <table>
+            <form action="/store_kpi/{{$daftark->id}}" method="POST" enctype="multipart/form-data">
+            @csrf
+            
+                <label for="supervisor">Supervisor Langsung</label><input id="supervisor" type="text" name="supervisor" pattern=".*\S+.*" required
+                oninvalid="this.setCustomValidity('Supervisor karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan nama supervisor">
+
+                <label for="jabatan_supervisor">Jabatan Supervisor</label><input id="jabatan_supervisor" type="text" name="jabatan_supervisor" pattern=".*\S+.*" required
+                oninvalid="this.setCustomValidity('Jabatan supervisor karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan jabatan supervisor"><br>
+
+                <label for="tanggal_kpi">Tanggal KPI Disetujui</label><input id="tanggal_kpi" type="date" name="tanggal_kpi" pattern=".*\S+.*" required
+                oninvalid="this.setCustomValidity('Tanggal KPI disetujui belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan tanggal">
+
+                <label for="mulai_pelaksanaan">Periode Pelaksanaan</label>
+                <input id="mulai_pelaksanaan" type="date" name="mulai_pelaksanaan" pattern=".*\S+.*" required
+                oninvalid="this.setCustomValidity('Tanggal pelaksanaan mulai belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan tanggal">
+                
+                - <input id="selesai_pelaksanaan" type="date" name="selesai_pelaksanaan" pattern=".*\S+.*" required
+                oninvalid="this.setCustomValidity('Tanggal pelaksanaan berakhir belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan tanggal"><br>
+
+                <label for="deskripsi_kpi">Deskripsi KPI</label>
+                <textarea id="deskripsi_kpi" type="komentar" name="deskripsi_kpi" pattern=".*\S+.*" required
+                oninvalid="this.setCustomValidity('Deskripsi KPI belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan deskripsi"></textarea>
+                
+                <br><br>
+                <hr size="3px" color="#EEEEEE">
+                <br>
+
+                <p align="center" style="font-size: 14px;"><b>Keterangan Pengisian:</b></p>
+                <div class="tabel_info">
+                    <table>
+                        <tr>
+                            <td>Bobot KPI</td>
+                            <td>Nilai dalam bentuk %</td>
+                        </tr>
+                        <tr>
+                            <td>Target</td>
+                            <td>Pembuatan Target bisa berupa % ( persen), jumlah hari, jumlah orang, jumlah jam</td>
+                        </tr>
+                        <tr>
+                            <td>Realisasi</td>
+                            <td>Pengisian Realisasi berdasarkan kenyataan pekerjaan</td>
+                        </tr>
+                        <tr>
+                            <td>Skor</td>
+                            <td>Realisasi/Target atau Target/Realisasi</td>
+                        </tr>
+                        <tr>
+                            <td>Skor Akhir</td>
+                            <td>bobot x skor x 100</td>
+                        </tr>
+                        <tr>
+                            <td>Total</td>
+                            <td>Penjumlahan bobot KPI & penjumlahan skor akhir</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <table class="tabel_kpi">
                     <tr>
-                        <td>Bobot KPI</td>
-                        <td>Nilai dalam bentuk %</td>
+                        <th class="j_area">Area Kinerja Utama</th>
+                        <th class="j_kpi">Key Performance Indicators</th>
+                        <th class="j_bobot">Bobot KPI</th>
+                        <th class="j_target">Target</th>
+                        <th class="j_realisasi">Realisasi</th>
+                        <th colspan="2" class="j_skor">Skor</th>
+                        <th class="j_skor_akhir">Skor Akhir</th>
                     </tr>
+
+                    @for ($i = 0; $i < 5; $i++)
                     <tr>
-                        <td>Target</td>
-                        <td>Pembuatan Target bisa berupa % ( persen), jumlah hari, jumlah orang, jumlah jam</td>
+                        <td><textarea name="area" id="area" type="komentar"></textarea></td>
+                        <td><textarea name="ket" id="ket" type="komentar"></textarea></td>
+                        <td class="background"><input name="bobot" id="bobot-{{ $i }}" class="bobot-input"></td>
+                        <td class="background"><input name="target" id="target-{{ $i }}"></td>
+                        <td class="background"><input name="realisasi" id="realisasi-{{ $i }}"></td>
+                        <td class="background"><input name="skor" id="skor-{{ $i }}" class="skor" readonly></td>
+                        <td class="background">
+                            <select name="jenis_perhitungan" id="jenis_perhitungan-{{ $i }}">
+                                <option value="skor-1">R/T</option>
+                                <option value="skor-2">T/R</option>
+                            </select>
+                        </td>
+                        <td class="background"><input class="background" name="skor_akhir" id="skor_akhir-{{ $i }}" readonly></td>
                     </tr>
+                    @endfor
+
+                    <!-- @for ($i = 0; $i < 5; $i++)
                     <tr>
-                        <td>Realisasi</td>
-                        <td>Pengisian Realisasi berdasarkan kenyataan pekerjaan</td>
+                        <td><textarea name="area[]" id="area-{{ $i }}" type="komentar"></textarea></td>
+                        <td><textarea name="ket[]" id="ket-{{ $i }}" type="komentar"></textarea></td>
+                        <td class="background"><input name="bobot[]" id="bobot-{{ $i }}" class="bobot-input"></td>
+                        <td class="background"><input name="target[]" id="target-{{ $i }}"></td>
+                        <td class="background"><input name="realisasi[]" id="realisasi-{{ $i }}"></td>
+                        <td class="background"><input name="skor[]" id="skor-{{ $i }}" class="skor" readonly></td>
+                        <td class="background">
+                            <select name="jenis_perhitungan[]" id="jenis_perhitungan-{{ $i }}">
+                                <option value="skor-1">R/T</option>
+                                <option value="skor-2">T/R</option>
+                            </select>
+                        </td>
+                        <td class="background"><input class="background" name="skor_akhir[]" id="skor_akhir-{{ $i }}" readonly></td>
                     </tr>
-                    <tr>
-                        <td>Skor</td>
-                        <td>Realisasi/Target atau Target/Realisasi</td>
-                    </tr>
-                    <tr>
-                        <td>Skor Akhir</td>
-                        <td>bobot x skor x 100</td>
-                    </tr>
-                    <tr>
-                        <td>Total</td>
-                        <td>Penjumlahan bobot KPI & penjumlahan skor akhir</td>
-                    </tr>
+                    @endfor -->
+                    
                 </table>
+                    
+                <table class="tabel_total_kpi">
+                    <tr>
+                        <td class="hijau">
+                            <div class="total" ><b>Total</b></div>
+                        </td>
+
+                        <td class="background"><input name="total_bobot" id="total_bobot" class="total_bobot" readonly></td>
+
+                        <td class="background1">
+                            <div class="total" ><b></b></div>
+                        </td>
+                        <td class="background"><input name="total_skor_akhir" id="total_skor_akhir" class="total_skor_akhir" readonly></td>
+                    </tr>
+                    
+                </table>
+
+                <button type="button" class="tambah" id="tambah-baris"><i class="fas fa-plus"><span> Tambah Baris</span></i></button>
+
+                <div class="catatan">
+                    <p class="judul2">*Catatan</p>
+                    <textarea id="catatan" type="komentar" placeholder="berikan catatan tambahan jika ada"></textarea>
+                </div><br>
+
+                <hr size="3px" color="#EEEEEE">
+                <input class="simpan" type="submit" name="submit" value="Simpan">                
+            </form>
+
+            <div class="display_batal ">
+                <a href="/karyawan/{{$daftark->id}}"><button class="batal">Batal</button></a>
             </div>
-
-            <table class="tabel_kpi">
-                <tr>
-                    <th class="j_area">Area Kinerja Utama</th>
-                    <th class="j_kpi">Key Performance Indicators</th>
-                    <th class="j_bobot">Bobot KPI</th>
-                    <th class="j_target">Target</th>
-                    <th class="j_realisasi">Realisasi</th>
-                    <th colspan="2" class="j_skor">Skor</th>
-                    <th class="j_skor_akhir">Skor Akhir</th>
-                </tr>
-
-                @for ($i = 0; $i < 5; $i++)
-                <tr>
-                    <td><textarea id="area" type="komentar" >Rekrutment</textarea></td>
-                    <td><textarea id="kpi" type="komentar">% jumlah kebutuhan karyawan baru yg dapat dipenuhi dengan tepat waktu (< 45 hari)</textarea></td>
-                    <td class="background"><input id="bobot-{{ $i }}" class="bobot-input"></td>
-                    <td class="background"><input id="target-{{ $i }}"></td>
-                    <td class="background"><input id="realisasi-{{ $i }}"></td>
-                    <td class="background"><input id="skor-{{ $i }}" class="skor" readonly></td>
-                    <td class="background">
-                        <select id="jenis_perhitungan-{{ $i }}">
-                            <option value="skor-1">R/T</option>
-                            <option value="skor-2">T/R</option>
-                        </select>
-                    </td>
-                    <td class="background"><input class="background" id="skor_akhir-{{ $i }}" readonly></td>
-                </tr>
-                @endfor
-                
-            </table>
-                
-            <table class="tabel_total_kpi">
-                <tr>
-                    <td class="hijau">
-                        <div class="total" ><b>Total</b></div>
-                    </td>
-
-                    <td class="background"><input class="total-bobot" id="total-bobot" readonly></td>
-
-                    <td class="background1">
-                        <div class="total" ><b></b></div>
-                    </td>
-
-                    <td class="background"><input id="total_skor_akhir" class="total_skor_akhir" readonly></td>
-                </tr>
-                
-            </table>
-
-            <button class="tambah" id="tambah-baris"><i class="fas fa-plus"><span> Tambah Baris</span></i></button>
-
-            <div class="catatan">
-                <p class="judul2">*Catatan</p>
-                <textarea id="catatan" type="komentar" placeholder="berikan catatan tambahan jika ada"></textarea>
-            </div><br>
-            
-            <hr size="3px" color="#EEEEEE">
-            <button class="simpan">Simpan</button> <a href="karyawan"><button class="batal">Batal</button></a>
             
             
         </div>
@@ -188,6 +226,7 @@
 
                 if (i === 2) {
                     newElement.classList.add("bobot");
+                    newElement.setAttribute("name", "bobot");
                 }
                 newElement.addEventListener("input", function() {
 
@@ -207,11 +246,13 @@
                 });
 
                 if (i === 3) {
-                    newElement.classList.add("realisasi");
+                    newElement.classList.add("target");
+                    newElement.setAttribute("name", "target");
                 }
 
                 if (i === 4) {
-                    newElement.classList.add("target");
+                    newElement.classList.add("realisasi");
+                    // newElement.setAttribute("name", "realisasi");
                 }
 
                 if (i === 5) {
@@ -345,11 +386,17 @@
             var inputValue = input.value.replace("%", "");
             if (!isNaN(inputValue) && inputValue !== "") {
                 totalBobot += parseFloat(inputValue);
+                var numericValue = parseFloat(inputValue);
             }
         });
+        var inputTotalBobot = document.getElementById("total_bobot");
 
-        var inputTotalBobot = document.getElementById("total-bobot");
-        inputTotalBobot.value = totalBobot.toFixed(2).replace(/\.0{2}$/, "") + "%";
+        var totalBobot = totalBobot + "%";
+
+        var inputTotalBobot = document.querySelector('input[name="total_bobot"]');
+        if (inputTotalBobot) {
+            inputTotalBobot.value = totalBobot.toString();
+        }
     }
 
     // ============================================= SKOR ==========================================================
@@ -406,23 +453,6 @@
     }
   
     // ============================================= SKOR AKHIR dan TOTAL SKOR AKHIR ===================================================
-    
-    // function hitungSkorAkhir() {
-    //     total_skor_akhir = 0;
-    //     skorInputs.forEach(function(skorInput, index) {
-    //         var bobot = parseFloat(document.getElementById("bobot-" + index).value) || 0;
-    //         var skor = parseFloat(document.getElementById("skor-" + index).value) || 0;
-    //         var skorAkhir = (bobot / 100) * skor * 100;
-
-    //         document.getElementById("skor_akhir-" + index).value = skorAkhir % 1 === 0 ? skorAkhir.toFixed(0) : skorAkhir.toFixed(1);
-
-    //         // total_skor_akhir += skorAkhir;
-    //     });
-    //     hitungTotalSkorAkhir()
-    //     // // Mengisikan total_skor_akhir ke elemen HTML yang telah Anda buat
-    //     // var total_skor_akhirInput = document.getElementById("total_skor_akhir");
-    //     // document.getElementById("total_skor_akhir").value = total_skor_akhir % 1 === 0 ? total_skor_akhir.toFixed(0) : total_skor_akhir.toFixed(1);
-    // }
 
     function hitungSkorAkhir() {
         var skorAkhirInputs = document.getElementById(".skor_akhir");
@@ -434,26 +464,9 @@
             var skorAkhir = (bobot / 100) * skor * 100;
 
             document.getElementById("skor_akhir-" + index).value = skorAkhir % 1 === 0 ? skorAkhir.toFixed(0) : skorAkhir.toFixed(1);
-
-            // total_skor_akhir += skorAkhir;
         });
         hitungTotalSkorAkhir()
-        // // Mengisikan total_skor_akhir ke elemen HTML yang telah Anda buat
-        // var total_skor_akhirInput = document.getElementById("total_skor_akhir");
-        // document.getElementById("total_skor_akhir").value = total_skor_akhir % 1 === 0 ? total_skor_akhir.toFixed(0) : total_skor_akhir.toFixed(1);
     }
-
-
-    // function hitungTotalSkorAkhir() {
-    //     var totalSkorAkhir = 0;
-    //     skorInputs.forEach(function(skorInput, index) {
-    //         var skorAkhir = parseFloat(document.getElementById("skor_akhir-" + index).value) || 0;
-    //         totalSkorAkhir += skorAkhir;
-    //     });
-
-    //     // Tampilkan total skor_akhir
-    //     document.getElementById("total_skor_akhir").value = totalSkorAkhir % 1 === 0 ? totalSkorAkhir.toFixed(0) : totalSkorAkhir.toFixed(1);
-    //     }
 
     function hitungTotalSkorAkhir() {
         var skorAkhirInputs = document.querySelectorAll(".skor_akhir");
@@ -480,6 +493,11 @@
         var totalSkorAkhirInput = document.getElementById("total_skor_akhir");
         if (totalSkorAkhirInput) {
             totalSkorAkhirInput.value = totalSkorAkhir % 1 === 0 ? totalSkorAkhir.toFixed(0) : totalSkorAkhir.toFixed(1);
+        }
+
+        var totalSkorAkhirInput = document.querySelector('input[name="total_skor_akhir"]');
+        if (totalSkorAkhirInput) {
+            totalSkorAkhirInput.value = totalSkorAkhir.toString();
         }
     }
 

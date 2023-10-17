@@ -128,7 +128,8 @@ html, body{
     background-color: #EEEEEE;
     margin-top: 80px;
     width: 100%;
-    height: 433.5%;
+    /* height: 433.5%; */
+    min-height: 200px;
     position:absolute;
     z-index: 8;
 }
@@ -136,7 +137,8 @@ html, body{
     float: left;
     background-color: white;
     width: 80%;
-    height: 96%;
+    /* height: 96%; */
+    min-height: 200px;
     margin: 70px 35px 70px 270px;
 }
 .empat2 .tambah{
@@ -303,6 +305,8 @@ table tr{
     text-align: left;
 }
 table textarea{
+    padding: 5px 0px;
+    /* margin-bottom: -5px; */
     width: 100%;
     height: 50px;
     border: none;
@@ -422,7 +426,7 @@ table .komentar{
     border-radius: 5px;
     float: left;
     width: 95%;
-    height: 200px;
+    height: 201px;
 
     font-size: 14px;
     padding: 10px;

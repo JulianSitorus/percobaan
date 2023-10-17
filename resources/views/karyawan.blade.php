@@ -162,73 +162,28 @@
                     <th class="j_skor_a">Total Skor Akhir</th>
                     <th class="aksi">Aksi</th>
                 </tr>
+                @foreach($daftark->kpi->reverse() as $dkpi)
                 <tr>
                     <td>Wakil Departemen HRD</td>
-                    <td>08/08/2017</td>
-                    <td>Bambang Pamungkas S.E</td>
-                    <td>10/08/2017 - 15/11/2018</td>
-                    <td>KPI sebagai senior di HRD</td>
-                    <td>100%</td>
-                    <td>94</td>
+                    <td>{{ \Carbon\Carbon::parse($dkpi->tanggal_kpi)->format('d/m/Y') }}</td>
+                    <td>{{$dkpi->supervisor}}</td>
+                    <td>{{ \Carbon\Carbon::parse($dkpi->mulai_pelaksanaan)->format('d/m/Y') }} - {{ \Carbon\Carbon::parse($dkpi->selesai_pelaksanaan)->format('d/m/Y') }}</td>
+                    <td>{{$dkpi->deskripsi_kpi}}</td>
+                    <td align="center">{{$dkpi->total_bobot}}</td>
+                    <td align="center">{{$dkpi->total_skor_akhir}}</td>
                     <td align="center" class="button-container">
-                        <a href="te_kpi"><button class="detail"><i class="fa fa-pen-to-square fa-sm" ></i></button></a>
-                        <button class="hapus"><i class="fa fa-trash-can fa-sm"></i></button>
+                        <a href="/karyawan/{{$dkpi->id}}/edit_kpi"><button class="detail"><i class="fa fa-pen-to-square fa-sm" ></i></button></a>
+                        <form action="{{ route('kpi.destroy', ['id' => $dkpi->id]) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button class="hapus" type="submit"><i class="fa fa-trash-can fa-sm"></i></button>
+                        </form>
                     </td>
                 </tr>
-                <tr>
-                    <td>HR Administrator</td>
-                    <td>23/05/2016</td>
-                    <td>Asnawi Mangkualam S.T</td>
-                    <td>23/06/2016 - 18/11/2016</td>
-                    <td>Melakukan Perhitungan, rekrutmen, dan Analisis kinerja</td>
-                    <td>100%</td>
-                    <td>96</td>
-                    <td align="center">
-                        <a href="te_kpi"><button class="detail"><i class="fa fa-pen-to-square fa-sm" ></i></button></a>
-                        <button class="hapus"><i class="fa fa-trash-can fa-sm"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Bendahara</td>
-                    <td>29/11/2015</td>
-                    <td>Muhammad Ridwan S.E</td>
-                    <td>30/11/2015 - 18/01/2016</td>
-                    <td>audit keuangan satunama</td>
-                    <td>100%</td>
-                    <td>98</td>
-                    <td align="center">
-                        <a href="te_kpi"><button class="detail"><i class="fa fa-pen-to-square fa-sm" ></i></button></a>
-                        <button class="hapus"><i class="fa fa-trash-can fa-sm"></i></button>
-                    </td>
-                </tr>                
-                <tr>
-                    <td>Staff HRD</td>
-                    <td>08/08/2012</td>
-                    <td>Kaleb Ramon Setiawan</td>
-                    <td>10/08/2012 - 15/11/2012</td>
-                    <td>KPI sebagai staff junior di HRD</td>
-                    <td>100%</td>
-                    <td>95</td>
-                    <td align="center">
-                        <a href="te_kpi"><button class="detail"><i class="fa fa-pen-to-square fa-sm" ></i></button></a>
-                        <button class="hapus"><i class="fa fa-trash-can fa-sm"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Staff HRD</td>
-                    <td>06/03/2012</td>
-                    <td>Kaleb Ramon Setiawan</td>
-                    <td>09/03/2012 - 21/06/2012</td>
-                    <td>KPI sebagai staff junior di HRD</td>
-                    <td>100%</td>
-                    <td>95</td>
-                    <td align="center" class="button-container">
-                        <a href="te_kpi"><button class="detail"><i class="fa fa-pen-to-square fa-sm" ></i></button></a>
-                        <button class="hapus"><i class="fa fa-trash-can fa-sm"></i></button>
-                    </td>
-                </tr>
+                @endforeach
             </table>
-            <a href="te_kpi"><button class="tambah"><i class="fa-solid fa-plus"></i> Tambah Data</button></a><br>
+            <a href="{{$daftark->id}}/tambah_kpi"><button class="tambah"><i class="fa-solid fa-plus"></i> Tambah Data</button></a><br>
+
 
             <!-- evaluasi -->
             <div class="judul2"><i class="fas fa-clipboard-list fa-xl"></i><span>   Evaluasi</span></div>

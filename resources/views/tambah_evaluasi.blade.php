@@ -97,8 +97,6 @@
                     </tr>
                 </table>
                 
-                
-
                 <!-- tabel penilaian performance -->
                 <p class="judul3">I. Performance/Kinerja</p>
                 <table>
@@ -592,6 +590,7 @@
             // Tampilkan total keseluruhan dalam elemen HTML
             totalKeseluruhanElement.textContent = totalKeseluruhan.toString();
 
+            // menyimpan nilai ke database
             var inputTotalKeseluruhan = document.querySelector('input[name="total_keseluruhan"]');
             if (inputTotalKeseluruhan) {
                 inputTotalKeseluruhan.value = totalKeseluruhan.toString();

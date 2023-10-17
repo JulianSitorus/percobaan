@@ -91,7 +91,7 @@
                         </td>
                         <td>
                             @if ($dk->kpi->isNotEmpty())
-                                {{$dk->kpi->last()->tanggal_kpi}}
+                                {{ \Carbon\Carbon::parse($dk->kpi->last()->tanggal_kpi)->format('d/m/Y') }}
                             @endif
                         </td>
                         <td>
