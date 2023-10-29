@@ -138,7 +138,7 @@ html, body{
     float: left;
     background-color: white;
     width: 80%;
-    height: 56.5%;
+    height: 64%;
     margin: 70px 35px 70px 270px;
 }
 .empat2 .tambah{
@@ -170,6 +170,20 @@ html, body{
     margin-left: 40px;
     position: absolute;
 }
+
+.empat2 select{
+    margin-left: 250px;
+    margin-top: 15px;
+    background-color: white;
+    height: 40px;
+    width: 53%;
+    padding-left: 10px;
+    border-radius: 5px;
+    border: 1px solid #888;
+    font-size: 17px;
+    box-shadow: inset 1px 1px 0px rgba(0, 0, 0, 0.5);
+}
+
 .empat2 #nama_pelatihan, 
 .empat2 #penyelenggara,
 .empat2 #tanggal_mulai,

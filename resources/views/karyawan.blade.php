@@ -64,19 +64,19 @@
                 <img src="{{ asset('fotokaryawan/' . $daftark->foto) }}" alt="Foto Karyawan">
                 <!-- <img src='images/karyawan.jpg'> -->
                 <h3>Posisi</h3>
-                <p>
+                <p style="width:240px;">
                     @if ($daftark->jenjangkarir->isNotEmpty())
                         {{ $daftark->jenjangkarir->last()->posisi }}
                     @endif
                 </p>
                 <h3>Unit</h3>
-                <p>
+                <p style="width:240px;">
                     @if ($daftark->jenjangkarir->isNotEmpty())
                         {{ $daftark->jenjangkarir->last()->unit }}
                     @endif
                 </p>
                 <h3>Departemen</h3>
-                <p>
+                <p style="width:240px;">
                     @if ($daftark->jenjangkarir->isNotEmpty())
                         {{ $daftark->jenjangkarir->last()->departemen }}
                     @endif
@@ -85,13 +85,15 @@
             
             <div class="profil">
                 <p class="judul">Biodata</p>
+                <div style="overflow: auto; height: 405px;">
+
                 <ul>
                     <li class="key">Nama</li>
                     <li class="value">{{$daftark->nama_karyawan}}</li>
                 </ul>
                 <ul>
                     <li class="key">Tempat & Tanggal Lahir</li>
-                    <li class="value">{{$daftark->tempat_lahir}}, {{ \Carbon\Carbon::parse($daftark->tanggal_lahir)->format('d F Y') }}</li>
+                    <li class="value"> {{ ucfirst(strtolower(implode(' ', array_slice(explode(' ', $daftark->kabupaten), 1)))) }}, {{ \Carbon\Carbon::parse($daftark->tanggal_lahir)->format('d F Y') }}</li>
                 </ul>
                 <ul>
                     <li class="key">Alamat</li>
@@ -114,7 +116,7 @@
                     <li class="value">{{$daftark->no_telp}}</li>
                 </ul>
                 <ul>
-                    <li class="key">Pendidikan</li>
+                    <li class="key">Pendidikan Terakhir</li>
                     <li class="value">{{$daftark->pendidikan}}</li>
                 </ul>
                 <ul>
@@ -125,6 +127,7 @@
                     <li class="key">Status</li>
                     <li class="value">{{$daftark->status}}</li>
                 </ul>
+                </div>
                 <a href="/biodata/{{$daftark->id}}/edit_biodata"><button><i class="fa fa-pen-to-square fa-sm"></i> Edit</button></a>
             </div>
 
@@ -150,7 +153,8 @@
                 </div>
 
             <!-- Kpi -->
-            <div class="judul3"><i class="fas fa-briefcase fa-xl"></i><span>   Key Performance Indicator</span></div>
+            
+            <div class="judul3"><i class="fas fa-briefcase fa-xl"></i><span >   Key Performance Indicator</span></div>
             <table>
                 <tr>
                     <th class="posisi_kpi">Posisi</th>
@@ -222,18 +226,20 @@
             <a href="{{$daftark->id}}/tambah_evaluasi"><button class="tambah"><i class="fa-solid fa-plus"></i> Tambah Data</button></a><br>
 
             <!-- Keahlian -->
-            <div class="judul2"><i class="fas fa-kitchen-set fa-xl"></i><span>   Keahlian</span></div>
+            <div class="judul2"><i class="fas fa-kitchen-set fa-xl"></i><span id="keahlian">   Keahlian</span></div>
             <!-- <div style="overflow: auto; height: 531px"> -->
             <table>
                 <tr>
-                    <th>Keahlian</th>
+                    <th class="nama_keahlian">Keahlian</th>
                     <th>Tingkat Keahlian</th>
+                    <th>Jenis Keahlian</th>
                     <th class="aksi">Aksi</th>
                 </tr>
                 @foreach($daftark->keahlian->reverse() as $dkk)
                 <tr>
-                    <td>{{$dkk->jenis_keahlian}}</td>
+                    <td>{{$dkk->nama_keahlian}}</td>
                     <td class="tingkat_keahlian">{{$dkk->tingkat_keahlian}}</td>
+                    <td align="center">{{$dkk->jenis_keahlian}}</td>
                     <td align="center" class="button-container">
                         <a href="/karyawan/{{$dkk->id}}/edit_keahlian"><button class="detail"><i class="fa fa-pen-to-square fa-sm" ></i></button></a>
                         <form action="{{ route('keahlian.destroy', ['id' => $dkk->id]) }}" method="POST">
@@ -246,10 +252,9 @@
                 @endforeach
             </table>
             <a href="{{$daftark->id}}/tambah_keahlian"><button class="tambah"><i class="fa-solid fa-plus"></i> Tambah Data</button></a><br>
-            
 
             <!-- Pelatihan -->
-            <div class="judul2"><i class="fas fa-book fa-xl"></i><span>   Pelatihan</span></div>
+            <div class="judul2"><i class="fas fa-book fa-xl"></i><span >   Pelatihan</span></div>
             <!-- <div style="overflow: auto; height: 231px"> -->
             <table>
            
@@ -267,7 +272,8 @@
                     <td>{{$dkp->penyelenggara}}</td>
                     <td>{{ \Carbon\Carbon::parse($dkp->tanggal_mulai)->format('d/m/Y') }}</td>   
                     <td>{{ \Carbon\Carbon::parse($dkp->tanggal_selesai)->format('d/m/Y') }}</td>
-                    <td>{{$dkp->lokasi}}</td>
+                    <td>{{ ucwords(strtolower(implode(' ',(explode(' ', $dkp->provinsi))))) }}, 
+                    {{ ucwords(strtolower(implode(' ', array_slice(explode(' ', $dkp->kabupaten), 1)))) }}</td>
                     <td align="center" class="button-container">
                         <a href="/karyawan/{{$dkp->id}}/edit_pelatihan"><button class="detail"><i class="fa fa-pen-to-square fa-sm" ></i></button></a>
                         <form action="{{ route('pelatihan.destroy', ['id' => $dkp->id]) }}" method="POST">

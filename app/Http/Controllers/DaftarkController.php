@@ -10,6 +10,12 @@ use App\Models\Keahlian;
 use App\Models\Pelatihan;
 use Illuminate\Http\Request;
 
+use App\Models\Province;
+use App\Models\Regency;
+use App\Models\District;
+use App\Models\Village;
+
+
 class DaftarkController extends Controller
 {
     // halaman daftark dan fungsi search
@@ -36,12 +42,40 @@ class DaftarkController extends Controller
 
     // menampilkan halaman menambah biodata
     public function create(){
-        return view('biodata');
+        $provinces = Province::all();
+        $regencies = Regency::all();
+        return view('biodata', compact(['provinces', 'regencies']));
     }
 
     // cara tambah biodata 
     public function store(Request $request){
-        $daftark = Daftark::create($request->except(['_token','submit']));
+
+        $id_provinsi = $request->input('provinsi');
+        $id_kabupaten = $request->input('kabupaten'); 
+
+        $nama_provinsi = Province::find($id_provinsi)->name;
+
+        $request->merge(['provinsi' => $nama_provinsi]);
+            
+        if ($request->ajax()) {
+            $kabupatens = Regency::where('province_id', $id_provinsi)->get();
+            $option = "<option> Pilih Kabupaten... </option>";
+    
+            if (count($kabupatens) > 0) {
+                foreach ($kabupatens as $kabupaten) {
+                    $option .= "<option value='$kabupaten->id'>$kabupaten->name</option>";
+                }
+            }
+            return response()->json(['kabupatens' => $option]);
+        }
+            // $nama_provinsi = $id_provinsi->name;
+            
+        $nama_kabupaten = Regency::find($id_kabupaten)->name;
+
+        $request->merge(['kabupaten' => $nama_kabupaten]);
+
+        $daftark = Daftark::create($request->except(['_token','submit']));     
+
         // menambah foto
         if($request->hasFile('foto')){
             $request-> file('foto')->move('fotokaryawan/', $request->file('foto')->getClientOriginalName());
@@ -63,13 +97,25 @@ class DaftarkController extends Controller
     // edit
     public function edit($id){   
         $daftark = Daftark::find($id);
-        return view('edit_biodata', compact(['daftark']));
+        $provinces = Province::all();
+        $regencies = Regency::all();
+        return view('edit_biodata', compact(['daftark', 'provinces', 'regencies']));
     }
 
     // update
     public function update($id, Request $request)
     {
         $daftark = Daftark::find($id);
+
+         $id_provinsi = $request->input('provinsi');
+        $id_kabupaten = $request->input('kabupaten'); 
+
+        $nama_provinsi = Province::find($id_provinsi)->name;  
+        $nama_kabupaten = Regency::find($id_kabupaten)->name;
+
+        $request->merge(['provinsi' => $nama_provinsi]);
+        $request->merge(['kabupaten' => $nama_kabupaten]);
+        
         $daftark-> update($request->except(['_token','submit']));
         if($request->hasFile('foto')){
             $request-> file('foto')->move('fotokaryawan/', $request->file('foto')->getClientOriginalName());
@@ -526,8 +572,9 @@ class DaftarkController extends Controller
         if ($daftark) {
             // Buat objek Keahlian baru
             $keahllian = new Keahlian([
-                'jenis_keahlian' => $request->jenis_keahlian,
+                'nama_keahlian' => $request->nama_keahlian,
                 'tingkat_keahlian' => $request->tingkat_keahlian,
+                'jenis_keahlian' => $request->jenis_keahlian,
             ]);
     
             // Hubungkan Jenjangkarir dengan Daftark
@@ -592,33 +639,83 @@ class DaftarkController extends Controller
     public function create_pelatihan($id){
         $daftark = Daftark::all();
         $daftark = Daftark::find($id);
-        return view('tambah_pelatihan', compact(['daftark']));
+        // Get semua data
+        $provinces = Province::all();
+        $regencies = Regency::all();
+
+        return view('tambah_pelatihan', compact(['daftark', 'provinces', 'regencies']));
     }
 
     // cara tambah pelatihan
     public function store_pelatihan(Request $request, $id) {
         // Temukan objek Daftark berdasarkan id
         $daftark = Daftark::find($id);
-    
+        $provinces = Province::find($id);
+        
+        // $provinces = Province::all();
+        $id_provinsi = $request->input('provinsi');
+        $id_kabupaten = $request->input('kabupaten'); 
+
+        $nama_provinsi = Province::find($id_provinsi)->name;
+            
+            if ($request->ajax()) {
+                $kabupatens = Regency::where('province_id', $id_provinsi)->get();
+                $option = "<option> Pilih Kota atau Kabupaten </option>";
+
+                foreach ($kabupatens as $kabupaten) {
+                    $option .= "<option value='$kabupaten->id'>$kabupaten->name</option>";
+                }
+                return response()->json(['kabupatens' => $option]);
+            }
+            
+            $nama_kabupaten = Regency::find($id_kabupaten)->name;
+
+        // $provinsi = Province::find($id_provinsi);
         if ($daftark) {
+
             $pelatihan = new Pelatihan([
                 'nama_pelatihan' => $request->nama_pelatihan,
                 'penyelenggara' => $request->penyelenggara,
                 'tanggal_mulai' => $request->tanggal_mulai,
                 'tanggal_selesai' => $request->tanggal_selesai,
                 'lokasi' => $request->lokasi,
+
+                'provinsi' => $nama_provinsi,
+                'kabupaten' => $nama_kabupaten,
             ]);
     
-            // Hubungkan Jenjangkarir dengan Daftark
+            // Hubungkan pelatihan dengan Daftark
             $pelatihan->daftark_id = $daftark->id;
-    
             // Simpan Jenjangkarir
             $pelatihan->save();
-    
-            return redirect('/karyawan/'. $daftark->id )->with('success', 'Data pelatihan telah ditambah!');;
+            session(['provinsi' => $nama_provinsi, 'kabupaten' => $nama_kabupaten]);
+            return redirect('/karyawan/'. $daftark->id )->with('success', 'Data pelatihan telah ditambah!');
         } else {
             return redirect('/karyawan/'. $daftark->id );
         }
+    }
+
+    // put pelatihan
+    public function update_pelatihan($id, Request $request)
+    {   
+        $daftark_id = session('daftark_id');
+        $daftark = Daftark::find($daftark_id);
+
+        $pelatihan = Pelatihan::find($id);
+        
+        $id_provinsi = $request->input('provinsi');
+        $id_kabupaten = $request->input('kabupaten'); 
+
+        $nama_provinsi = Province::find($id_provinsi)->name;  
+        $nama_kabupaten = Regency::find($id_kabupaten)->name;
+
+        $request->merge(['provinsi' => $nama_provinsi]);
+        $request->merge(['kabupaten' => $nama_kabupaten]);
+
+        $pelatihan->daftark_id = $daftark->id;
+        
+        $pelatihan->update($request->except(['_token', 'submit']));
+        return redirect('/karyawan/'. $daftark->id );
     }
 
     // edit pelatihan
@@ -628,19 +725,62 @@ class DaftarkController extends Controller
         $daftark = Daftark::find($daftark_id);
 
         $pelatihan = Pelatihan::find($id);
-        return view('edit_pelatihan', compact(['pelatihan', 'daftark']));
+
+        $provinces = Province::all();
+        $regencies = Regency::all();
+        return view('edit_pelatihan', compact(['pelatihan', 'daftark', 'provinces', 'regencies']));
     }
 
-    // put keahlian
-    public function update_pelatihan($id, Request $request)
-    {   
-        $daftark_id = session('daftark_id');
-        $daftark = Daftark::find($daftark_id);
+    // public function update_pelatihan($id, Request $request)
+    // {
+    //     $daftark = Daftark::find($id);
+    //     $provinces = Province::find($id);
+        
+    //     // $provinces = Province::all();
+    //     $id_provinsi = $request->input('provinsi');
+    //     $id_kabupaten = $request->input('kabupaten'); 
 
-        $pelatihan = Pelatihan::find($id);
-        $pelatihan->update($request->except(['_token', 'submit']));
-        return redirect('/karyawan/'. $daftark->id );
-    }
+    //     // $provinsi = Province::find($id_provinsi);
+    //     if ($daftark) {
+
+    //         $nama_provinsi = Province::find($id_provinsi)->name;
+            
+    //         if ($request->ajax()) {
+    //             $kabupatens = Regency::where('province_id', $id_provinsi)->get();
+    //             $option = "<option> Pilih Kabupaten... </option>";
+
+    //             foreach ($kabupatens as $kabupaten) {
+    //                 $option .= "<option value='$kabupaten->id'>$kabupaten->name</option>";
+    //             }
+                
+    //             return response()->json(['kabupatens' => $option]);
+    //         }
+            
+    //         $nama_kabupaten = Regency::find($id_kabupaten)->name;
+
+    //         $pelatihan = new Pelatihan([
+    //             'nama_pelatihan' => $request->nama_pelatihan,
+    //             'penyelenggara' => $request->penyelenggara,
+    //             'tanggal_mulai' => $request->tanggal_mulai,
+    //             'tanggal_selesai' => $request->tanggal_selesai,
+    //             'lokasi' => $request->lokasi,
+
+    //             'provinsi' => $nama_provinsi,
+    //             'kabupaten' => $nama_kabupaten,
+    //         ]);
+    
+    //         // Hubungkan Jenjangkarir dengan Daftark
+    //         $pelatihan->daftark_id = $daftark->id;
+    
+    //         // Simpan Jenjangkarir
+    //         $pelatihan->save();
+    //         $pelatihan->update($request->except(['_token', 'submit']));
+    //         session(['provinsi' => $nama_provinsi, 'kabupaten' => $nama_kabupaten]);
+    //         return redirect('/karyawan/'. $daftark->id )->with('success', 'Data pelatihan telah ditambah!');
+    //     } else {
+    //         return redirect('/karyawan/'. $daftark->id );
+    //     }
+    // }
 
     // hapus pelatihan
     public function destroy_pelatihan($id){

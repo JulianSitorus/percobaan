@@ -24,7 +24,7 @@
     <div class ="dua">
         <header>Menu</header>
             <ul>
-                <li><a href="daftark">
+                <li><a href="daftark" target="_self">
                     <i class="fas fa-id-card">
                         <span class="menu">&emsp;Karyawan</span>
                     </i></a></li>
@@ -76,9 +76,9 @@
                     <th class="kiri">No</th>
                     <th class="foto">Foto</th>
                     <th>Nama</th>
-                    <th>Posisi</th>
-                    <th>Unit</th>
                     <th>Departemen</th>
+                    <th>Unit</th>
+                    <th>Posisi</th>
                     <th>Status</th>
                     <th>Kontak</th>
                     <th class="kanan">Aksi</th>
@@ -90,7 +90,7 @@
                         <td>{{$dk->nama_karyawan}} </td>
                         <td>
                             @if ($dk->jenjangkarir->isNotEmpty())
-                                {{ $dk->jenjangkarir->last()->posisi }}
+                                {{ $dk->jenjangkarir->last()->departemen }}
                             @endif
                         </td>
                         <td>
@@ -100,7 +100,7 @@
                         </td>
                         <td>
                             @if ($dk->jenjangkarir->isNotEmpty())
-                                {{ $dk->jenjangkarir->last()->departemen }}
+                                {{ $dk->jenjangkarir->last()->posisi }}
                             @endif
                         </td>
                         <td>{{$dk->status}}</td>

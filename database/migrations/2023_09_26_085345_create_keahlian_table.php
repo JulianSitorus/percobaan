@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('keahlian', function (Blueprint $table) {
             $table->id();
             $table->char('daftark_id');
-            $table->string('jenis_keahlian');
+            $table->string('nama_keahlian');
             $table->enum('tingkat_keahlian', ['Sangat Baik','Baik','Standar','Dibawah Standar','Buruk']);
+            $table->enum('jenis_keahlian', ['Hard Skill','Soft Skill']);
             $table->timestamps();
         });
     }

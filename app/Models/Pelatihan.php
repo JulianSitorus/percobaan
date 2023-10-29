@@ -15,4 +15,9 @@ class Pelatihan extends Model
     {
         return $this->belongsTo('App\Models\Daftark');
     }
+
+    public function provinces()
+    {
+    	return $this->hasOne('App\Models\Province');
+    }
 }

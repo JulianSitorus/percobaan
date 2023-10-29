@@ -81,7 +81,7 @@
                     <td>{{$dk->nama_karyawan}} </td>
                     <td class="keahlian">
                         @foreach($dk->keahlian as $keahlian)
-                            {{$keahlian->jenis_keahlian}},
+                            {{$keahlian->nama_keahlian}},
                         @endforeach                    
                     </td>
                     <td class="pelatihan">
@@ -90,7 +90,7 @@
                         @endforeach 
                     </td>
                     <td align="center">
-                        <a href="karyawan/{{$dk->id}}"><button class="detail"><i class="fa fa-pen-to-square fa-sm" ></i></button></a>
+                        <a href="karyawan/{{$dk->id}}#keahlian"><button class="detail"><i class="fa fa-pen-to-square fa-sm" ></i></button></a>
                         <button class="tambah"><i class="fa-solid fa-plus"></i></button>
                     </td>
                 </tr>

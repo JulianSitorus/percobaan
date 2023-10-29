@@ -62,8 +62,8 @@
             <form action="{{ route('keahlian.update', ['id' => $keahlian->id]) }}" method="POST" enctype="multipart/form-data">
                 @method('put')
                 @csrf
-                <label class="key" for="jenis_keahlian">Jenis Keahlian</label>
-                <input id="jenis_keahlian" value="{{$keahlian->jenis_keahlian}}" type="text" name="jenis_keahlian" pattern=".*\S+.*" required
+                <label class="key" for="nama_keahlian">Nama Keahlian</label>
+                <input id="nama_keahlian" value="{{$keahlian->nama_keahlian}}" type="text" name="nama_keahlian" pattern=".*\S+.*" required
                     oninvalid="this.setCustomValidity('Jenis keahlian karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan jenis keahlian"><br>
 
                     <p class="key">Tingkat Keahlian</p>
@@ -87,7 +87,17 @@
                         <input id="brk" type="radio" value="Buruk" name="tingkat_keahlian" @if ($keahlian->tingkat_keahlian == "Buruk") checked @endif required>
                         <label for="brk">Buruk</label>
                     </div>
+                
+                <label class="key" for="jenis_keahlian">Jenis Keahlian</label>
+                <select name="jenis_keahlian" id="jenis_keahlian" required
+                oninvalid="this.setCustomValidity('Jenis keahlian belum terisi!')" 
+                onInput="this.setCustomValidity('')" title="Silahkan pilih jenis keahlian">
+                    <option value="{{$keahlian->jenis_keahlian}}">Pilih jenis keahlian</option>
+                    <option value="Hard Skill" @if ($keahlian->jenis_keahlian == "Hard Skill") selected @endif>Hard Skill</option>
+                    <option value="Soft Skill" @if ($keahlian->jenis_keahlian == "Soft Skill") selected @endif>Soft Skill</option> 
+                </select>
 
+                <br>
                 <br/>
                 <hr size="3px" color="#EEEEEE">
                 <input class="simpan" type="submit" name="submit" value="Simpan">

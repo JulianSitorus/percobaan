@@ -71,8 +71,31 @@
                 <label for="tempat_lahir">Tempat Lahir</label><input id="tempat_lahir" value="{{$daftark->tempat_lahir}}" type="text" name="tempat_lahir" pattern=".*\S+.*" required
                 oninvalid="this.setCustomValidity('Tempat lahir karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan tempat lahir"><br>
 
-                <label for="tanggal_lahir">Tanggal Lahir</label><input id="tanggal_lahir" value="{{$daftark->tanggal_lahir}}" type="date" name="tanggal_lahir" pattern=".*\S+.*" required
-                oninvalid="this.setCustomValidity('Tanggal lahir karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan tanggal lahir"><br>
+                <label for="tanggal_lahir">Tanggal Lahir</label>
+                <!-- <input id="tanggal_lahir" value="{{$daftark->tanggal_lahir}}" type="date" name="tanggal_lahir" pattern=".*\S+.*" required
+                oninvalid="this.setCustomValidity('Tanggal lahir karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan tanggal lahir"><br> -->
+
+                <select name="provinsi" id="provinsi" required
+                oninvalid="this.setCustomValidity('Provinsi belum terisi!')" 
+                onInput="this.setCustomValidity('')" title="Silahkan pilih provinsi pelatihan" onchange="updateKabupatenOptions()">
+                    <option value="">Pilih Provinsi</option>
+                    @foreach ($provinces as $provinsi)
+                        <option value="{{ $provinsi->id }}" {{ $daftark->provinsi == $provinsi->name ? 'selected' : '' }}>
+                            {{$provinsi->name}}
+                        </option>
+                    @endforeach
+                </select>
+
+                <br>
+
+                <select name="kabupaten" id="kabupaten" required
+                oninvalid="this.setCustomValidity('Kabupaten belum terisi!')" 
+                onInput="this.setCustomValidity('')" title="Silahkan pilih kabupaten pelatihan">
+                <option value="">Pilih Kota atau Kabupaten</option> 
+
+                </select>
+
+                <br>
 
                 <label for="alamat">Alamat</label><input id="alamat" value="{{$daftark->alamat}}" type="text" name="alamat" pattern=".*\S+.*" required
                 oninvalid="this.setCustomValidity('Alamat karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan alamat"><br>
@@ -82,7 +105,7 @@
                 <select name="agama" id="agama" required
                 oninvalid="this.setCustomValidity('Agama karyawan belum terisi!')" 
                 onInput="this.setCustomValidity('')" title="Silahkan pilih agama karyawan">
-                    <option value="{{$daftark->agama}}" >Pilih Agama</option>
+                    <option value="" >Pilih Agama</option>
                     <option value="islam" @if ($daftark->agama == "islam") selected @endif>Islam</option>
                     <option value="kristen" @if ($daftark->agama == "kristen") selected @endif>Kristen</option>
                     <option value="katolik" @if ($daftark->agama == "katolik") selected @endif>Katolik</option> 
@@ -100,13 +123,12 @@
                     <option value="Perempuan" @if ($daftark->jenis_kelamin == "Perempuan") selected @endif>Perempuan</option> 
                 </select><br>
 
-                <label for="email">Email</label><input id="email" value="{{$daftark->email}}" type="varchar" name="email"pattern=".*\S+.*" required
-                oninvalid="this.setCustomValidity('Email karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan email"><br>
+                <label for="email">Email</label><input id="email" value="{{$daftark->email}}" type="email" name="email" required title="Silahkan masukkan email"><br>
 
                 <label for="no_telp">Telepon</label><input id="no_telp" value="{{$daftark->no_telp}}" type="char" pattern="[0-9]{12}" name="no_telp" required
                 oninvalid="this.setCustomValidity('Nomor telepon karyawan belum terisi dengan tepat!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan nomor telepon"><br>
 
-                <label for="pendidikan">Pendidikan</label><input id="pendidikan" value="{{$daftark->pendidikan}}" type="varchar" name="pendidikan" pattern=".*\S+.*" required
+                <label for="pendidikan">Pendidikan Terakhir</label><input id="pendidikan" value="{{$daftark->pendidikan}}" type="varchar" name="pendidikan" pattern=".*\S+.*" required
                 oninvalid="this.setCustomValidity('Pendidikan karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan pendidikan"><br>
 
                 <label for="pekerjaan_terakhir">Pekerjaan Terakhir</label><input id="pekerjaan_terakhir" value="{{$daftark->pekerjaan_terakhir}}" type="varchar" name="pekerjaan_terakhir"  pattern=".*\S+.*" required
@@ -143,5 +165,36 @@
                 
         </div>
     </div>
+
+    <script>
+        function updateKabupatenOptions() {
+        var provinsiDropdown = document.getElementById("provinsi");
+        var kabupatenDropdown = document.getElementById("kabupaten");
+        var selectedProvinsiId = provinsiDropdown.value;
+        var selectedKabupatenId = kabupatenDropdown.value;
+
+        kabupatenDropdown.innerHTML = ""; // Hapus opsi saat ini
+
+        var defaultOption = document.createElement("option");
+        defaultOption.text = "Pilih Kota atau Kabupaten";
+        kabupatenDropdown.add(defaultOption);
+
+        if (selectedProvinsiId !== "") {
+            // Loop melalui daftar kabupaten dan tambahkan opsi yang sesuai
+            @foreach ($regencies as $kabupaten)
+                if ("{{ $kabupaten->province_id }}" === selectedProvinsiId) {
+                    var kabupatenOption = document.createElement("option");
+                    kabupatenOption.value = "{{ $kabupaten->id }}";
+                    kabupatenOption.text = "{{ $kabupaten->name }}";
+                    kabupatenOption.selected = "{{ $kabupaten->name }}" === "{{ $daftark->kabupaten }}";
+                    kabupatenDropdown.add(kabupatenOption);
+                }
+            @endforeach 
+        }
+    }
+    // Panggil fungsi ini saat halaman dimuat untuk pertama kalinya
+    updateKabupatenOptions();
+    </script>
+
 </body>
 </html>

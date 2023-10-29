@@ -36,5 +36,10 @@ class Daftark extends Model
     {
         return $this->hasMany('App\Models\Pelatihan');
     }
+
+    public function provinces()
+    {
+    	return $this->hasOne('App\Models\Province');
+    }
     
 }

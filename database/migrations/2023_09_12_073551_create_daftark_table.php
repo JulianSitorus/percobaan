@@ -27,6 +27,9 @@ return new class extends Migration
             // $table->string('posisi');
             // $table->string('unit');
             // $table->string('departemen');
+            $table->string('provinsi');
+            $table->string('kabupaten');
+            
             $table->string('foto');
             $table->timestamps();
             

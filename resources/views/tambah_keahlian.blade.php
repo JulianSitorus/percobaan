@@ -60,8 +60,8 @@
 
             <form action="/store_keahlian/{{$daftark->id}}" method="POST" enctype="multipart/form-data">
             @csrf
-            <label class="key" for="jenis_keahlian">Jenis Keahlian</label><input id="jenis_keahlian" type="text" name="jenis_keahlian" pattern=".*\S+.*" required
-            oninvalid="this.setCustomValidity('Jenis keahlian karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan jenis keahlian"><br>
+            <label class="key" for="nama_keahlian">Nama Keahlian</label><input id="nama_keahlian" type="text" name="nama_keahlian" pattern=".*\S+.*" required
+            oninvalid="this.setCustomValidity('nama keahlian karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan nama keahlian"><br>
 
                 <p class="key">Tingkat Keahlian</p>
                 <div>
@@ -86,6 +86,16 @@
                     <label for="brk">Buruk</label>
                 </div>
 
+            <label class="key" for="jenis_keahlian">Jenis Keahlian</label>
+            <select name="jenis_keahlian" id="jenis_keahlian" required
+            oninvalid="this.setCustomValidity('Jenis keahlian belum terisi!')" 
+            onInput="this.setCustomValidity('')" title="Silahkan pilih jenis keahlian">
+                <option value="">Pilih jenis keahlian</option>
+                <option value="Hard Skill">Hard Skill</option>
+                <option value="Soft Skill">Soft Skill</option> 
+            </select>
+
+            <br>
             <br/>
             <hr size="3px" color="#EEEEEE">
             <input class="simpan" type="submit" name="submit" value="Simpan">

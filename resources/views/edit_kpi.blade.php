@@ -128,10 +128,10 @@
 
                     @for ($i = 0; $i < 5; $i++)
                     <tr>
-                        <td><textarea name="area" id="area" type="komentar">{{$kpi->area}}</textarea></td>
-                        <td><textarea name="ket" id="ket" type="komentar">{{$kpi->ket}}</textarea></td>
-                        <td class="background"><input name="bobot" id="bobot-{{ $i }}" class="bobot-input"></td>
-                        <td class="background"><input name="target" id="target-{{ $i }}"></td>
+                        <td><textarea class="background" name="area" id="area" type="komentar" readonly>{{$kpi->area}}</textarea></td>
+                        <td><textarea class="background" name="ket" id="ket" type="komentar" readonly>{{$kpi->ket}}</textarea></td>
+                        <td class="background"><input class="background" name="bobot" id="bobot-{{ $i }}" class="bobot-input" readonly></td>
+                        <td class="background"><input class="background" name="target" id="target-{{ $i }}" readonly></td>
                         <td class="background"><input name="realisasi" id="realisasi-{{ $i }}"></td>
                         <td class="background"><input name="skor" id="skor-{{ $i }}" class="skor" readonly></td>
                         <td class="background">
@@ -202,13 +202,15 @@
 
             if (i < 2) {
                 newElement = document.createElement("textarea");
+                newElement.classList.add("background");
+                newElement.readOnly = true;
             } else {
                 newElement = document.createElement("input");
-
-                newCell.classList.add("background");
-
+                newCell.classList.add("background")
                 if (i === 2) {
                     newElement.classList.add("bobot");
+                    newElement.classList.add("background");
+                    newElement.readOnly = true;
                 }
                 newElement.addEventListener("input", function() {
 
@@ -228,11 +230,13 @@
                 });
 
                 if (i === 3) {
-                    newElement.classList.add("realisasi");
+                    newElement.classList.add("target");
+                    newElement.classList.add("background");
+                    newElement.readOnly = true;
                 }
 
                 if (i === 4) {
-                    newElement.classList.add("target");
+                    newElement.classList.add("realisasi");
                 }
 
                 if (i === 5) {

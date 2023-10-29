@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\DaftarkController;
+use App\Http\Controllers\IndoregionController;
 use App\Http\Controllers\JenjangkarirController;
 use App\Http\Controllers\Keahlian;
 use Illuminate\Support\Facades\Route;
@@ -24,7 +25,7 @@ Route::get('/daftark',[DaftarkController::class,'index']);
 // halaman membuat data 
 Route::get('/biodata',[DaftarkController::class,'create']);
 // menampilkan data redirect ke halaman
-Route::post('/store',[DaftarkController::class,'store']);
+Route::post('/store',[DaftarkController::class,'store'])->name('store');
 // halaman detail data
 Route::get('/karyawan/{id}',[DaftarkController::class, 'show']);
 // halaman edit biodata karyawan
@@ -108,8 +109,9 @@ Route::get('/pelatihan',[DaftarkController::class,'pelatihan']);
 
 // halaman membuat tambah data pelatihan
 Route::get('/karyawan/{id}/tambah_pelatihan',[DaftarkController::class,'create_pelatihan']);
+// Route::get('/karyawan/{id}/tambah_pelatihan',[IndoregionController::class,'create_pelatihan']);
 // menampilkan data redirect ke halaman detail jenjang karir
-Route::post('/store_pelatihan/{id}',[DaftarkController::class,'store_pelatihan']);
+Route::post('/store_pelatihan/{id}',[DaftarkController::class,'store_pelatihan'])->name('store_pelatihan');
 // halaman edit pelatihan
 Route::get('/karyawan/{id}/edit_pelatihan',[DaftarkController::class, 'edit_pelatihan']);
 // untuk put pelatihan
