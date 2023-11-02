@@ -52,6 +52,10 @@ Route::put('/kpi/{id}',[DaftarkController::class, 'update_kpi'])->name('kpi.upda
 // untuk menghapus salah satu data kpi
 Route::delete('/kpi/{id}', [DaftarkController::class, 'destroy_kpi'])->name('kpi.destroy');
 
+// export pdf
+Route::get('/kpi/{id}',[DaftarkController::class, 'export_pdf'])->name('export_pdf');
+
+
 // ------------------------------------------------EVALUASI-----------------------------------------------------
 
 // 1-n karyawan dgn evaluasi

@@ -10,11 +10,14 @@ use App\Models\Keahlian;
 use App\Models\Pelatihan;
 use Illuminate\Http\Request;
 
+// use PDF;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 use App\Models\Province;
 use App\Models\Regency;
 use App\Models\District;
 use App\Models\Village;
-
+use Barryvdh\DomPDF\PDF as DomPDFPDF;
 
 class DaftarkController extends Controller
 {
@@ -192,7 +195,7 @@ class DaftarkController extends Controller
         return view('tambah_kpi', compact(['daftark']));
     }    
 
-    //  request tambah evaluasi
+    //  request tambah kpi
      public function store_kpi(Request $request, $id) {
         $skor = $request->input('skor');
         $skor_akhir = $request->input('skor_akhir');
@@ -263,6 +266,17 @@ class DaftarkController extends Controller
         return redirect('/karyawan/'. $daftark->id );
     }
 
+    // Export KPI
+    public function export_pdf($id){
+        $daftark_id = session('daftark_id');
+        $daftark = Daftark::find($daftark_id);
+        $kpi = Kpi::find($id);
+        
+        view()->share('kpi',$kpi);
+        $pdf = PDF::loadview('kpi-pdf', compact('kpi', 'daftark'));
+        return $pdf->download('kpi.pdf');
+    } 
+
     // hapus kpi
     public function destroy_kpi($id){
         $daftark_id = session('daftark_id');
@@ -271,8 +285,7 @@ class DaftarkController extends Controller
         $kpi = Kpi::find($id);
         $kpi->delete();
         return redirect('/karyawan/'. $daftark->id);
-    }
-    
+    }  
 
     // ======================================================= EVALUASI ===========================================================
 

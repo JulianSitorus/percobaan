@@ -48,6 +48,8 @@
             </ul>
     </div>
 
+    
+
     <div class ="tiga">
         <h3>Karyawan > </h3>
     </div>
@@ -56,6 +58,10 @@
         <div class="empat2">
             <p class="judul">Key Performance Indicator Karyawan</p>
             <hr size="3px" color="#EEEEEE">
+
+            <a href="{{ route('export_pdf', ['id' => $kpi->id]) }}">
+                <button><i class="fas fa-file-pdf"> <span> Export PDF</span></i></button>
+            </a>
 
             <form action="{{ route('kpi.update', ['id' => $kpi->id]) }}" method="POST" enctype="multipart/form-data">
             @method('put')
@@ -126,21 +132,21 @@
                         <th class="j_skor_akhir">Skor Akhir</th>
                     </tr>
 
-                    @for ($i = 0; $i < 5; $i++)
+                    @for ($i = 0; $i < 6; $i++)
                     <tr>
                         <td><textarea class="background" name="area" id="area" type="komentar" readonly>{{$kpi->area}}</textarea></td>
                         <td><textarea class="background" name="ket" id="ket" type="komentar" readonly>{{$kpi->ket}}</textarea></td>
-                        <td class="background"><input class="background" name="bobot" id="bobot-{{ $i }}" class="bobot-input" readonly></td>
-                        <td class="background"><input class="background" name="target" id="target-{{ $i }}" readonly></td>
-                        <td class="background"><input name="realisasi" id="realisasi-{{ $i }}"></td>
-                        <td class="background"><input name="skor" id="skor-{{ $i }}" class="skor" readonly></td>
+                        <td class="background"><input class="background" name="bobot" id="bobot-{{ $i }}" class="bobot-input" value="{{$kpi->bobot}}" readonly></td>
+                        <td class="background"><input class="background" name="target" id="target-{{ $i }}" value="{{$kpi->target}}" readonly></td>
+                        <td class="background"><input name="realisasi" id="realisasi-{{ $i }}"  class="realisasi" value="{{$kpi->realisasi}}"></td>                       
                         <td class="background">
-                            <select name="jenis_perhitungan" id="jenis_perhitungan-{{ $i }}">
-                                <option value="skor-1">R/T</option>
-                                <option value="skor-2">T/R</option>
+                            <select name="jenis_perhitungan" id="jenis_perhitungan-{{ $i }}" class="jenis_perhitungan">
+                                <option value="skor-1" @if ($kpi->jenis_perhitungan == "skor-1") selected @endif>R/T</option>
+                                <option value="skor-2" @if ($kpi->jenis_perhitungan == "skor-2") selected @endif>T/R</option>
                             </select>
                         </td>
-                        <td class="background"><input class="background" name="skor_akhir" id="skor_akhir-{{ $i }}" readonly></td>
+                        <td class="background"><input name="skor" id="skor-{{ $i }}" class="skor" value="{{$kpi->skor}}" readonly></td>
+                        <td class="background"><input class="background" name="skor_akhir" id="skor_akhir-{{ $i }}" value="{{$kpi->skor_akhir}}" readonly></td>
                     </tr>
                     @endfor
                     
@@ -240,12 +246,6 @@
                 }
 
                 if (i === 5) {
-                    newElement.classList.add("skor");
-                    newElement.classList.add("background");
-                    newElement.readOnly = true;
-                }
-
-                if (i === 6) {
                     newElement = document.createElement("select");
                     var option1 = document.createElement("option");
                     option1.value = "skor-1";
@@ -258,6 +258,13 @@
 
                     newElement.appendChild(option1);
                     newElement.appendChild(option2);
+                    newElement.classList.add("jenis_perhitungan");
+                }
+
+                if (i === 6) {
+                    newElement.classList.add("skor");
+                    newElement.classList.add("background");
+                    newElement.readOnly = true;
                 }
 
                 if (i === 7) {

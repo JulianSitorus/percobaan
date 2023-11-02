@@ -93,7 +93,7 @@
                 </ul>
                 <ul>
                     <li class="key">Tempat & Tanggal Lahir</li>
-                    <li class="value"> {{ ucfirst(strtolower(implode(' ', array_slice(explode(' ', $daftark->kabupaten), 1)))) }}, {{ \Carbon\Carbon::parse($daftark->tanggal_lahir)->format('d F Y') }}</li>
+                    <li class="value"> {{ ucwords(strtolower(implode(' ', array_slice(explode(' ', $daftark->kabupaten), 1)))) }}, {{ \Carbon\Carbon::parse($daftark->tanggal_lahir)->format('d F Y') }}</li>
                 </ul>
                 <ul>
                     <li class="key">Alamat</li>

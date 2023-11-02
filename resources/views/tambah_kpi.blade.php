@@ -60,13 +60,16 @@
             <form action="/store_kpi/{{$daftark->id}}" method="POST" enctype="multipart/form-data">
             @csrf
             
-                <label for="supervisor">Supervisor Langsung</label><input id="supervisor" type="text" name="supervisor" pattern=".*\S+.*" required
+                <label for="supervisor">Supervisor Langsung</label>
+                <input id="supervisor" type="text" name="supervisor" pattern=".*\S+.*" required
                 oninvalid="this.setCustomValidity('Supervisor karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan nama supervisor">
 
-                <label for="jabatan_supervisor">Jabatan Supervisor</label><input id="jabatan_supervisor" type="text" name="jabatan_supervisor" pattern=".*\S+.*" required
+                <label for="jabatan_supervisor">Jabatan Supervisor</label>
+                <input id="jabatan_supervisor" type="text" name="jabatan_supervisor" pattern=".*\S+.*" required
                 oninvalid="this.setCustomValidity('Jabatan supervisor karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan jabatan supervisor"><br>
 
-                <label for="tanggal_kpi">Tanggal KPI Disetujui</label><input id="tanggal_kpi" type="date" name="tanggal_kpi" pattern=".*\S+.*" required
+                <label for="tanggal_kpi">Tanggal KPI Disetujui</label>
+                <input id="tanggal_kpi" type="date" name="tanggal_kpi" pattern=".*\S+.*" required
                 oninvalid="this.setCustomValidity('Tanggal KPI disetujui belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan tanggal">
 
                 <label for="mulai_pelaksanaan">Periode Pelaksanaan</label>
@@ -125,20 +128,20 @@
                         <th class="j_skor_akhir">Skor Akhir</th>
                     </tr>
 
-                    @for ($i = 0; $i < 5; $i++)
+                    @for ($i = 0; $i < 6; $i++)
                     <tr>
                         <td><textarea name="area" id="area" type="komentar"></textarea></td>
                         <td><textarea name="ket" id="ket" type="komentar"></textarea></td>
                         <td class="background"><input name="bobot" id="bobot-{{ $i }}" class="bobot-input"></td>
                         <td class="background"><input name="target" id="target-{{ $i }}"></td>
-                        <td class="background"><input name="realisasi" id="realisasi-{{ $i }}"></td>
-                        <td class="background"><input name="skor" id="skor-{{ $i }}" class="skor" readonly></td>
+                        <td class="background"><input name="realisasi" id="realisasi-{{ $i }}" class="realisasi"></td>
                         <td class="background">
-                            <select name="jenis_perhitungan" id="jenis_perhitungan-{{ $i }}">
+                            <select name="jenis_perhitungan" id="jenis_perhitungan-{{ $i }}" class="jenis_perhitungan">
                                 <option value="skor-1">R/T</option>
                                 <option value="skor-2">T/R</option>
                             </select>
                         </td>
+                        <td class="background"><input name="skor" id="skor-{{ $i }}" class="skor" readonly></td>
                         <td class="background"><input class="background" name="skor_akhir" id="skor_akhir-{{ $i }}" readonly></td>
                     </tr>
                     @endfor
@@ -256,12 +259,6 @@
                 }
 
                 if (i === 5) {
-                    newElement.classList.add("skor");
-                    newElement.classList.add("background");
-                    newElement.readOnly = true;
-                }
-
-                if (i === 6) {
                     newElement = document.createElement("select");
                     var option1 = document.createElement("option");
                     option1.value = "skor-1";
@@ -274,6 +271,13 @@
 
                     newElement.appendChild(option1);
                     newElement.appendChild(option2);
+                    newElement.classList.add("jenis_perhitungan");
+                }
+
+                if (i === 6) {
+                    newElement.classList.add("skor");
+                    newElement.classList.add("background");
+                    newElement.readOnly = true;
                 }
 
                 if (i === 7) {
@@ -508,9 +512,6 @@
     });
 
 </script>
-
-
-
 
 </body>
 </html>

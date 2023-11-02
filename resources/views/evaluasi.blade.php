@@ -134,7 +134,7 @@
                     </td>
                     <td align="center">
                         @if ($dk->evaluasi->isNotEmpty())
-                        <a href="karyawan/{{$dk->evaluasi->last()->id}}/edit_evaluasi"><button class="detail"><i class="fa fa-pen-to-square fa-sm"></i></button></a>
+                            <a href="karyawan/{{$dk->evaluasi->last()->id}}/edit_evaluasi"><button class="detail"><i class="fa fa-pen-to-square fa-sm"></i></button></a>
                         @endif
                         <a href="karyawan/{{$dk->id}}/tambah_evaluasi"><button class="tambah"><i class="fa-solid fa-plus"></i></button></a>
                     </td>

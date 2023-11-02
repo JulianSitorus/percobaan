@@ -300,6 +300,7 @@ table th{
     font-size: 14px;
 }
 .tabel_total_kpi .total{
+    margin-left: -5px;
     margin-top: -3px;
     margin-right: -3px;
     height: 20px;
@@ -308,14 +309,32 @@ table th{
     background-color: #6AB784;
 }
 .tabel_total_kpi .hijau{
-    width: 69.6%;
+    width: 67.3%;
 }
 .tabel_total_kpi .background1{
-    width: 18.5%;
+    
+    width: 20.5%;
     background-color: #EEEEEE;
 }
-.total_bobot , #total_skor_akhir, .skor, .skor_akhir {
+ #total_skor_akhir, .skor, .skor_akhir {
     background-color: #eeeeee9f;
+}
+.total_bobot{
+    background-color: #eeeeee9f;
+    width: 59px;
+    
+}
+.realisasi{
+    width: 85%;
+}
+.jenis_perhitungan{
+    margin-top: -4px;
+    height: 40px;  
+    margin-left: -9px;  
+}
+.skor{
+    width: 120%;
+    margin-left: -11px;
 }
 
 
@@ -373,7 +392,6 @@ table .j_kpi{
 table .j_bobot, table .j_target, table .j_realisasi, table .j_skor, table .j_skor_akhir{
     width: 6%;
 }
-
 
 table input{
     width: 99%;
