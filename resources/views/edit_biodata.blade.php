@@ -68,12 +68,9 @@
                 <label for="nama_karyawan">Nama</label><input id="nama_karyawan" value="{{$daftark->nama_karyawan}}" type="text" name="nama_karyawan" pattern=".*\S+.*" required
                 oninvalid="this.setCustomValidity('Nama karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan nama"><br>
 
-                <label for="tempat_lahir">Tempat Lahir</label><input id="tempat_lahir" value="{{$daftark->tempat_lahir}}" type="text" name="tempat_lahir" pattern=".*\S+.*" required
-                oninvalid="this.setCustomValidity('Tempat lahir karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan tempat lahir"><br>
-
-                <label for="tanggal_lahir">Tanggal Lahir</label>
-                <!-- <input id="tanggal_lahir" value="{{$daftark->tanggal_lahir}}" type="date" name="tanggal_lahir" pattern=".*\S+.*" required
-                oninvalid="this.setCustomValidity('Tanggal lahir karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan tanggal lahir"><br> -->
+                <label for="tempat_lahir">Tempat Lahir</label>
+                <!-- <input id="tempat_lahir" value="{{$daftark->tempat_lahir}}" type="text" name="tempat_lahir" pattern=".*\S+.*" required
+                oninvalid="this.setCustomValidity('Tempat lahir karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan tempat lahir"><br> -->
 
                 <select name="provinsi" id="provinsi" required
                 oninvalid="this.setCustomValidity('Provinsi belum terisi!')" 
@@ -96,6 +93,10 @@
                 </select>
 
                 <br>
+
+                <label for="tanggal_lahir">Tanggal Lahir</label>
+                <input id="tanggal_lahir" value="{{$daftark->tanggal_lahir}}" type="date" name="tanggal_lahir" pattern=".*\S+.*" required
+                oninvalid="this.setCustomValidity('Tanggal lahir karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan tanggal lahir"><br>
 
                 <label for="alamat">Alamat</label><input id="alamat" value="{{$daftark->alamat}}" type="text" name="alamat" pattern=".*\S+.*" required
                 oninvalid="this.setCustomValidity('Alamat karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan alamat"><br>

@@ -15,4 +15,9 @@ class Kpi extends Model
     {
         return $this->belongsTo('App\Models\Daftark');
     }
+
+    public function kpi_items()
+    {
+        return $this->hasMany('App\Models\Kpi_items');
+    }
 }

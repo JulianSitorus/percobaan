@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Daftark;
 use App\Models\Kpi;
+use App\Models\Kpi_items;
 use App\Models\Evaluasi;
 use App\Models\Jenjangkarir;
 use App\Models\Keahlian;
@@ -135,6 +136,7 @@ class DaftarkController extends Controller
 
         if ($daftark) {
             // Hapus semua data Jenjang Karir yang terkait
+            $daftark->kpi()->delete();
             $daftark->jenjangkarir()->delete();
             $daftark->keahlian()->delete();
             $daftark->pelatihan()->delete();
@@ -196,7 +198,9 @@ class DaftarkController extends Controller
     }    
 
     //  request tambah kpi
-     public function store_kpi(Request $request, $id) {
+    public function store_kpi(Request $request, $id) {
+        $formData = $request->all();
+        
         $skor = $request->input('skor');
         $skor_akhir = $request->input('skor_akhir');
         $total_bobot = $request->input('total_bobot');
@@ -212,16 +216,6 @@ class DaftarkController extends Controller
                 'mulai_pelaksanaan' => $request->mulai_pelaksanaan,
                 'selesai_pelaksanaan' => $request->selesai_pelaksanaan,
                 'deskripsi_kpi' => $request->deskripsi_kpi,
-
-                'area' => $request->area,
-                'ket' => $request->ket,
-                'bobot' => $request->bobot,
-                'target' => $request->target,
-                'realisasi' => $request->realisasi,
-                'jenis_perhitungan' => $request->jenis_perhitungan,
-
-                'skor' => $skor,
-                'skor_akhir' => $skor_akhir,
 
                 'total_bobot' => $total_bobot,
                 'total_skor_akhir' => $total_skor_akhir,
@@ -239,6 +233,20 @@ class DaftarkController extends Controller
             // Simpan evaluasi
             $kpi->save();
 
+            for ($i = 0; $i < count($request->area); $i++) {
+                $kpi_items = new Kpi_items([
+                    'area' => $request->area[$i],
+                    'ket' => $request->ket[$i],
+                    'bobot' => $request->bobot[$i],
+                    'target' => $request->target[$i],
+                    'realisasi' => $request->realisasi[$i],
+                    'jenis_perhitungan' => $request->jenis_perhitungan[$i],
+                    'skor' => $skor[$i],
+                    'skor_akhir' => $skor_akhir[$i],
+                ]);
+                $kpi->kpi_items()->save($kpi_items);
+            }
+
             return redirect('/karyawan/'. $daftark->id )->with('success', 'Kpi telah ditambah!');;
         } else {
             return redirect('/karyawan/'. $daftark->id );
@@ -252,7 +260,10 @@ class DaftarkController extends Controller
         $daftark = Daftark::find($daftark_id);
 
         $kpi = Kpi::find($id);
-        return view('edit_kpi', compact(['kpi', 'daftark']));
+
+        $kpi_items = $kpi->kpi_items;
+
+        return view('edit_kpi', compact(['kpi', 'daftark', 'kpi_items']));
     }
 
     // put kpi
@@ -262,7 +273,26 @@ class DaftarkController extends Controller
         $daftark = Daftark::find($daftark_id);
 
         $kpi = Kpi::find($id);
-        $kpi->update($request->except(['_token', 'submit']));
+        $kpi->update($request->except(['area','ket','bobot','target','realisasi','skor','jenis_perhitungan','skor_akhir','_token', 'submit']));
+
+        foreach ($request->area as $key => $area) {
+            // Temukan atau buat KpiItem sesuai dengan indeks $key
+            $kpi_items = $kpi->kpi_items->get($key, new Kpi_items());
+    
+            // Update data KpiItem
+            $kpi_items->area = $area;
+            $kpi_items->ket = $request->ket[$key];
+            $kpi_items->bobot = $request->bobot[$key];
+            $kpi_items->target = $request->target[$key];
+            $kpi_items->realisasi = $request->realisasi[$key];
+            $kpi_items->jenis_perhitungan = $request->jenis_perhitungan[$key];
+            $kpi_items->skor = $request->skor[$key];
+            $kpi_items->skor_akhir = $request->skor_akhir[$key];
+    
+            // Simpan atau asosiasikan KpiItem dengan Kpi
+            $kpi->kpi_items()->save($kpi_items);
+        }
+
         return redirect('/karyawan/'. $daftark->id );
     }
 
@@ -271,9 +301,12 @@ class DaftarkController extends Controller
         $daftark_id = session('daftark_id');
         $daftark = Daftark::find($daftark_id);
         $kpi = Kpi::find($id);
+        $kpi_items = Kpi_items::find($id);
+
+        $kpi_items = $kpi->kpi_items;
         
         view()->share('kpi',$kpi);
-        $pdf = PDF::loadview('kpi-pdf', compact('kpi', 'daftark'));
+        $pdf = PDF::loadview('kpi-pdf', compact('kpi', 'daftark', 'kpi_items'));
         return $pdf->download('kpi.pdf');
     } 
 
@@ -283,7 +316,14 @@ class DaftarkController extends Controller
         $daftark = Daftark::find($daftark_id);
 
         $kpi = Kpi::find($id);
-        $kpi->delete();
+        if ($kpi) {
+            // semua kpi_items di kpi terkait
+            $kpi_items = $kpi->kpi_items;
+            foreach ($kpi_items as $kpi_item) {
+                $kpi_item->delete();
+            }
+            $kpi->delete();
+        }
         return redirect('/karyawan/'. $daftark->id);
     }  
 
@@ -497,6 +537,7 @@ class DaftarkController extends Controller
     public function store_jenjangkarir(Request $request, $id) {
         // Temukan objek Daftark berdasarkan id
         $daftark = Daftark::find($id);
+        $durasi = $request->input('durasi');
     
         if ($daftark) {
             // Buat objek Jenjangkarir baru
@@ -506,7 +547,11 @@ class DaftarkController extends Controller
                 'departemen' => $request->departemen,
                 'tanggal_mulai' => $request->tanggal_mulai,
                 'tanggal_selesai' => $request->tanggal_selesai,
+
+                'durasi' => $durasi,
             ]);
+
+            session(['durasi' => $durasi]);
     
             // Hubungkan Jenjangkarir dengan Daftark
             $jenjangkarir->daftark_id = $daftark->id;
@@ -525,6 +570,7 @@ class DaftarkController extends Controller
         // mengambil id daftark dari detail jenjang karir
         $daftark_id = session('daftark_id');
         $daftark = Daftark::find($daftark_id);
+        $durasi = session('durasi');
 
         $jenjangkarir = Jenjangkarir::find($id);
         return view('edit_jenjangkarir', compact(['jenjangkarir', 'daftark']));
@@ -743,57 +789,6 @@ class DaftarkController extends Controller
         $regencies = Regency::all();
         return view('edit_pelatihan', compact(['pelatihan', 'daftark', 'provinces', 'regencies']));
     }
-
-    // public function update_pelatihan($id, Request $request)
-    // {
-    //     $daftark = Daftark::find($id);
-    //     $provinces = Province::find($id);
-        
-    //     // $provinces = Province::all();
-    //     $id_provinsi = $request->input('provinsi');
-    //     $id_kabupaten = $request->input('kabupaten'); 
-
-    //     // $provinsi = Province::find($id_provinsi);
-    //     if ($daftark) {
-
-    //         $nama_provinsi = Province::find($id_provinsi)->name;
-            
-    //         if ($request->ajax()) {
-    //             $kabupatens = Regency::where('province_id', $id_provinsi)->get();
-    //             $option = "<option> Pilih Kabupaten... </option>";
-
-    //             foreach ($kabupatens as $kabupaten) {
-    //                 $option .= "<option value='$kabupaten->id'>$kabupaten->name</option>";
-    //             }
-                
-    //             return response()->json(['kabupatens' => $option]);
-    //         }
-            
-    //         $nama_kabupaten = Regency::find($id_kabupaten)->name;
-
-    //         $pelatihan = new Pelatihan([
-    //             'nama_pelatihan' => $request->nama_pelatihan,
-    //             'penyelenggara' => $request->penyelenggara,
-    //             'tanggal_mulai' => $request->tanggal_mulai,
-    //             'tanggal_selesai' => $request->tanggal_selesai,
-    //             'lokasi' => $request->lokasi,
-
-    //             'provinsi' => $nama_provinsi,
-    //             'kabupaten' => $nama_kabupaten,
-    //         ]);
-    
-    //         // Hubungkan Jenjangkarir dengan Daftark
-    //         $pelatihan->daftark_id = $daftark->id;
-    
-    //         // Simpan Jenjangkarir
-    //         $pelatihan->save();
-    //         $pelatihan->update($request->except(['_token', 'submit']));
-    //         session(['provinsi' => $nama_provinsi, 'kabupaten' => $nama_kabupaten]);
-    //         return redirect('/karyawan/'. $daftark->id )->with('success', 'Data pelatihan telah ditambah!');
-    //     } else {
-    //         return redirect('/karyawan/'. $daftark->id );
-    //     }
-    // }
 
     // hapus pelatihan
     public function destroy_pelatihan($id){

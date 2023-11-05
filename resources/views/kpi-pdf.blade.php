@@ -96,15 +96,17 @@
   </thead>
 
   <tbody>
-    <tr>
-      <td>{{$kpi->area}}</td>
-      <td>{{$kpi->ket}}</td>
-      <td>{{$kpi->bobot}}</td>
-      <td>{{$kpi->target}}</td>
-      <td>{{$kpi->realisasi}}</td>
-      <td>{{$kpi->skor}}</td>
-      <td>{{$kpi->skor_akhir}}</td>
-    </tr>
+    @foreach ($kpi->kpi_items as $item)
+      <tr>      
+        <td>{{ $item->area }}</td>
+        <td>{{$item->ket}}</td>
+        <td>{{$item->bobot}}</td>
+        <td>{{$item->target}}</td>
+        <td>{{$item->realisasi}}</td>
+        <td>{{$item->skor}}</td>
+        <td>{{$item->skor_akhir}}</td>
+      </tr>
+    @endforeach
   </tbody>
 
   <tfoot>

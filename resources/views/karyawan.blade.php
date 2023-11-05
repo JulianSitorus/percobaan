@@ -130,36 +130,48 @@
                 </div>
                 <a href="/biodata/{{$daftark->id}}/edit_biodata"><button><i class="fa fa-pen-to-square fa-sm"></i> Edit</button></a>
             </div>
+        
+            <div class="karir">
+                <p class="judul">Jenjang Karir</p>
+                <div style="overflow: auto; height: 390px;">
+                @foreach($daftark->jenjangkarir->reverse() as $dkr)
+                    <ul>
+                        <li class="key">
+                            {{$dkr->posisi}}
+                        </li>
+                        <li class="value"> 
+                            Unit {{$dkr->unit}} - Departemen {{$dkr->departemen}}
+                        </li>
+                        <li class="value">
+                            {{ \Carbon\Carbon::parse($dkr->tanggal_mulai)->format('d/m/Y') }} - 
+                            @if ($dkr->tanggal_selesai)
+                                {{ \Carbon\Carbon::parse($dkr->tanggal_selesai)->format('d/m/Y') }}
+                            @else
+                                Sekarang
+                            @endif
+                            
+                            @if ($dkr->durasi)
+                                ({{$dkr->durasi}})
+                            @else
 
-            
-                <div class="karir">
-                    <p class="judul">Jenjang Karir</p>
-                    <div style="overflow: auto; height: 390px;">
-                    @foreach($daftark->jenjangkarir->reverse() as $dkr)
-                        <ul>
-                            <li class="key">
-                                {{$dkr->posisi}}
-                            </li>
-                            <li class="value"> 
-                                Unit {{$dkr->unit}} - Departemen {{$dkr->departemen}}
-                            </li>
-                            <li class="value">
-                                {{ \Carbon\Carbon::parse($dkr->tanggal_mulai)->format('d/m/Y') }} - {{ \Carbon\Carbon::parse($dkr->tanggal_selesai)->format('d/m/Y') }}
-                            </li>
-                        </ul>
-                    @endforeach 
-                    </div>
-                    <a href="/karyawan/{{$daftark->id}}/detail_jenjangkarir"><button><i class="fa fa-pen-to-square fa-sm"></i> Detail</button></a>
+                            @endif
+                            
+                        </li>
+                    </ul>
+                @endforeach 
                 </div>
+                <a href="/karyawan/{{$daftark->id}}/detail_jenjangkarir"><button><i class="fa fa-pen-to-square fa-sm"></i> Detail</button></a>
+            </div>
 
             <!-- Kpi -->
             
             <div class="judul3"><i class="fas fa-briefcase fa-xl"></i><span >   Key Performance Indicator</span></div>
             <table>
                 <tr>
-                    <th class="posisi_kpi">Posisi</th>
-                    <th class="tanggal_dibuat">Tanggal Dibuat</th>
+                    <!-- <th class="posisi_kpi">Posisi</th> -->
+                    <th class="tanggal_dibuat">Tanggal Disetujui</th>
                     <th class="supervisor">Supervisor</th>
+                    <th class="jbtn_supervisor">Jabatan Supervisor</th>
                     <th class="periode">Periode Pelaksanaan</th>
                     <th class="deskripsi_kpi">Deskripsi KPI</th>
                     <th class="j_skor">Total Bobot KPI</th>
@@ -168,9 +180,10 @@
                 </tr>
                 @foreach($daftark->kpi->reverse() as $dkpi)
                 <tr>
-                    <td>Wakil Departemen HRD</td>
+                    <!-- <td>Wakil Departemen HRD</td> -->
                     <td>{{ \Carbon\Carbon::parse($dkpi->tanggal_kpi)->format('d/m/Y') }}</td>
                     <td>{{$dkpi->supervisor}}</td>
+                    <td>{{$dkpi->jabatan_supervisor}}</td>
                     <td>{{ \Carbon\Carbon::parse($dkpi->mulai_pelaksanaan)->format('d/m/Y') }} - {{ \Carbon\Carbon::parse($dkpi->selesai_pelaksanaan)->format('d/m/Y') }}</td>
                     <td>{{$dkpi->deskripsi_kpi}}</td>
                     <td align="center">{{$dkpi->total_bobot}}</td>

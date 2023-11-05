@@ -81,6 +81,11 @@
                 oninvalid="this.setCustomValidity('Tanggal selesai karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan tanggal selesai"><br>
 
                 <br>
+
+                <p class="durasi">Durasi Posisi  <span id="durasi" name="durasi">{{$jenjangkarir->durasi}}</span></p>
+                <input hidden type="text" id="durasi" name="durasi" value="{{$jenjangkarir->durasi}}" readonly>
+
+                <br><br>
                 <hr size="3px" color="#EEEEEE">
                 <input class="simpan" type="submit" name="submit" value="Simpan">              
             </form>
@@ -92,6 +97,58 @@
                 
         </div>
     </div>
+
+    <script>
+        // Fungsi untuk menghitung selisih tahun dan bulan antara dua tanggal
+        function hitungSelisihTahunBulan(tanggalMulai, tanggalSelesai) {
+            const mulai = new Date(tanggalMulai);
+            const selesai = new Date(tanggalSelesai);
+
+            const selisihTahun = selesai.getFullYear() - mulai.getFullYear();
+            const selisihBulan = selesai.getMonth() - mulai.getMonth() + selisihTahun * 12;
+            const selisihHari = (selesai - mulai) / (1000 * 60 * 60 * 24); // milidetik detik menit ...
+
+            if (selisihBulan < 12) {
+                if (selisihHari < 30) {
+                    return "0 bulan";
+                } else {
+                    return selisihBulan + " bulan";
+                }
+            }
+
+            const sisaBulan = selisihBulan % 12;
+            if (sisaBulan === 0) {
+                return (selisihBulan / 12) + " tahun";
+            } else {
+                return Math.floor(selisihBulan / 12) + " tahun " + sisaBulan + " bulan";
+            }
+        }
+
+
+        // Event listener untuk input tanggal
+        document.getElementById("tanggal_mulai").addEventListener("input", updateSelisihTahunBulan);
+        document.getElementById("tanggal_selesai").addEventListener("input", updateSelisihTahunBulan);
+
+        // Fungsi untuk menampilkan selisih tahun dan bulan dalam format yang sesuai
+        function updateSelisihTahunBulan() {
+            const tanggalMulai = document.getElementById("tanggal_mulai").value;
+            const tanggalSelesai = document.getElementById("tanggal_selesai").value;
+
+            if (tanggalMulai && tanggalSelesai) {
+                const selisihTahunBulan = hitungSelisihTahunBulan(tanggalMulai, tanggalSelesai);
+                document.getElementById("durasi").textContent = `${selisihTahunBulan}`;
+            } else {
+                document.getElementById("durasi").textContent = "";
+            }
+
+            var selisihTahunBulan = document.getElementById("durasi").textContent;
+
+            var inputSelisihTahunBulan = document.querySelector('input[name="durasi"]');
+            if (inputSelisihTahunBulan) {
+                inputSelisihTahunBulan.value = selisihTahunBulan.toString();
+            }
+        }
+    </script>
     
 </body>
 </html>

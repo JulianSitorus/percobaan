@@ -18,7 +18,8 @@ return new class extends Migration
             $table->string('unit');
             $table->string('departemen');
             $table->date('tanggal_mulai');
-            $table->date('tanggal_selesai');
+            $table->date('tanggal_selesai')->nullable();
+            $table->string('durasi');
             $table->timestamps();
         });
     }

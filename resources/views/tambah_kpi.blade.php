@@ -130,39 +130,21 @@
 
                     @for ($i = 0; $i < 6; $i++)
                     <tr>
-                        <td><textarea name="area" id="area" type="komentar"></textarea></td>
-                        <td><textarea name="ket" id="ket" type="komentar"></textarea></td>
-                        <td class="background"><input name="bobot" id="bobot-{{ $i }}" class="bobot-input"></td>
-                        <td class="background"><input name="target" id="target-{{ $i }}"></td>
-                        <td class="background"><input name="realisasi" id="realisasi-{{ $i }}" class="realisasi"></td>
-                        <td class="background">
-                            <select name="jenis_perhitungan" id="jenis_perhitungan-{{ $i }}" class="jenis_perhitungan">
-                                <option value="skor-1">R/T</option>
-                                <option value="skor-2">T/R</option>
-                            </select>
-                        </td>
-                        <td class="background"><input name="skor" id="skor-{{ $i }}" class="skor" readonly></td>
-                        <td class="background"><input class="background" name="skor_akhir" id="skor_akhir-{{ $i }}" readonly></td>
-                    </tr>
-                    @endfor
-
-                    <!-- @for ($i = 0; $i < 5; $i++)
-                    <tr>
                         <td><textarea name="area[]" id="area-{{ $i }}" type="komentar"></textarea></td>
                         <td><textarea name="ket[]" id="ket-{{ $i }}" type="komentar"></textarea></td>
                         <td class="background"><input name="bobot[]" id="bobot-{{ $i }}" class="bobot-input"></td>
                         <td class="background"><input name="target[]" id="target-{{ $i }}"></td>
-                        <td class="background"><input name="realisasi[]" id="realisasi-{{ $i }}"></td>
-                        <td class="background"><input name="skor[]" id="skor-{{ $i }}" class="skor" readonly></td>
+                        <td class="background"><input name="realisasi[]" id="realisasi-{{ $i }}" class="realisasi"></td>
                         <td class="background">
-                            <select name="jenis_perhitungan[]" id="jenis_perhitungan-{{ $i }}">
+                            <select name="jenis_perhitungan[]" id="jenis_perhitungan-{{ $i }}" class="jenis_perhitungan">
                                 <option value="skor-1">R/T</option>
                                 <option value="skor-2">T/R</option>
                             </select>
                         </td>
+                        <td class="background"><input name="skor[]" id="skor-{{ $i }}" class="skor" readonly></td>
                         <td class="background"><input class="background" name="skor_akhir[]" id="skor_akhir-{{ $i }}" readonly></td>
                     </tr>
-                    @endfor -->
+                    @endfor
                     
                 </table>
                     
@@ -190,7 +172,7 @@
                 </div><br>
 
                 <hr size="3px" color="#EEEEEE">
-                <input class="simpan" type="submit" name="submit" value="Simpan">                
+                <input class="simpan" id="simpan" type="submit" name="submit" value="Simpan">                
             </form>
 
             <div class="display_batal ">
@@ -222,6 +204,7 @@
 
             if (i < 2) {
                 newElement = document.createElement("textarea");
+                newElement.setAttribute("name", i === 0 ? "area[]" : "ket[]");
             } else {
                 newElement = document.createElement("input");
 
@@ -229,7 +212,7 @@
 
                 if (i === 2) {
                     newElement.classList.add("bobot");
-                    newElement.setAttribute("name", "bobot");
+                    newElement.setAttribute("name", "bobot[]");
                 }
                 newElement.addEventListener("input", function() {
 
@@ -250,21 +233,23 @@
 
                 if (i === 3) {
                     newElement.classList.add("target");
-                    newElement.setAttribute("name", "target");
+                    newElement.setAttribute("name", "target[]");
                 }
 
                 if (i === 4) {
                     newElement.classList.add("realisasi");
-                    // newElement.setAttribute("name", "realisasi");
+                    newElement.setAttribute("name", "realisasi[]");
                 }
 
                 if (i === 5) {
                     newElement = document.createElement("select");
+                    
+                    newElement.setAttribute("name", "jenis_perhitungan[]");
+
                     var option1 = document.createElement("option");
                     option1.value = "skor-1";
                     option1.text = "R/T";
                     
-                    newElement = document.createElement("select");
                     var option2 = document.createElement("option");
                     option2.value = "skor-2";
                     option2.text = "T/R";
@@ -275,12 +260,16 @@
                 }
 
                 if (i === 6) {
+                    newElement.setAttribute("name", "skor[]");
+
                     newElement.classList.add("skor");
                     newElement.classList.add("background");
                     newElement.readOnly = true;
                 }
 
                 if (i === 7) {
+                    newElement.setAttribute("name", "skor_akhir[]");
+
                     newElement.classList.add("skor_akhir");
                     newElement.classList.add("background");
                     newElement.readOnly = true;
@@ -305,7 +294,6 @@
         targetInput.addEventListener("input", hitungSkor);
         jenisPerhitunganSelect.addEventListener("change", hitungSkor);
 
-        
         // outputnya bakalan "NuN" jika tidak menggunakan if dalam if
         function hitungSkor() {
             var realisasi = parseFloat(realisasiInput.value) || 0;
@@ -352,6 +340,7 @@
             hitungTotalSkorAkhir()
         }
     }
+    
 
     // ============================================ MENAMPILKAN % di BOBOT =======================================================
 
@@ -486,13 +475,6 @@
             totalSkorAkhir += skorAkhir;
         });
 
-        // Tambahkan total skor akhir dari baris yang ditambahkan
-        // var newRowSkorAkhirInput = document.querySelector(".tambah-baris .skor_akhir");
-        // if (newRowSkorAkhirInput) {
-        //     var skorAkhir = parseFloat(newRowSkorAkhirInput.value) || 0;
-        //     totalSkorAkhir += skorAkhir;
-        // }
-
         // Update total skor akhir di tempat yang Anda inginkan (misalnya, sebuah input dengan ID "total_skor_akhir")
         var totalSkorAkhirInput = document.getElementById("total_skor_akhir");
         if (totalSkorAkhirInput) {
@@ -510,6 +492,7 @@
     skorAkhirInputs.forEach(function(skorAkhirInput) {
         skorAkhirInput.addEventListener("input", hitungTotalSkorAkhir);
     });
+
 
 </script>
 

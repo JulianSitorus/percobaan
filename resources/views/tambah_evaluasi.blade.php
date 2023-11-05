@@ -519,61 +519,61 @@
             var totalPertanyaan9 = 0;
             var totalPertanyaan10 = 0;
 
-            // Hitung total nilai untuk pertanyaan pertama
+            // Hitung total nilai untuk pertanyaan 
             for (var i = 0; i < radioPertanyaan1.length; i++) {
                 if (radioPertanyaan1[i].checked) {
                     totalPertanyaan1 += parseInt(radioPertanyaan1[i].value);
                 }
             }
-            // Hitung total nilai untuk pertanyaan kedua
+            
             for (var i = 0; i < radioPertanyaan2.length; i++) {
                 if (radioPertanyaan2[i].checked) {
                     totalPertanyaan2 += parseInt(radioPertanyaan2[i].value);
                 }
             }
-            // Hitung total nilai untuk pertanyaan pertama
+            
             for (var i = 0; i < radioPertanyaan3.length; i++) {
                 if (radioPertanyaan3[i].checked) {
                     totalPertanyaan3 += parseInt(radioPertanyaan3[i].value);
                 }
             }
-            // Hitung total nilai untuk pertanyaan kedua
+            
             for (var i = 0; i < radioPertanyaan4.length; i++) {
                 if (radioPertanyaan4[i].checked) {
                     totalPertanyaan4 += parseInt(radioPertanyaan4[i].value);
                 }
             }
-            // Hitung total nilai untuk pertanyaan pertama
+            
             for (var i = 0; i < radioPertanyaan5.length; i++) {
                 if (radioPertanyaan5[i].checked) {
                     totalPertanyaan5 += parseInt(radioPertanyaan5[i].value);
                 }
             }
-            // Hitung total nilai untuk pertanyaan kedua
+            
             for (var i = 0; i < radioPertanyaan6.length; i++) {
                 if (radioPertanyaan6[i].checked) {
                     totalPertanyaan6 += parseInt(radioPertanyaan6[i].value);
                 }
             }
-            // Hitung total nilai untuk pertanyaan pertama
+            
             for (var i = 0; i < radioPertanyaan7.length; i++) {
                 if (radioPertanyaan7[i].checked) {
                     totalPertanyaan7 += parseInt(radioPertanyaan7[i].value);
                 }
             }
-            // Hitung total nilai untuk pertanyaan kedua
+           
             for (var i = 0; i < radioPertanyaan8.length; i++) {
                 if (radioPertanyaan8[i].checked) {
                     totalPertanyaan8 += parseInt(radioPertanyaan8[i].value);
                 }
             }
-            // Hitung total nilai untuk pertanyaan pertama
+            
             for (var i = 0; i < radioPertanyaan9.length; i++) {
                 if (radioPertanyaan9[i].checked) {
                     totalPertanyaan9 += parseInt(radioPertanyaan9[i].value);
                 }
             }
-            // Hitung total nilai untuk pertanyaan kedua
+            
             for (var i = 0; i < radioPertanyaan10.length; i++) {
                 if (radioPertanyaan10[i].checked) {
                     totalPertanyaan10 += parseInt(radioPertanyaan10[i].value);

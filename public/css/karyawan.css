@@ -364,7 +364,10 @@ table .tanggal_dibuat{
     width: 7%;
 }
 table .supervisor{
-    width: 16%;
+    width: 11%;
+}
+table .jbtn_supervisor{
+    width: 13%;
 }
 table .periode{
     width: 13%;

@@ -65,6 +65,7 @@
                     <th id="departemen">Departemen</th>
                     <th id="mulai_posisi">Mulai</th>
                     <th id="selesai_posisi">Selesai</th>
+                    <th id="durasi">Durasi</th>
                     <th class="aksi">Aksi</th>
                 </tr>
                 @foreach($daftark->jenjangkarir->reverse() as $dkr)
@@ -73,7 +74,14 @@
                     <td>{{$dkr->unit}}</td>
                     <td>{{$dkr->departemen}}</td>
                     <td>{{ \Carbon\Carbon::parse($dkr->tanggal_mulai)->format('d/m/Y') }}</td>
-                    <td>{{ \Carbon\Carbon::parse($dkr->tanggal_selesai)->format('d/m/Y') }}</td>
+                    <td>
+                        @if ($dkr->tanggal_selesai)
+                            {{ \Carbon\Carbon::parse($dkr->tanggal_selesai)->format('d/m/Y') }}
+                        @else
+                            Sekarang
+                        @endif
+                    </td>
+                    <td align="center">{{$dkr->durasi}}</td>
                     <td class="button-container">
                         <a href="/detail_jenjangkarir/{{$dkr->id}}/edit_jenjangkarir"><button class="detail"><i class="fa fa-pen-to-square fa-sm" ></i></button></a>
                         <form action="/detail_jenjangkarir/{{$dkr->id}}" method="POST">

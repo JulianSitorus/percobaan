@@ -59,33 +59,24 @@
             <p class="judul">Key Performance Indicator Karyawan</p>
             <hr size="3px" color="#EEEEEE">
 
-            <a href="{{ route('export_pdf', ['id' => $kpi->id]) }}">
-                <button><i class="fas fa-file-pdf"> <span> Export PDF</span></i></button>
-            </a>
 
             <form action="{{ route('kpi.update', ['id' => $kpi->id]) }}" method="POST" enctype="multipart/form-data">
             @method('put')
             @csrf
             
-                <label for="supervisor">Supervisor Langsung</label><input id="supervisor" value="{{$kpi->supervisor}}" type="text" name="supervisor" pattern=".*\S+.*" required
-                oninvalid="this.setCustomValidity('Supervisor karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan nama supervisor">
+                <label for="supervisor">Supervisor Langsung</label><input class="supervisor" value="{{$kpi->supervisor}}" type="text" name="supervisor" pattern=".*\S+.*" readonly>
 
-                <label for="jabatan_supervisor">Jabatan Supervisor</label><input id="jabatan_supervisor" value="{{$kpi->jabatan_supervisor}}" type="text" name="jabatan_supervisor" pattern=".*\S+.*" required
-                oninvalid="this.setCustomValidity('Jabatan supervisor karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan jabatan supervisor"><br>
+                <label for="jabatan_supervisor">Jabatan Supervisor</label><input class="jabatan_supervisor" value="{{$kpi->jabatan_supervisor}}" type="text" name="jabatan_supervisor" pattern=".*\S+.*" readonly><br>
 
-                <label for="tanggal_kpi">Tanggal KPI Disetujui</label><input id="tanggal_kpi" value="{{$kpi->tanggal_kpi}}" type="date" name="tanggal_kpi" pattern=".*\S+.*" required
-                oninvalid="this.setCustomValidity('Tanggal KPI disetujui belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan tanggal">
+                <label for="tanggal_kpi">Tanggal KPI Disetujui</label><input class="tanggal_kpi" value="{{$kpi->tanggal_kpi}}" type="date" name="tanggal_kpi" pattern=".*\S+.*" readonly>
 
                 <label for="mulai_pelaksanaan">Periode Pelaksanaan</label>
-                <input id="mulai_pelaksanaan" value="{{$kpi->mulai_pelaksanaan}}" type="date" name="mulai_pelaksanaan" pattern=".*\S+.*" required
-                oninvalid="this.setCustomValidity('Tanggal pelaksanaan mulai belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan tanggal">
+                <input class="mulai_pelaksanaan" value="{{$kpi->mulai_pelaksanaan}}" type="date" name="mulai_pelaksanaan" pattern=".*\S+.*" readonly>
                 
-                - <input id="selesai_pelaksanaan" value="{{$kpi->selesai_pelaksanaan}}" type="date" name="selesai_pelaksanaan" pattern=".*\S+.*" required
-                oninvalid="this.setCustomValidity('Tanggal pelaksanaan berakhir belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan tanggal"><br>
+                - <input class="selesai_pelaksanaan" value="{{$kpi->selesai_pelaksanaan}}" type="date" name="selesai_pelaksanaan" pattern=".*\S+.*" readonly><br>
 
                 <label for="deskripsi_kpi">Deskripsi KPI</label>
-                <textarea id="deskripsi_kpi" type="komentar" name="deskripsi_kpi" pattern=".*\S+.*" required
-                oninvalid="this.setCustomValidity('Deskripsi KPI belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan deskripsi">{{$kpi->deskripsi_kpi}}</textarea>
+                <textarea class="deskripsi_kpi" type="komentar" name="deskripsi_kpi" pattern=".*\S+.*" readonly>{{$kpi->deskripsi_kpi}}</textarea>
                 
                 <br><br>
                 <hr size="3px" color="#EEEEEE">
@@ -132,24 +123,25 @@
                         <th class="j_skor_akhir">Skor Akhir</th>
                     </tr>
 
-                    @for ($i = 0; $i < 6; $i++)
+                    @for ($i = 0; $i < count($kpi_items); $i++)
                     <tr>
-                        <td><textarea class="background" name="area" id="area" type="komentar" readonly>{{$kpi->area}}</textarea></td>
-                        <td><textarea class="background" name="ket" id="ket" type="komentar" readonly>{{$kpi->ket}}</textarea></td>
-                        <td class="background"><input class="background" name="bobot" id="bobot-{{ $i }}" class="bobot-input" value="{{$kpi->bobot}}" readonly></td>
-                        <td class="background"><input class="background" name="target" id="target-{{ $i }}" value="{{$kpi->target}}" readonly></td>
-                        <td class="background"><input name="realisasi" id="realisasi-{{ $i }}"  class="realisasi" value="{{$kpi->realisasi}}"></td>                       
+                        <td><textarea class="background" name="area[{{ $i }}]" id="area-{{ $i }}" type="komentar" readonly>{{ $kpi_items[$i]->area }}</textarea></td>
+                        <td><textarea class="background" name="ket[{{ $i }}]" id="ket-{{ $i }}" type="komentar" readonly>{{ $kpi_items[$i]->ket }}</textarea></td>
+                        <td class="background"><input class="background" name="bobot[{{ $i }}]" id="bobot-{{ $i }}" class="bobot-input" value="{{ $kpi_items[$i]->bobot }}" readonly></td>
+                        <td class="background"><input class="background" name="target[{{ $i }}]" id="target-{{ $i }}" value="{{ $kpi_items[$i]->target }}" readonly></td>
+                        <td class="background"><input name="realisasi[{{ $i }}]" id="realisasi-{{ $i }}"  class="realisasi" value="{{ $kpi_items[$i]->realisasi }}"></td>                       
                         <td class="background">
-                            <select name="jenis_perhitungan" id="jenis_perhitungan-{{ $i }}" class="jenis_perhitungan">
-                                <option value="skor-1" @if ($kpi->jenis_perhitungan == "skor-1") selected @endif>R/T</option>
-                                <option value="skor-2" @if ($kpi->jenis_perhitungan == "skor-2") selected @endif>T/R</option>
+                            <select name="jenis_perhitungan[{{ $i }}]" id="jenis_perhitungan-{{ $i }}" class="jenis_perhitungan">
+                                <option value="skor-1" @if ($kpi_items[$i]->jenis_perhitungan == "skor-1") selected @endif>R/T</option>
+                                <option value="skor-2" @if ($kpi_items[$i]->jenis_perhitungan == "skor-2") selected @endif>T/R</option>
                             </select>
                         </td>
-                        <td class="background"><input name="skor" id="skor-{{ $i }}" class="skor" value="{{$kpi->skor}}" readonly></td>
-                        <td class="background"><input class="background" name="skor_akhir" id="skor_akhir-{{ $i }}" value="{{$kpi->skor_akhir}}" readonly></td>
+                        <td class="background"><input name="skor[{{ $i }}]" id="skor-{{ $i }}" class="skor" value="{{ $kpi_items[$i]->skor }}" readonly></td>
+                        <td class="background"><input class="background" name="skor_akhir[{{ $i }}]" id="skor_akhir-{{ $i }}" value="{{ $kpi_items[$i]->skor_akhir }}" readonly></td>
                     </tr>
                     @endfor
-                    
+
+          
                 </table>
                     
                 <table class="tabel_total_kpi">
@@ -168,7 +160,12 @@
                     
                 </table>
 
-                <button type="button" class="tambah" id="tambah-baris"><i class="fas fa-plus"><span> Tambah Baris</span></i></button>
+                <a href="{{ route('export_pdf', ['id' => $kpi->id]) }}">
+                    <button type="button" class="pdf"><i class="fas fa-file-pdf"> <span> Export PDF</span></i></button>
+                </a>
+
+                <!-- jika dihilangkan fungsi js ga berjalan -->
+                <button hidden type="button" class="tambah" id="tambah-baris"><i class="fas fa-plus"><span> Tambah Baris</span></i></button>
 
                 <div class="catatan">
                     <p class="judul2">*Catatan</p>
@@ -236,6 +233,7 @@
                 });
 
                 if (i === 3) {
+                    newElement.setAttribute("name", "target[{{ $i }}]");
                     newElement.classList.add("target");
                     newElement.classList.add("background");
                     newElement.readOnly = true;

@@ -141,7 +141,7 @@ html, body{
     background-color: white;
     width: 80%;
     /* min-height: 200px; */
-    height: 56.5%;
+    height: 62%;
     margin: 70px 35px 70px 270px;
 }
 .empat2 .tambah{
@@ -173,6 +173,11 @@ html, body{
     margin-left: 40px;
     position: absolute;
 }
+.durasi{
+    font-size: 15px;
+    margin-left: 40px;
+    position: absolute;
+}
 .empat2 #posisi, 
 .empat2 #unit,
 .empat2 #departemen,
@@ -188,6 +193,11 @@ html, body{
     border: 1px solid #888;
     font-size: 17px;
     box-shadow: inset 1px 1px 0px rgba(0, 0, 0, 0.5);
+}
+#durasi{
+    font-weight: bold;
+    margin-left: 120px;
+    font-size: 17px;
 }
 .empat2 #foto{
     margin-left: 250px;
