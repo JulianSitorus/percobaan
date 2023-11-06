@@ -39,7 +39,7 @@
                     <i class="fas fa-users-gear">
                         <span class="menu">&emsp;Keahlian & Pelatihan</span>
                     </i></a></li>
-                <li><a href="#">
+                <li><a href="/logout">
                     <i class="fas fa-right-from-bracket">
                         <span class="menu">&emsp; Keluar</span>
                     </i></a></li>

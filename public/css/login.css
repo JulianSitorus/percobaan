@@ -1,0 +1,84 @@
+body {
+    display: grid;
+    place-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+img{
+    width: 30%;
+    margin-top: -80px;
+}
+.tabel{
+    margin-top: -350px;
+    width: 530px;
+    height: 320px;
+    border: 2px solid #C8C8C8;
+    border-radius: 15px;
+}
+h1{
+    text-align: center;
+}
+
+.email{
+    margin-left: 20px;
+}
+.password{
+    margin-left: 20px;
+}
+
+.iemail{
+    margin: 5px 0px 0px 20px;
+    height: 40px;
+    width: 86%;
+    border-radius: 10px;
+    border-color: #C8C8C8;
+    background-color: #F8F8F8;
+    padding-left: 30px;
+
+}
+.ipassword{
+    margin: 5px 0px 5px 20px;
+    height: 40px;
+    width: 86%;
+    border-radius: 10px;
+    border-color: #C8C8C8;
+    background-color: #F8F8F8;
+
+    padding-left: 30px;
+
+}
+
+.masuk{
+    margin-left: 20px;
+    height: 38px;
+    width: 92.5%;
+    font-size: large;
+    font-weight: bolder;
+    border-radius: 10px;
+    border: none;
+    background-color: rgb(0, 0, 231);
+    color: white;
+    box-shadow: 2px 2px 2px #888;
+
+}
+.masuk:hover{
+    background-color: blue;
+}
+
+.input-container {
+    position: relative;
+}
+.input-container i.fa-user {
+    position: absolute;
+    top: 54%;
+    left: 30px; /* Sesuaikan dengan posisi ikon sesuai kebutuhan */
+    transform: translateY(-50%);
+}
+
+.input-container i.fa-lock {
+    position: absolute;
+    top: 50%;
+    left: 30px; /* Sesuaikan dengan posisi ikon sesuai kebutuhan */
+    transform: translateY(-50%);
+}

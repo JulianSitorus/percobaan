@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="css/daftark.css">
     <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">  -->
     <link rel="stylesheet" href="css/fontawesome/css/all.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g==" crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
     
     <title>Document</title>
@@ -44,7 +43,7 @@
                     <i class="fas fa-users-gear">
                         <span class="menu">&emsp;Keahlian & Pelatihan</span>
                     </i></a></li>
-                <li><a href="karyawan">
+                <li><a href="logout">
                     <i class="fas fa-right-from-bracket">
                         <span class="menu">&emsp; Keluar</span>
                     </i></a></li>
@@ -131,6 +130,34 @@
           
     </div>
 
+    <!-- alert memghapus karyawan -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            $(document).on('click', '.hapus', function(e){
+                e.preventDefault();
+                var form = $(this).closest('form');
+
+                Swal.fire({
+                    title: "Anda yakin?",
+                    text: "Anda tidak akan dapat mengembalikan ini!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Ya, Hapus Saja!"
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                });
+            });
+        });
+    </script>
+
+    <!-- alert sukses nambah karyawan -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     @if (Session::has('success'))
     <script>
         swal("Berhasil","{{ Session::get('success') }}", 'success',{

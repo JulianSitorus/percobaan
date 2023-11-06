@@ -409,11 +409,11 @@
                     </tr>
                 </table><br>
 
-                <p>Total Keseluruhan: <span name="total_keseluruhan" id="total_keseluruhan">0</span></p>
-                <p>Total Keseluruhan: <span name="total_keseluruhan2" id="total_keseluruhan2">0</span></p>
+                <p hidden>Total Keseluruhan: <span name="total_keseluruhan" id="total_keseluruhan">0</span></p>
+                <p hidden>Total Keseluruhan: <span name="total_keseluruhan2" id="total_keseluruhan2">0</span></p>
 
-                <input type="text" name="total_keseluruhan" id="total_keseluruhan" readonly>
-                <input type="text" name="total_keseluruhan2" id="total_keseluruhan2" readonly>
+                <input hidden type="text" name="total_keseluruhan" id="total_keseluruhan" readonly>
+                <input hidden type="text" name="total_keseluruhan2" id="total_keseluruhan2" readonly>
 
 
                 <div class="hasil_kinerja">

@@ -40,7 +40,7 @@
                     <i class="fas fa-users-gear">
                         <span class="menu">&emsp;Keahlian & Pelatihan</span>
                     </i></a></li>
-                <li><a href="#">
+                <li><a href="/logout">
                     <i class="fas fa-right-from-bracket">
                         <span class="menu">&emsp; Keluar</span>
                     </i></a></li>
@@ -96,11 +96,11 @@
                         </tr>
                         <tr>
                             <td>Target</td>
-                            <td>Pembuatan Target bisa berupa % ( persen), jumlah hari, jumlah orang, jumlah jam</td>
+                            <td>Input angka terlebih dahulu, kemudian satuannya dapat berupa % ( persen), jumlah hari, jumlah orang, jumlah jam</td>
                         </tr>
                         <tr>
                             <td>Realisasi</td>
-                            <td>Pengisian Realisasi berdasarkan kenyataan pekerjaan</td>
+                            <td>Input angka terlebih dahulu, pengisian realisasi berdasarkan kenyataan pekerjaan</td>
                         </tr>
                         <tr>
                             <td>Skor</td>
@@ -172,19 +172,53 @@
                 </div><br>
 
                 <hr size="3px" color="#EEEEEE">
-                <input class="simpan" id="simpan" type="submit" name="submit" value="Simpan">                
+                <input class="simpan" type="submit" name="submit" value="Simpan">                
             </form>
 
             <div class="display_batal ">
                 <a href="/karyawan/{{$daftark->id}}"><button class="batal">Batal</button></a>
             </div>
-            
-            
         </div>
     </div>
+
+    <!-- alert simpan kpi -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            $(document).on('click', '.simpan', function(e){
+                e.preventDefault();
+                var form = $(this).closest('form');
+
+                Swal.fire({
+                    title: "Anda yakin?",
+                    text: "Jika Anda menyimpan ini maka beberapa data tidak dapat diedit lagi",
+                    icon: "question",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Simpan"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Mengirim permintaan AJAX untuk menyimpan data
+                        $.ajax({
+                            url: form.attr('action'), // Menggunakan URL yang diambil dari form action
+                            method: 'POST',
+                            data: form.serialize(), // Mengirim data form
+                            success: function(response) {
+                                window.location.href = '/karyawan/{{ $daftark->id }}';
+                            },
+                            error: function(error) {
+                                Swal.fire("Terjadi kesalahan pada inputan data", "", "error");
+                            }
+                        });
+                    }                   
+                });
+            });
+        });
+    </script>
     
     <script>
-    
     // ============================================ TAMBAH BARIS =======================================================
     
     var tombolTambahBaris = document.getElementById("tambah-baris");
@@ -492,9 +526,8 @@
     skorAkhirInputs.forEach(function(skorAkhirInput) {
         skorAkhirInput.addEventListener("input", hitungTotalSkorAkhir);
     });
-
-
 </script>
+
 
 </body>
 </html>

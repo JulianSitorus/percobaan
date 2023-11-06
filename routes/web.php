@@ -18,6 +18,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// -------------------------------------------- LOGIN ---------------------------------------------------
+
+// halaman login
+Route::get('/index',[DaftarkController::class,'index_login']); 
+// post data login
+Route::post('/login',[DaftarkController::class,'login']); 
+// logout
+Route::get('/logout',[DaftarkController::class,'logout']); 
+
 // --------------------------------------------DAFTAR KARYAWAN---------------------------------------------------
 
 // halaman menampilkan data daftrak

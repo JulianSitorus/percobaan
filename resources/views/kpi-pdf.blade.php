@@ -74,6 +74,8 @@
   <p>
     @if ($daftark->jenjangkarir->isNotEmpty())
       Posisi <span class="tab2"> : </span> {{ $daftark->jenjangkarir->last()->posisi }}
+    @else
+      Posisi <span class="tab2"> :
     @endif
   </p>
   <p>Supervisor Langsung <span class="tab3"> : </span> {{ $kpi->supervisor }}</p>

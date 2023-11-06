@@ -10,6 +10,8 @@ use App\Models\Jenjangkarir;
 use App\Models\Keahlian;
 use App\Models\Pelatihan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 // use PDF;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -22,6 +24,39 @@ use Barryvdh\DomPDF\PDF as DomPDFPDF;
 
 class DaftarkController extends Controller
 {
+    // ======================================================= LOGIN ===========================================================
+
+    function index_login(){
+        return view("index");
+    }
+    function login(Request $request){
+        Session::flash('email', $request->email);
+        $request->validate([
+            'email'=>'required',
+            'password'=>'required',
+        ]);
+
+        $infologin = [
+            'email' => $request->email,
+            'password' => $request->password,
+        ];
+
+        if(Auth::attempt($infologin)){
+            return redirect('daftark');
+        }else{
+            // return 'gagal';
+            return redirect('index')->with('email dan password tidak valid');
+        }
+    }
+
+    function logout(){
+        Auth::logout();
+        return redirect('index');
+    }
+
+
+    // ======================================================= DAFTARK ===========================================================
+
     // halaman daftark dan fungsi search
     public function index(Request $request){
         $search = $request->search;
@@ -145,7 +180,7 @@ class DaftarkController extends Controller
             $daftark->delete();
 
             // Redirect atau berikan respons yang sesuai
-            return redirect('daftark')->with('success', 'Data karyawan telah dihapus!');
+            return redirect('daftark')->with('success', 'Data karyawan berhasil dihapus.');;
         } else {
             // Handle jika Karyawan tidak ditemukan
             return redirect('daftark')->with('error', 'Karyawan tidak ditemukan.');
@@ -247,7 +282,7 @@ class DaftarkController extends Controller
                 $kpi->kpi_items()->save($kpi_items);
             }
 
-            return redirect('/karyawan/'. $daftark->id )->with('success', 'Kpi telah ditambah!');;
+            return redirect('/karyawan/'. $daftark->id );
         } else {
             return redirect('/karyawan/'. $daftark->id );
         }
@@ -511,6 +546,9 @@ class DaftarkController extends Controller
                     })
                     ->orWhereHas('jenjangkarir', function($query) use($search) {
                         $query->where('tanggal_selesai', 'LIKE', '%'.$search.'%');
+                    })
+                    ->orWhereHas('jenjangkarir', function($query) use($search) {
+                        $query->where('durasi', 'LIKE', '%'.$search.'%');
                     })
                     ->orderBy('nama_karyawan', 'asc')
                     ->paginate(12);

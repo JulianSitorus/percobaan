@@ -40,7 +40,7 @@
                     <i class="fas fa-users-gear">
                         <span class="menu">&emsp;Keahlian & Pelatihan</span>
                     </i></a></li>
-                <li><a href="#">
+                <li><a href="/logout">
                     <i class="fas fa-right-from-bracket">
                         <span class="menu">&emsp; Keluar</span>
                     </i></a></li>
@@ -407,11 +407,11 @@
                     </tr>
                 </table><br>
 
-                <p>Total Keseluruhan: <span name="total_keseluruhan" id="total_keseluruhan">0</span></p>
-                <p>Total Keseluruhan: <span name="total_keseluruhan2" id="total_keseluruhan2">0</span></p>
+                <p hidden>Total Keseluruhan: <span name="total_keseluruhan" id="total_keseluruhan">0</span></p>
+                <p hidden>Total Keseluruhan: <span name="total_keseluruhan2" id="total_keseluruhan2">0</span></p>
 
-                <input type="text" name="total_keseluruhan" id="total_keseluruhan" readonly>
-                <input type="text" name="total_keseluruhan2" id="total_keseluruhan2" readonly>
+                <input hidden type="text" name="total_keseluruhan" id="total_keseluruhan" readonly>
+                <input hidden type="text" name="total_keseluruhan2" id="total_keseluruhan2" readonly>
 
                 <p></p>
 
