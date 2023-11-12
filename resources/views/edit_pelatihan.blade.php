@@ -33,7 +33,7 @@
                     <i class="fas fa-clipboard-list">
                         <span class="menu">&emsp; Evaluasi</span>
                     </i></a></li>
-                <li><a href="/jenjangk">
+                <li><a href="/jenjangkarir">
                     <i class="fas fa-chart-line">
                         <span class="menu">&emsp;Jenjang Karir</span>
                     </i></a></li>
@@ -41,7 +41,7 @@
                     <i class="fas fa-users-gear">
                         <span class="menu">&emsp;Keahlian & Pelatihan</span>
                     </i></a></li>
-                <li><a href="/logout">
+                <li><a class="logout" href="/logout">
                     <i class="fas fa-right-from-bracket">
                         <span class="menu">&emsp; Keluar</span>
                     </i></a></li>
@@ -74,14 +74,13 @@
                 <label for="selesai">Selesai</label><input id="tanggal_selesai" value="{{$pelatihan->tanggal_selesai}}" type="date" name="tanggal_selesai" pattern=".*\S+.*" required
                 oninvalid="this.setCustomValidity('Tanggal selesai pelatihan karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan tanggal selesai pelatihan"><br>
 
-                <label for="provinsi">Lokasi</label>
-                <!-- <input id="lokasi" value="{{$pelatihan->lokasi}}" type="text" name="lokasi" pattern=".*\S+.*" required
-                oninvalid="this.setCustomValidity('Lokasi pelatihan karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan lokasi pelatihan"><br> -->
+                <div id="prov_kab">
+                <label for="provinsi">Lokasi Pelatihan <br> Dalam Negeri</label>
                 
-                <select name="provinsi" id="provinsi" required
+                <select name="provinsi" id="provinsi" 
                 oninvalid="this.setCustomValidity('Provinsi belum terisi!')" 
                 onInput="this.setCustomValidity('')" title="Silahkan pilih provinsi pelatihan" onchange="updateKabupatenOptions()" >
-                    <option value="">Pilih Provinsi</option>
+                    <option value="">--- Pilih Provinsi ---</option>
                     @foreach ($provinces as $provinsi)
                         <option value="{{ $provinsi->id }}" {{ $pelatihan->provinsi == $provinsi->name ? 'selected' : '' }}>
                             {{$provinsi->name}}
@@ -91,55 +90,104 @@
 
                 <br>
 
-                <select name="kabupaten" id="kabupaten" required
+                <select name="kabupaten" id="kabupaten"
                 oninvalid="this.setCustomValidity('Kabupaten belum terisi!')" 
                 onInput="this.setCustomValidity('')" title="Silahkan pilih kabupaten pelatihan">
-                    <option value="">Pilih Kota atau Kabupaten</option> 
-                    
+                    <option value=""></option> 
                 </select>
+                </div>
+                
+                <br>
+
+                <span>Apakah pelatihannya di luar negeri? <input type="checkbox" id="luarNegeriCheckbox"></span> 
+
+                <div id="negara" >
+                <label for="provinsi">Lokasi Pelatihan<br>Luar Negeri</label>
+
+                <select name="negara"
+                oninvalid="this.setCustomValidity('Negara belum terisi!')" 
+                onInput="this.setCustomValidity('')" title="Silahkan pilih negara pelatihan" >
+                    <option value="" disabled selected>--- Pilih Negara ---</option>
+                    @foreach ($countries as $negara) 
+                        <option value="{{$negara->id}}" {{ $pelatihan->negara == $negara->name ? 'selected' : '' }}>
+                            {{$negara->name}}
+                        </option>
+                    @endforeach
+                </select>
+                </div>
 
                 <br><br>
                 <hr size="3px" color="#EEEEEE">
                 <input class="simpan" type="submit" name="submit" value="Simpan">
             </form>  
             <div class="display_batal ">
-                <a href="/karyawan/{{$daftark->id}}"><button class="batal">Batal</button></a>
+               <button class="batal" onclick="goBack()">Batal</button>
             </div>
         </div>
     </div>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+    $(document).ready(function () {
+        // disable opsi pertama pada dropdown kabupaten
+        $('#kabupaten option:first-child').prop('disabled', true);
+
+        // properti required pada dropdown kabupaten
+        $('#provinsi').change(function () {
+            var selectedProvinsi = $(this).val();
+            $('#kabupaten').prop('required', selectedProvinsi !== '');
+        });
+    });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var checkbox = document.getElementById('luarNegeriCheckbox');
+            var negaraSelect = document.getElementById('negara');
+            var provKabSelect = document.getElementById('prov_kab');
+            var provinsiSelect = document.getElementById('provinsi');
+
+            checkbox.addEventListener('change', function () {
+                negaraSelect.style.display = this.checked ? 'block' : 'none';
+                provKabSelect.style.display = this.checked ? 'none' : 'block';
+                provinsiSelect.value = this.checked ? '' : null;
+            });
+        });
+    </script>
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js"></script>
 
     <script>
         function updateKabupatenOptions() {
-            // Dapatkan elemen dropdown "provinsi" dan kabupaten
             var provinsiDropdown = document.getElementById("provinsi");
             var kabupatenDropdown = document.getElementById("kabupaten");
 
-            // Dapatkan nilai yang dipilih di dropdown "provinsi"
             var selectedProvinsiId = provinsiDropdown.value;
-            var selectedKabupatenId = kabupatenDropdown.value;
-
             // Hapus semua opsi saat ini di dropdown "kabupaten"
             kabupatenDropdown.innerHTML = "";
 
-            // Tambahkan opsi default
+            // opsi default
             var defaultOption = document.createElement("option");
-           
-            defaultOption.text = "Pilih Kota atau Kabupaten";
+            defaultOption.text = "--- Pilih Kabupaten atau Kota ----";
+            defaultOption.disabled = true;
                     
             kabupatenDropdown.add(defaultOption);
-            
-            
-            // Jika "provinsi" dipilih, tambahkan opsi kabupaten yang sesuai
+
+
             if (selectedProvinsiId !== "") {
-                // Loop melalui daftar kabupaten dan tambahkan opsi yang sesuai dengan provinsi yang dipilih
                 @foreach ($regencies as $kabupaten)
                     if ("{{ $kabupaten->province_id }}" === selectedProvinsiId) {
                         var kabupatenOption = document.createElement("option");
                         kabupatenOption.value = "{{ $kabupaten->id }}";
                         kabupatenOption.text = "{{ $kabupaten->name }}";
+                        kabupatenOption.selected = "{{ $kabupaten->name }}" === "{{ $pelatihan->kabupaten }}";
                         kabupatenOption.selected = "{{ $kabupaten->name }}" === "{{ $pelatihan->kabupaten }}";
 
                         kabupatenDropdown.add(kabupatenOption);
@@ -147,10 +195,33 @@
                 @endforeach 
             }
         }
-        // Panggil fungsi ini saat halaman dimuat untuk pertama kalinya
         updateKabupatenOptions();
     </script>
 
+    <!-- alert logout -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script type="text/javascript">
+            $(function(){
+                $(document).on('click', '.logout', function(e){
+                    e.preventDefault();
+                    var form = $(this).closest('form');
+
+                    Swal.fire({
+                        title: "Anda ingin logout?",
+                        icon: "question",
+                        showCancelButton: true,
+                        confirmButtonColor: "#3085d6",
+                        cancelButtonColor: "#d33",
+                        confirmButtonText: "Logout"
+                        }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = '/index';
+                        }
+                    });
+                });
+            });
+    </script>
 
     
 </body>

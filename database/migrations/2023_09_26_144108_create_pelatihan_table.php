@@ -20,8 +20,10 @@ return new class extends Migration
             $table->date('tanggal_selesai');
             $table->string('lokasi');
 
-            $table->string('provinsi');
-            $table->string('kabupaten');
+            $table->string('provinsi')->nullable();
+            $table->string('kabupaten')->nullable();
+
+            $table->string('negara');
             $table->timestamps();
         });
     }

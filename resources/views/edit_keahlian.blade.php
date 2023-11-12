@@ -32,7 +32,7 @@
                     <i class="fas fa-clipboard-list">
                         <span class="menu">&emsp; Evaluasi</span>
                     </i></a></li>
-                <li><a href="/jenjangk">
+                <li><a href="/jenjangkarir">
                     <i class="fas fa-chart-line">
                         <span class="menu">&emsp;Jenjang Karir</span>
                     </i></a></li>
@@ -40,7 +40,7 @@
                     <i class="fas fa-users-gear">
                         <span class="menu">&emsp;Keahlian & Pelatihan</span>
                     </i></a></li>
-                <li><a href="/logout">
+                <li><a class="logout" href="/logout">
                     <i class="fas fa-right-from-bracket">
                         <span class="menu">&emsp; Keluar</span>
                     </i></a></li>
@@ -92,7 +92,7 @@
                 <select name="jenis_keahlian" id="jenis_keahlian" required
                 oninvalid="this.setCustomValidity('Jenis keahlian belum terisi!')" 
                 onInput="this.setCustomValidity('')" title="Silahkan pilih jenis keahlian">
-                    <option value="{{$keahlian->jenis_keahlian}}">Pilih jenis keahlian</option>
+                    <option value="{{$keahlian->jenis_keahlian}}" disabled selected>--- Pilih Jenis Keahlian ---</option>
                     <option value="Hard Skill" @if ($keahlian->jenis_keahlian == "Hard Skill") selected @endif>Hard Skill</option>
                     <option value="Soft Skill" @if ($keahlian->jenis_keahlian == "Soft Skill") selected @endif>Soft Skill</option> 
                 </select>
@@ -103,9 +103,8 @@
                 <input class="simpan" type="submit" name="submit" value="Simpan">
             </form>  
                 <div class="display_batal ">
-                    @if ($daftark)
-                        <a href="/karyawan/{{$daftark->id}}"><button class="batal">Batal</button></a>
-                    @endif
+                    <button class="batal" onclick="goBack()">Batal</button>
+                    
                 </div>
             </div>
         </div>
@@ -114,6 +113,35 @@
             
         </div>
     </div>
-    
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+
+    <!-- alert logout -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            $(document).on('click', '.logout', function(e){
+                e.preventDefault();
+                var form = $(this).closest('form');
+
+                Swal.fire({
+                    title: "Anda ingin logout?",
+                    icon: "question",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Logout"
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = '/index';
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>

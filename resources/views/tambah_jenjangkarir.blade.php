@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('css/te_jenjang_karir.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/fontawesome/css/all.css') }}">
     <title>Document</title>
@@ -40,7 +41,7 @@
                     <i class="fas fa-users-gear">
                         <span class="menu">&emsp;Keahlian & Pelatihan</span>
                     </i></a></li>
-                <li><a href="/logout">
+                <li><a class="logout" href="/logout">
                     <i class="fas fa-right-from-bracket">
                         <span class="menu">&emsp; Keluar</span>
                     </i></a></li>
@@ -62,36 +63,98 @@
             <form action="/store_jenjangkarir/{{$daftark->id}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 
+                <label for="departemen">Departemen</label>
+                <select name="departemen" id="departemen">
+                    <option value="" disabled selected>--- Pilih Departemen ---</option>
+                    @foreach ($departemen as $dpm)
+                        <option value="{{$dpm->id}}">{{$dpm->nama_departemen}}</option>
+                    @endforeach
+                </select><br>
+
+                <label for="unit">Unit</label>
+                <select name="unit" id="unit">
+                               
+                </select><br>
+
                 <label for="posisi">Posisi</label><input id="posisi" type="text" name="posisi" pattern=".*\S+.*" required
-                oninvalid="this.setCustomValidity('Posisi karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan posisi"><br>
-
-                <label for="unit">Unit</label><input id="unit" type="text" name="unit" pattern=".*\S+.*" required
-                oninvalid="this.setCustomValidity('Unit karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan unit"><br>
-
-                <label for="departemen">Departemen</label><input id="departemen" type="text" name="departemen" pattern=".*\S+.*" required
-                oninvalid="this.setCustomValidity('Departemen karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan departemen"><br>
+                oninvalid="this.setCustomValidity('Posisi karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan posisi"><br>                
 
                 <label for="tanggal_mulai">Mulai</label><input id="tanggal_mulai" type="date" name="tanggal_mulai" pattern=".*\S+.*" required
                 oninvalid="this.setCustomValidity('Tanngal mulai karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan tanggal mulai"><br>
 
                 <label for="tanggal_selesai">Selesai</label><input id="tanggal_selesai" type="date" name="tanggal_selesai" value="" pattern=".*\S+.*" 
-                oninvalid="this.setCustomValidity('Tanggal selesai karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan tanggal selesai"><br><br>
+                oninvalid="this.setCustomValidity('Tanggal selesai karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan tanggal selesai">
+                <p id="tanggal_selesai2">*Jika tanggal selesai dikosongkan maka outputnya "Sekarang"</p><br>
                 
                 <p class="durasi">Durasi Posisi  <span id="durasi" name="durasi" ></span></p>
                 <input hidden type="text" id="durasi" name="durasi" readonly>
+
+                <!-- <label for="">Pilih unit</label>
+                <select name="unit" id="unit">
+                    @foreach ($unit as $ut)
+                        <option value="{{$ut->id}}">{{$ut->nama_unit}}</option>
+                    @endforeach
+                </select> -->
+
 
                 <br><br>
                 <hr size="3px" color="#EEEEEE">
                 <input class="simpan" type="submit" name="submit" value="Simpan">
             </form>
                 <div class="display_batal ">
-                    <a href="/karyawan/{{$daftark->id}}/detail_jenjangkarir"><button class="batal">Batal</button></a>
+                    <button class="batal" onclick="goBack()">Batal</button>
                 </div>
         </div>
     </div>
 
+    <!-- =============================================================================================================== -->
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script>
-        // Fungsi untuk menghitung selisih tahun dan bulan antara dua tanggal
+        $(document).ready(function(){
+            $('#departemen').on('change', function(){
+                var departemen_id = $(this).val();
+                if(departemen_id){
+                    $.ajax({
+                        url: "{{ route('store_jenjangkarir', ['id' => $daftark->id]) }}",
+                        type: 'POST',
+                        data: {
+                            '_token': '{{ csrf_token() }}',
+                            'departemen': departemen_id
+                        },
+                        dataType: 'json',
+                        success: function(data){
+                            if (data.options && data.options.length > 0) {
+                                $('#unit').empty();
+                                $('#unit').append('<option value="" disabled selected>--- Pilih Unit ---</option>');
+                                $.each(data.options, function(key, unit){
+                                    $('#unit').append(
+                                        '<option value="' + unit.id + '">' +
+                                        unit.nama_unit + '</option>'
+                                    );
+                                });
+                            } else {
+                                $('#unit').empty();  
+                            }
+                        },
+                    });
+                } else {
+                    $('#unit').empty(); 
+                }
+            });
+        });
+    </script>
+
+
+    <!-- =============================================================================================================== -->
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+
+    <!-- =============================================================================================================== -->
+    <script>
+        // menghitung selisih 
         function hitungSelisihTahunBulan(tanggalMulai, tanggalSelesai) {
             const mulai = new Date(tanggalMulai);
             const selesai = new Date(tanggalSelesai);
@@ -116,16 +179,11 @@
             }
         }
 
-// Contoh penggunaan:
-const selisih = hitungSelisihTahunBulan("2023-11-30", "2023-12-01");
-console.log(selisih); // Output: "1 bulan"
-
-
-        // Event listener untuk input tanggal
+        // eventlistener untuk input tanggal
         document.getElementById("tanggal_mulai").addEventListener("input", updateSelisihTahunBulan);
         document.getElementById("tanggal_selesai").addEventListener("input", updateSelisihTahunBulan);
 
-        // Fungsi untuk menampilkan selisih tahun dan bulan dalam format yang sesuai
+        // menampilkan selisih tahun dan bulan 
         function updateSelisihTahunBulan() {
             const tanggalMulai = document.getElementById("tanggal_mulai").value;
             const tanggalSelesai = document.getElementById("tanggal_selesai").value;
@@ -144,6 +202,31 @@ console.log(selisih); // Output: "1 bulan"
                 inputSelisihTahunBulan.value = selisihTahunBulan.toString();
             }
         }
+    </script>
+
+    <!-- alert logout -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            $(document).on('click', '.logout', function(e){
+                e.preventDefault();
+                var form = $(this).closest('form');
+
+                Swal.fire({
+                    title: "Anda ingin logout?",
+                    icon: "question",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Logout"
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = '/index';
+                    }
+                });
+            });
+        });
     </script>
     
 </body>

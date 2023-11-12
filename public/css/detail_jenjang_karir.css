@@ -246,6 +246,11 @@ table .hapus:hover::after{
     padding: 5px;
     border: 1px solid #ccc;
 }
+
+.total{
+    margin-left: 20px;
+    font-weight:bolder;
+}
 /* -------------------------- */
 
 .empat2 .tambah{

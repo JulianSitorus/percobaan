@@ -140,8 +140,8 @@ html, body{
     float: left;
     background-color: white;
     width: 80%;
-    /* min-height: 200px; */
-    height: 62%;
+    min-height: 200px;
+    /* height: 62%; */
     margin: 70px 35px 70px 270px;
 }
 .empat2 .tambah{
@@ -179,8 +179,8 @@ html, body{
     position: absolute;
 }
 .empat2 #posisi, 
-.empat2 #unit,
-.empat2 #departemen,
+.empat2 #unit1,
+.empat2 #departemen1,
 .empat2 #tanggal_mulai,
 .empat2 #tanggal_selesai{
     margin-left: 250px;
@@ -188,6 +188,23 @@ html, body{
     background-color: white;
     height: 15px;
     width: 50%;
+    border-radius: 5px;
+    padding: 10px 15px;
+    border: 1px solid #888;
+    font-size: 17px;
+    box-shadow: inset 1px 1px 0px rgba(0, 0, 0, 0.5);
+}
+.empat2 #tanggal_selesai2{
+    margin-left: 251px;
+    font-size: 10px;
+}
+.empat2 #unit,
+.empat2 #departemen{
+    margin-left: 250px;
+    margin-top: 15px;
+    background-color: white;
+    height: 41px;
+    width: 52.5%;
     border-radius: 5px;
     padding: 10px 15px;
     border: 1px solid #888;

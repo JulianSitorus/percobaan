@@ -221,7 +221,7 @@ table .detail{
     border: none;
     border-radius: 3px;
     padding: 6px 9px;
-    margin: 17px 3px 17px 5px;
+    margin: 17px 3px 17px 0px;
 }
 table .tambah{
     background-color: rgb(0, 115, 255);
@@ -229,7 +229,7 @@ table .tambah{
     border: none;
     border-radius: 3px;
     padding: 6px 9px;
-    margin: 17px 5px 17px 3px;
+    margin: 17px 0px 17px 3px;
 }
 table .detail:hover{
     background-color: #6AB784;
@@ -265,22 +265,25 @@ table .foto{
     width: 0.04%;
 }
 table .nama{
-    width: 0.2%;
+    width: 0.1%;
 }
 table .posisi_s{
     width: 0.2%;
 }
-
-table .ps{
-    width: 0.2%;
+table .ps1{
+    width: 0.8%;
 }
+table .total{
+    width: 0.1%;
+}
+
 
 table li{
     list-style:none;
     font-size: 12px;
 }
 table .kanan{
-    width: 0.001%;
+    width: 0.20%;
     border-top-right-radius: 5px;
 } 
 table tr:nth-child(odd){

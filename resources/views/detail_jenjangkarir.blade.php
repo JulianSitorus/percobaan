@@ -40,7 +40,7 @@
                     <i class="fas fa-users-gear">
                         <span class="menu">&emsp;Keahlian & Pelatihan</span>
                     </i></a></li>
-                <li><a href="/logout">
+                <li><a class="logout"  href="/logout">
                     <i class="fas fa-right-from-bracket">
                         <span class="menu">&emsp; Keluar</span>
                     </i></a></li>
@@ -48,11 +48,16 @@
             </ul>
     </div>
 
-    <div class ="tiga">
+    <div class ="tiga" >
         <a href="/daftark"><h3>Karyawan ></h3></a>
         <a href="/karyawan/{{$daftark->id}}"><h3 class="breadcrumb">Detail Karyawan ></h3></a>
         <a href="/karyawan/{{$daftark->id}}/detail_jenjangkarir"><h3 class="breadcrumb">Detail Jenjang Karir</h3></a>
     </div>
+
+    @php
+        $hitungPosisi = []; //tiap posisi
+        $totalHitung = 0; 
+    @endphp
 
     <div class ="empat">
         <div class="empat2">
@@ -91,15 +96,63 @@
                         </form>
                     </td>
                 </tr>
+
+                @php
+                    $posisi = $dkr->posisi;
+                    $hitungPosisi[$posisi] = isset($hitungPosisi[$posisi]) ? $hitungPosisi[$posisi] + 1 : 1;
+                    $totalHitung++;
+                @endphp
+                
                 @endforeach
             </table>
 
+            <!-- @foreach ($hitungPosisi as $posisi => $hitung)
+                <p>{{$posisi}}: {{$hitung}}</p>
+            @endforeach -->
+
+            <p class="total">Total Posisi: {{$totalHitung}}</p>
+            <div id="totalDurasi"></div>
+
+            <br>
+
             <hr size="3px" color="#EEEEEE">
             <a href="tambah_jenjangkarir"><button class="tambah"><i class="fa-solid fa-plus"></i> Tambah Data</button></a>
-            <a href="/karyawan/{{$daftark->id}}"><button class="kembali">Kembali</button></a>
+            <button class="kembali" onclick="goBack()">Kembali</button>
 
         </div>
     </div>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+
+    <!-- alert logout -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            $(document).on('click', '.logout', function(e){
+                e.preventDefault();
+                var form = $(this).closest('form');
+
+                Swal.fire({
+                    title: "Anda ingin logout?",
+                    icon: "question",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Logout"
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = '/index';
+                    }
+                });
+            });
+        });
+    </script>
     
+
 </body>
 </html>

@@ -14,8 +14,7 @@
     
     <div class ="satu">
         <img src="{{ asset('images/logo.jpg') }}">
-        <span>Damar Dwi Nughroho <i class="fa fa-circle-user fa-2xl"></i></span>
-        
+        <span>Damar Dwi Nughroho <i class="fa fa-circle-user fa-2xl"></i></span> 
     </div>
 
     <div class ="dua">
@@ -41,7 +40,7 @@
                     <i class="fas fa-users-gear">
                         <span class="menu">&emsp;Keahlian & Pelatihan</span>
                     </i></a></li>
-                <li><a href="logout">
+                <li><a class="logout" href="/logout">
                     <i class="fas fa-right-from-bracket">
                         <span class="menu">&emsp; Keluar</span>
                     </i></a></li>
@@ -50,8 +49,8 @@
     </div>
 
     <div class ="tiga">
-        <a href="/daftark"><h3>Karyawan ></h3></a>
-        <a href="/karyawan/{{$daftark->id}}"><h3 class="breadcrumb">Detail Karyawan</h3></a>
+        <!-- <a href="/daftark"><h3>Karyawan ></h3></a> -->
+        <a href="/karyawan/{{$daftark->id}}"><h3>Detail Karyawan</h3></a>
     </div>
 
     
@@ -69,8 +68,8 @@
                         {{ $daftark->jenjangkarir->last()->posisi }}
                     @endif
                 </p>
-                <h3>Unit</h3>
-                <p style="width:240px;">
+                <h3 >Unit</h3>
+                <p id="kpi" style="width:240px;">
                     @if ($daftark->jenjangkarir->isNotEmpty())
                         {{ $daftark->jenjangkarir->last()->unit }}
                     @endif
@@ -165,7 +164,7 @@
 
             <!-- Kpi -->
             
-            <div class="judul3"><i class="fas fa-briefcase fa-xl"></i><span >   Key Performance Indicator</span></div>
+            <div class="judul3"><i class="fas fa-briefcase fa-xl"></i><span>   Key Performance Indicator</span></div>
             <table>
                 <tr>
                     <!-- <th class="posisi_kpi">Posisi</th> -->
@@ -236,10 +235,11 @@
                 </tr>
                 @endforeach
             </table>
-            <a href="{{$daftark->id}}/tambah_evaluasi"><button class="tambah"><i class="fa-solid fa-plus"></i> Tambah Data</button></a><br>
+            <a  id="keahlian" href="{{$daftark->id}}/tambah_evaluasi"><button class="tambah"><i class="fa-solid fa-plus"></i > Tambah Data</button></a><br>
+
 
             <!-- Keahlian -->
-            <div class="judul2"><i class="fas fa-kitchen-set fa-xl"></i><span id="keahlian">   Keahlian</span></div>
+            <div class="judul2"><i class="fas fa-kitchen-set fa-xl"></i><span>   Keahlian</span></div>
             <!-- <div style="overflow: auto; height: 531px"> -->
             <table>
                 <tr>
@@ -285,8 +285,14 @@
                     <td>{{$dkp->penyelenggara}}</td>
                     <td>{{ \Carbon\Carbon::parse($dkp->tanggal_mulai)->format('d/m/Y') }}</td>   
                     <td>{{ \Carbon\Carbon::parse($dkp->tanggal_selesai)->format('d/m/Y') }}</td>
-                    <td>{{ ucwords(strtolower(implode(' ',(explode(' ', $dkp->provinsi))))) }}, 
-                    {{ ucwords(strtolower(implode(' ', array_slice(explode(' ', $dkp->kabupaten), 1)))) }}</td>
+                    <td>
+                        @if ($dkp->provinsi && $dkp->kabupaten && $dkp->kabupaten !== 'Pilih Kota atau Kabupaten')
+                            {{ ucwords(strtolower(implode(' ', (explode(' ', $dkp->provinsi))))) }}, 
+                            {{ ucwords(strtolower(implode(' ', array_slice(explode(' ', $dkp->kabupaten), 1)))) }}
+                        @else
+                            {{ $dkp->negara }}
+                        @endif
+                    </td>
                     <td align="center" class="button-container">
                         <a href="/karyawan/{{$dkp->id}}/edit_pelatihan"><button class="detail"><i class="fa fa-pen-to-square fa-sm" ></i></button></a>
                         <form action="{{ route('pelatihan.destroy', ['id' => $dkp->id]) }}" method="POST">
@@ -353,6 +359,31 @@
         });
     </script>
     @endif -->
+
+    <!-- alert logout -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            $(document).on('click', '.logout', function(e){
+                e.preventDefault();
+                var form = $(this).closest('form');
+
+                Swal.fire({
+                    title: "Anda ingin logout?",
+                    icon: "question",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Logout"
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = '/index';
+                    }
+                });
+            });
+        });
+    </script>
 
 </body>
 </html>

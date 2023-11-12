@@ -40,7 +40,7 @@
                     <i class="fas fa-users-gear">
                         <span class="menu">&emsp;Keahlian & Pelatihan</span>
                     </i></a></li>
-                <li><a href="/logout">
+                <li><a class="logout" href="/logout">
                     <i class="fas fa-right-from-bracket">
                         <span class="menu">&emsp; Keluar</span>
                     </i></a></li>
@@ -129,9 +129,9 @@
                         <td><textarea class="background" name="ket[{{ $i }}]" id="ket-{{ $i }}" type="komentar" readonly>{{ $kpi_items[$i]->ket }}</textarea></td>
                         <td class="background"><input class="background" name="bobot[{{ $i }}]" id="bobot-{{ $i }}" class="bobot-input" value="{{ $kpi_items[$i]->bobot }}" readonly></td>
                         <td class="background"><input class="background" name="target[{{ $i }}]" id="target-{{ $i }}" value="{{ $kpi_items[$i]->target }}" readonly></td>
-                        <td class="background"><input name="realisasi[{{ $i }}]" id="realisasi-{{ $i }}"  class="realisasi" value="{{ $kpi_items[$i]->realisasi }}"></td>                       
+                        <td class="background"><input name="realisasi[{{ $i }}]" id="realisasi-{{ $i }}"  class="realisasi2" value="{{ $kpi_items[$i]->realisasi }}"></td>                       
                         <td class="background">
-                            <select name="jenis_perhitungan[{{ $i }}]" id="jenis_perhitungan-{{ $i }}" class="jenis_perhitungan">
+                            <select name="jenis_perhitungan[{{ $i }}]" id="jenis_perhitungan-{{ $i }}" class="jenis_perhitungan2">
                                 <option value="skor-1" @if ($kpi_items[$i]->jenis_perhitungan == "skor-1") selected @endif>R/T</option>
                                 <option value="skor-2" @if ($kpi_items[$i]->jenis_perhitungan == "skor-2") selected @endif>T/R</option>
                             </select>
@@ -177,12 +177,18 @@
             </form>
 
             <div class="display_batal ">
-                <a href="/karyawan/{{$daftark->id}}"><button class="batal">Batal</button></a>
+                <button onclick="goBack()" class="batal" >Batal</button>
             </div>
             
             
         </div>
     </div>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
     
     <script>
     
@@ -497,6 +503,31 @@
     });
 
 </script>
+
+<!-- alert logout -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            $(document).on('click', '.logout', function(e){
+                e.preventDefault();
+                var form = $(this).closest('form');
+
+                Swal.fire({
+                    title: "Anda ingin logout?",
+                    icon: "question",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Logout"
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = '/index';
+                    }
+                });
+            });
+        });
+    </script>
 
 </body>
 </html>

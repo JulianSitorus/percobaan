@@ -359,15 +359,26 @@ table th{
 }
 .realisasi{
     width: 85%;
+    background-color: #eeeeee9f;
 }
 .jenis_perhitungan{
     margin-top: -4px;
     height: 40px;  
-    margin-left: -9px;  
+    margin-left: -9px; 
+    background-color: #eeeeee9f; 
 }
 .skor{
     width: 120%;
     margin-left: -11px;
+}
+
+.realisasi2{
+    width: 85%;
+}
+.jenis_perhitungan2{
+    margin-top: -4px;
+    height: 40px;  
+    margin-left: -9px; 
 }
 
 

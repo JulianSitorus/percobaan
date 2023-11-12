@@ -16,4 +16,9 @@ class Jenjangkarir extends Model
     {
         return $this->belongsTo('App\Models\Daftark');
     }
+
+    public function departemen()
+    {
+        return $this->hasOne('App\Models\Departemen');
+    }
 }

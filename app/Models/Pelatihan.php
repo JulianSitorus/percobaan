@@ -20,4 +20,9 @@ class Pelatihan extends Model
     {
     	return $this->hasOne('App\Models\Province');
     }
+
+    public function countries()
+    {
+    	return $this->hasOne('App\Models\Country');
+    }
 }

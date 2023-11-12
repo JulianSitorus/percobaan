@@ -40,7 +40,7 @@
                     <i class="fas fa-users-gear">
                         <span class="menu">&emsp;Keahlian & Pelatihan</span>
                     </i></a></li>
-                <li><a href="logout">
+                <li><a class="logout" href="logout">
                     <i class="fas fa-right-from-bracket">
                         <span class="menu">&emsp; Keluar</span>
                     </i></a></li>
@@ -81,17 +81,16 @@
                     <td>{{$dk->nama_karyawan}} </td>
                     <td class="keahlian">
                         @foreach($dk->keahlian as $keahlian)
-                            {{$keahlian->nama_keahlian}},
+                            &bull; {{$keahlian->nama_keahlian}} <br>
                         @endforeach                    
                     </td>
                     <td class="pelatihan">
                         @foreach($dk->pelatihan as $pelatihan)
-                            {{$pelatihan->nama_pelatihan}},
+                            &bull; {{$pelatihan->nama_pelatihan}} <br>
                         @endforeach 
                     </td>
                     <td align="center">
                         <a href="karyawan/{{$dk->id}}#keahlian"><button class="detail"><i class="fa fa-pen-to-square fa-sm" ></i></button></a>
-                        <button class="tambah"><i class="fa-solid fa-plus"></i></button>
                     </td>
                 </tr>
                 @endforeach
@@ -104,5 +103,30 @@
         </div>
 
     </div>
+
+    <!-- alert logout -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            $(document).on('click', '.logout', function(e){
+                e.preventDefault();
+                var form = $(this).closest('form');
+
+                Swal.fire({
+                    title: "Anda ingin logout?",
+                    icon: "question",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Logout"
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = '/index';
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>

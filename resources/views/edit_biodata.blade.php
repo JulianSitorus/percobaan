@@ -41,7 +41,7 @@
                     <i class="fas fa-users-gear">
                         <span class="menu">&emsp;Keahlian & Pelatihan</span>
                     </i></a></li>
-                <li><a href="/logout">
+                <li><a class="logout" href="/logout">
                     <i class="fas fa-right-from-bracket">
                         <span class="menu">&emsp; Keluar</span>
                     </i></a></li>
@@ -75,7 +75,7 @@
                 <select name="provinsi" id="provinsi" required
                 oninvalid="this.setCustomValidity('Provinsi belum terisi!')" 
                 onInput="this.setCustomValidity('')" title="Silahkan pilih provinsi pelatihan" onchange="updateKabupatenOptions()">
-                    <option value="">Pilih Provinsi</option>
+                    <option value="" disabled selected>--- Pilih Provinsi ---</option>
                     @foreach ($provinces as $provinsi)
                         <option value="{{ $provinsi->id }}" {{ $daftark->provinsi == $provinsi->name ? 'selected' : '' }}>
                             {{$provinsi->name}}
@@ -88,7 +88,7 @@
                 <select name="kabupaten" id="kabupaten" required
                 oninvalid="this.setCustomValidity('Kabupaten belum terisi!')" 
                 onInput="this.setCustomValidity('')" title="Silahkan pilih kabupaten pelatihan">
-                <option value="">Pilih Kota atau Kabupaten</option> 
+                    <option value=""></option> 
 
                 </select>
 
@@ -106,7 +106,7 @@
                 <select name="agama" id="agama" required
                 oninvalid="this.setCustomValidity('Agama karyawan belum terisi!')" 
                 onInput="this.setCustomValidity('')" title="Silahkan pilih agama karyawan">
-                    <option value="" >Pilih Agama</option>
+                    <option value="" disabled selected>--- Pilih Agama ---</option>
                     <option value="islam" @if ($daftark->agama == "islam") selected @endif>Islam</option>
                     <option value="kristen" @if ($daftark->agama == "kristen") selected @endif>Kristen</option>
                     <option value="katolik" @if ($daftark->agama == "katolik") selected @endif>Katolik</option> 
@@ -119,7 +119,7 @@
                 <select name="jenis_kelamin" id="jenis_kelamin" required
                 oninvalid="this.setCustomValidity('Jenis kelamin karyawan belum terisi!')" 
                 onInput="this.setCustomValidity('')" title="Silahkan pilih jenis kelamin karyawan">
-                    <option value="">Pilih Jenis Kelamin</option>
+                    <option value="" disabled selected>--- Pilih Jenis Kelamin ---</option>
                     <option value="Laki-laki" @if ($daftark->jenis_kelamin == "Laki-laki") selected @endif>Laki-laki</option>
                     <option value="Perempuan" @if ($daftark->jenis_kelamin == "Perempuan") selected @endif>Perempuan</option> 
                 </select><br>
@@ -139,7 +139,7 @@
                 <select name="status" id="status" required
                 oninvalid="this.setCustomValidity('Status karyawan belum terisi!')" 
                 onInput="this.setCustomValidity('')" title="Silahkan pilih status karyawan">
-                    <option value="">Pilih Status</option>
+                    <option value="" disabled selected>--- Pilih Status ---</option>
                     <option value="Tetap" @if ($daftark->status == "Tetap") selected @endif>Tetap</option>
                     <option value="Kontrak" @if ($daftark->status == "Kontrak") selected @endif>Kontrak</option> 
                     <option value="Paruh Waktu" @if ($daftark->status == "Paruh Waktu") selected @endif>Paruh Waktu</option>
@@ -160,12 +160,32 @@
                 <!-- <a href="/daftark"><button class="batal">Batal</button></a>  -->
             </form> 
                 <div class="display_batal ">
-                    <a href="/karyawan/{{$daftark->id}}"><button class="batal">Batal</button></a>
+                    <button class="batal" onclick="goBack()">Batal</button>
                 </div>
                     
                 
         </div>
     </div>
+    
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+    $(document).ready(function () {
+        // disable opsi pertama pada dropdown kabupaten
+        $('#kabupaten option:first-child').prop('disabled', true);
+
+        // properti required pada dropdown kabupaten
+        $('#provinsi').change(function () {
+            var selectedProvinsi = $(this).val();
+            $('#kabupaten').prop('required', selectedProvinsi !== '');
+        });
+    });
+    </script>
 
     <script>
         function updateKabupatenOptions() {
@@ -177,7 +197,8 @@
         kabupatenDropdown.innerHTML = ""; // Hapus opsi saat ini
 
         var defaultOption = document.createElement("option");
-        defaultOption.text = "Pilih Kota atau Kabupaten";
+        defaultOption.text = "--- Pilih Kabupaten atau Kota ---";
+        defaultOption.disabled = true;
         kabupatenDropdown.add(defaultOption);
 
         if (selectedProvinsiId !== "") {
@@ -195,6 +216,31 @@
     }
     // Panggil fungsi ini saat halaman dimuat untuk pertama kalinya
     updateKabupatenOptions();
+    </script>
+
+    <!-- alert logout -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            $(document).on('click', '.logout', function(e){
+                e.preventDefault();
+                var form = $(this).closest('form');
+
+                Swal.fire({
+                    title: "Anda ingin logout?",
+                    icon: "question",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Logout"
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = '/index';
+                    }
+                });
+            });
+        });
     </script>
 
 </body>

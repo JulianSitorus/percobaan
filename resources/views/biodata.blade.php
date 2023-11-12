@@ -42,7 +42,7 @@
                     <i class="fas fa-users-gear">
                         <span class="menu">&emsp;Keahlian & Pelatihan</span>
                     </i></a></li>
-                <li><a href="logout">
+                <li><a class="logout" href="logout">
                     <i class="fas fa-right-from-bracket">
                         <span class="menu">&emsp; Keluar</span>
                     </i></a></li>
@@ -75,8 +75,8 @@
                 
                 <select name="provinsi" id="provinsi" required
                 oninvalid="this.setCustomValidity('Provinsi belum terisi!')" 
-                onInput="this.setCustomValidity('')" title="Silahkan pilih provinsi pelatihan">
-                    <option value="">Pilih Provinsi</option>
+                onInput="this.setCustomValidity('')" title="Silahkan pilih provinsi pelatihan" onchange="toggleKabupatenRequired()">
+                    <option value="" disabled selected>--- Pilih Provinsi ---</option>
                     @foreach ($provinces as $provinsi) 
                         <option value="{{$provinsi->id}}">{{$provinsi->name}}</option>
                     @endforeach
@@ -85,7 +85,7 @@
                 <br>
 
                 <select name="kabupaten" id="kabupaten" required
-                oninvalid="this.setCustomValidity('Kabupaten belum terisi!')" 
+                oninvalid="this.setCustomValidity('Kabupaten/Kota belum terisi!')" 
                 onInput="this.setCustomValidity('')" title="Silahkan pilih kabupaten pelatihan">
                     <option value=""></option>
                 </select>
@@ -103,7 +103,7 @@
                 <select name="agama" id="agama" required
                 oninvalid="this.setCustomValidity('Agama karyawan belum terisi!')" 
                 onInput="this.setCustomValidity('')" title="Silahkan pilih agama karyawan">
-                    <option value="">Pilih Agama</option>
+                    <option value="" disabled selected>--- Pilih Agama ---</option>
                     <option value="islam">Islam</option>
                     <option value="kristen">Kristen</option>
                     <option value="katolik">Katolik</option> 
@@ -116,7 +116,7 @@
                 <select name="jenis_kelamin" id="jenis_kelamin" required
                 oninvalid="this.setCustomValidity('Jenis kelamin karyawan belum terisi!')" 
                 onInput="this.setCustomValidity('')" title="Silahkan pilih jenis kelamin karyawan">
-                    <option value="">Pilih Jenis Kelamin</option>
+                    <option value="" disabled selected>--- Pilih Jenis Kelamin ---</option>
                     <option value="Laki-laki">Laki-laki</option>
                     <option value="Perempuan">Perempuan</option> 
                 </select><br>
@@ -136,7 +136,7 @@
                 <select name="status" id="status" required
                 oninvalid="this.setCustomValidity('Status karyawan belum terisi!')" 
                 onInput="this.setCustomValidity('')" title="Silahkan pilih status karyawan">
-                    <option value="">Pilih Status</option>
+                    <option value="" disabled selected>--- Pilih Status ---</option>
                     <option value="Tetap">Tetap</option>
                     <option value="Kontrak">Kontrak</option> 
                     <option value="Paruh Waktu">Paruh Waktu</option>
@@ -151,8 +151,6 @@
                 <div><img src="" id="output" width="180"></div>
                 <br>
 
-                
-
                 <hr size="3px" color="#EEEEEE">
 
                 <!-- <a href="/daftark/"><button class="simpan" type="submit" name="submit" value="Simpan">Simpan</button></a> -->
@@ -165,6 +163,20 @@
                     
         </div>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+    $(document).ready(function () {
+        // disable opsi pertama dropdown kabupaten
+        $('#kabupaten option:first-child').prop('disabled', true);
+
+        // required pada dropdown kabupaten
+        $('#provinsi').change(function () {
+            var selectedProvinsi = $(this).val();
+            $('#kabupaten').prop('required', selectedProvinsi !== '');
+        });
+    });
+    </script>
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js"></script>
@@ -195,6 +207,31 @@
                     })
                 })
             })
+        });
+    </script>
+
+    <!-- alert logout -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            $(document).on('click', '.logout', function(e){
+                e.preventDefault();
+                var form = $(this).closest('form');
+
+                Swal.fire({
+                    title: "Anda ingin logout?",
+                    icon: "question",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Logout"
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = '/index';
+                    }
+                });
+            });
         });
     </script>
     

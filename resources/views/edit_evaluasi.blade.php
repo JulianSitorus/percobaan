@@ -32,7 +32,7 @@
                     <i class="fas fa-clipboard-list">
                         <span class="menu">&emsp; Evaluasi</span>
                     </i></a></li>
-                <li><a href="/jenjangk">
+                <li><a href="/jenjangkarir">
                     <i class="fas fa-chart-line">
                         <span class="menu">&emsp;Jenjang Karir</span>
                     </i></a></li>
@@ -40,7 +40,7 @@
                     <i class="fas fa-users-gear">
                         <span class="menu">&emsp;Keahlian & Pelatihan</span>
                     </i></a></li>
-                <li><a href="#">
+                <li><a class="logout" href="/logout">
                     <i class="fas fa-right-from-bracket">
                         <span class="menu">&emsp; Keluar</span>
                     </i></a></li>
@@ -72,7 +72,7 @@
                 <select name="tipe_evaluasi" id="tipe_evaluasi" required
                 oninvalid="this.setCustomValidity('Tipe evaluasi karyawan belum terisi!')" 
                 onInput="this.setCustomValidity('')" title="Silahkan pilih tipe evaluasi">
-                        <option value="">Pilih tipe evaluasi</option>
+                        <option value="" disabled selected>--- Pilih Tipe Evaluasi ---</option>
                         <option value="Triwulan" @if ($evaluasi->tipe_evaluasi == "Triwulan") selected @endif >Triwulan</option>
                         <option value="Tahunan" @if ($evaluasi->tipe_evaluasi == "Tahunan") selected @endif>Tahunan</option>
                         <option value="Percobaan" @if ($evaluasi->tipe_evaluasi == "Percobaan") selected @endif>Percobaan</option> 
@@ -461,9 +461,12 @@
                 <div class="penilaian_umum">
                     <p class="judul2">IV. Penilaian Umum</p>
                     <label for="kekuatan">Kekuatan Utama Pekarya: </label>
-                    <textarea name="komentar_kekuatan" id="kekuatan" type="komentar">{{$evaluasi->komentar_kekuatan}}</textarea><br>
+                    <textarea name="komentar_kekuatan" id="kekuatan" type="komentar" required 
+                    oninvalid="this.setCustomValidity('Kekuatan utama karyawan belum terisi!')" onInput="this.setCustomValidity('')">{{$evaluasi->komentar_kekuatan}}</textarea><br>
+                    
                     <label for="kelemahan">Kelemahan Utama Pekarya: </label>
-                    <textarea name="komentar_kelemahan" id="kelemahan" type="komentar">{{$evaluasi->komentar_kelemahan}}</textarea>
+                    <textarea name="komentar_kelemahan" id="kelemahan" type="komentar" required 
+                    oninvalid="this.setCustomValidity('Kelemahan utama karyawan karyawan belum terisi!')" onInput="this.setCustomValidity('')">{{$evaluasi->komentar_kelemahan}}</textarea>
                 </div>
 
                 <div class="rekomendasi">
@@ -482,11 +485,17 @@
             </form>
 
             <div class="display_batal ">
-                <a href=""><button class="batal">Batal</button></a>
+                <button class="batal" onclick="goBack()">Batal</button>
             </div>
 
         </div>
     </div>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
 
     <script>
         // Ambil elemen untuk menampilkan total
@@ -720,6 +729,31 @@
 
         hitungTotalKeseluruhan2();
 
+    </script>
+
+    <!-- alert logout -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            $(document).on('click', '.logout', function(e){
+                e.preventDefault();
+                var form = $(this).closest('form');
+
+                Swal.fire({
+                    title: "Anda ingin logout?",
+                    icon: "question",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Logout"
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = '/index';
+                    }
+                });
+            });
+        });
     </script>
     
 </body>

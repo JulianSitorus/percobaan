@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('css/te_jenjang_karir.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/fontawesome/css/all.css') }}">
     <title>Document</title>
@@ -40,7 +41,7 @@
                     <i class="fas fa-users-gear">
                         <span class="menu">&emsp;Keahlian & Pelatihan</span>
                     </i></a></li>
-                <li><a href="/logout">
+                <li><a class="logout" href="/logout">
                     <i class="fas fa-right-from-bracket">
                         <span class="menu">&emsp; Keluar</span>
                     </i></a></li>
@@ -64,21 +65,31 @@
             <form action="/detail_jenjangkarir/{{$jenjangkarir->id}}" method="POST" enctype="multipart/form-data">
                 @method('put')
                 @csrf
-                
+
+                <label for="departemen">Departemen</label>
+                <select name="departemen" id="departemen" onchange="updateUnitOptions()">
+                    <option value="" disabled selected>--- Pilih Departemen ---</option>
+                    @foreach ($departemen as $dpm)
+                        <option value="{{$dpm->id}}" {{ $jenjangkarir -> departemen == $dpm->nama_departemen ? 'selected' : '' }}>
+                            {{$dpm->nama_departemen}}
+                        </option>
+                    @endforeach
+                </select><br>
+
+                <label for="unit">Unit</label>
+                <select name="unit" id="unit">
+                               
+                </select><br>
+
                 <label for="posisi">Posisi</label><input id="posisi" value="{{$jenjangkarir->posisi}}" type="text" name="posisi" pattern=".*\S+.*" required
                 oninvalid="this.setCustomValidity('Posisi karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan posisi"><br>
-
-                <label for="unit">Unit</label><input id="unit" value="{{$jenjangkarir->unit}}" type="text" name="unit" pattern=".*\S+.*" required
-                oninvalid="this.setCustomValidity('Unit karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan unit"><br>
-
-                <label for="departemen">Departemen</label><input id="departemen" value="{{$jenjangkarir->departemen}}" type="text" name="departemen" pattern=".*\S+.*" required
-                oninvalid="this.setCustomValidity('Departemen karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan departemen"><br>
 
                 <label for="tanggal_mulai">Mulai</label><input id="tanggal_mulai" value="{{$jenjangkarir->tanggal_mulai}}" type="date" name="tanggal_mulai" pattern=".*\S+.*" required
                 oninvalid="this.setCustomValidity('Tanngal mulai karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan tanggal mulai"><br>
 
-                <label for="tanggal_selesai">Selesai</label><input id="tanggal_selesai" value="{{$jenjangkarir->tanggal_selesai}}" type="date" name="tanggal_selesai" pattern=".*\S+.*" required
-                oninvalid="this.setCustomValidity('Tanggal selesai karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan tanggal selesai"><br>
+                <label for="tanggal_selesai">Selesai</label><input id="tanggal_selesai" value="{{$jenjangkarir->tanggal_selesai}}" type="date" name="tanggal_selesai" pattern=".*\S+.*"
+                oninvalid="this.setCustomValidity('Tanggal selesai karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan tanggal selesai">
+                <p id="tanggal_selesai2">*Jika tanggal selesai dikosongkan maka outputnya "Sekarang"</p>
 
                 <br>
 
@@ -90,13 +101,18 @@
                 <input class="simpan" type="submit" name="submit" value="Simpan">              
             </form>
                 <div class="display_batal ">
-                    @if ($daftark)
-                        <a href="/karyawan/{{$daftark->id}}/detail_jenjangkarir"><button class="batal">Batal</button></a>
-                    @endif
+                    <button class="batal" onclick="goBack()">Batal</button>
+                    
                 </div>
                 
         </div>
     </div>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
 
     <script>
         // Fungsi untuk menghitung selisih tahun dan bulan antara dua tanggal
@@ -124,7 +140,6 @@
             }
         }
 
-
         // Event listener untuk input tanggal
         document.getElementById("tanggal_mulai").addEventListener("input", updateSelisihTahunBulan);
         document.getElementById("tanggal_selesai").addEventListener("input", updateSelisihTahunBulan);
@@ -149,6 +164,66 @@
             }
         }
     </script>
-    
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+
+    <script>
+        // store ke tabel data
+        var units = @json($unit);
+        var jenjangkarirUnit = @json($jenjangkarir->unit);
+
+        function updateUnitOptions() {
+            var departemenDropdown = document.getElementById("departemen");
+            var unitDropdown = document.getElementById("unit");
+            var selectedDepartemenId = departemenDropdown.value;
+            unitDropdown.innerHTML = "";
+
+            var defaultOption = document.createElement("option");
+            defaultOption.text = "--- Pilih Unit ---";
+            defaultOption.disabled = true;
+            defaultOption.selected = true;
+            unitDropdown.add(defaultOption);
+
+            if (selectedDepartemenId !== "") {
+                units.forEach(function(unit) {
+                    if (unit.departemen_id === selectedDepartemenId) {
+                        var unitOption = document.createElement("option");
+                        unitOption.value = unit.id;
+                        unitOption.text = unit.nama_unit;
+                        unitOption.selected = unit.nama_unit === jenjangkarirUnit ;
+                        unitDropdown.add(unitOption);
+                    }
+                });
+            }
+        }
+        updateUnitOptions();
+    </script>
+
+    <!-- alert logout -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            $(document).on('click', '.logout', function(e){
+                e.preventDefault();
+                var form = $(this).closest('form');
+
+                Swal.fire({
+                    title: "Anda ingin logout?",
+                    icon: "question",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Logout"
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = '/index';
+                    }
+                });
+            });
+        });
+    </script>
+
+
 </body>
 </html>

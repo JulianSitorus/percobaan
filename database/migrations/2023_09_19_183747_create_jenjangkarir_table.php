@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->char('daftark_id');
             $table->string('posisi');
-            $table->string('unit');
-            $table->string('departemen');
+            $table->string('unit')->nullable();
+            $table->string('departemen')->nullable();
             $table->date('tanggal_mulai');
             $table->date('tanggal_selesai')->nullable();
             $table->string('durasi');

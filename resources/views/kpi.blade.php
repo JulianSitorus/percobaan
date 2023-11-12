@@ -40,7 +40,7 @@
                     <i class="fas fa-users-gear">
                         <span class="menu">&emsp;Keahlian & Pelatihan</span>
                     </i></a></li>
-                <li><a href="logout">
+                <li><a class="logout" href="logout">
                     <i class="fas fa-right-from-bracket">
                         <span class="menu">&emsp; Keluar</span>
                     </i></a></li>
@@ -120,35 +120,46 @@
                             @endif
                         </td>
                         <td align="center">
-                            <a href="te_kpi"><button class="detail"><i class="fa fa-pen-to-square fa-sm"></i></button></a>
-                            <a href="te_kpi"><button class="tambah"><i class="fa-solid fa-plus"></i></button></a>
+                            @if ($dk->kpi->isNotEmpty())
+                                <a href="karyawan/{{$dk->kpi->last()->id}}/edit_kpi"><button class="detail"><i class="fa fa-pen-to-square fa-sm"></i></button></a>
+                            @endif
+                            <a href="karyawan/{{$dk->id}}/tambah_kpi"><button class="tambah"><i class="fa-solid fa-plus"></i></button></a>
                         </td>
                     </tr>
                 @endforeach
                 
-            </table>    
+            </table>
+                
         </div>
         <p class="jmlh_data">Menampilkan {{ $daftark->firstItem() }} - {{ $daftark->lastItem() }} dari {{ $daftark->total() }} data</p>
         <div class="hlmn">
             {{$daftark->withQueryString()->links('pagination::bootstrap-4')}}
         </div>
     </div>
+
+    <!-- alert logout -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            $(document).on('click', '.logout', function(e){
+                e.preventDefault();
+                var form = $(this).closest('form');
+
+                Swal.fire({
+                    title: "Anda ingin logout?",
+                    icon: "question",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Logout"
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = '/index';
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
-
-<!-- <tr>
-                    <td align="center">1</td>
-                    <td align="center"><img src='images/karyawan.jpg'></td>
-                    <td>Ponari Alexander Charles</td>
-                    <td>Wakil Departemen HRD</td>
-                    <td>08/08/2017</td>
-                    <td>Bambang Pamungkas S.E</td>
-                    <td>10/08/2017 - 15/11/2018</td>
-                    <td>Audit keuangan dan keperluan departemen HRD</td>
-                    <td align="center">100%</td>
-                    <td align="center">97</td>
-                    <td align="center">
-                      <a href="te_kpi"><button class="detail"><i class="fa fa-pen-to-square fa-sm"></i></button></a>
-                      <a href="te_kpi"><button class="tambah"><i class="fa-solid fa-plus"></i></button></a>
-                    </td>
-                </tr> -->

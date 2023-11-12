@@ -40,7 +40,7 @@
                     <i class="fas fa-users-gear">
                         <span class="menu">&emsp;Keahlian & Pelatihan</span>
                     </i></a></li>
-                <li><a href="/logout">
+                <li><a class="logout" href="/logout">
                     <i class="fas fa-right-from-bracket">
                         <span class="menu">&emsp; Keluar</span>
                     </i></a></li>
@@ -134,9 +134,9 @@
                         <td><textarea name="ket[]" id="ket-{{ $i }}" type="komentar"></textarea></td>
                         <td class="background"><input name="bobot[]" id="bobot-{{ $i }}" class="bobot-input"></td>
                         <td class="background"><input name="target[]" id="target-{{ $i }}"></td>
-                        <td class="background"><input name="realisasi[]" id="realisasi-{{ $i }}" class="realisasi"></td>
+                        <td class="background"><input name="realisasi[]" id="realisasi-{{ $i }}" class="realisasi" readonly></td>
                         <td class="background">
-                            <select name="jenis_perhitungan[]" id="jenis_perhitungan-{{ $i }}" class="jenis_perhitungan">
+                            <select name="jenis_perhitungan[]" id="jenis_perhitungan-{{ $i }}" class="jenis_perhitungan" disabled>
                                 <option value="skor-1">R/T</option>
                                 <option value="skor-2">T/R</option>
                             </select>
@@ -176,10 +176,16 @@
             </form>
 
             <div class="display_batal ">
-                <a href="/karyawan/{{$daftark->id}}"><button class="batal">Batal</button></a>
+                <button class="batal" onclick="goBack()">Batal</button>
             </div>
         </div>
     </div>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
 
     <!-- alert simpan kpi -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -273,10 +279,12 @@
                 if (i === 4) {
                     newElement.classList.add("realisasi");
                     newElement.setAttribute("name", "realisasi[]");
+                    newElement.readOnly = true;
                 }
 
                 if (i === 5) {
                     newElement = document.createElement("select");
+                    newElement.disabled = true;
                     
                     newElement.setAttribute("name", "jenis_perhitungan[]");
 
@@ -338,13 +346,13 @@
 
             if (jenisPerhitungan === "skor-1") {
                 if (realisasi !== 0) {
-                    skor = target / realisasi;
+                    skor = realisasi / target;
                 } else {
                     skor = 0;
                 }
             } else if (jenisPerhitungan === "skor-2") {
                 if (target !== 0) {
-                    skor = realisasi / target;
+                    skor = target / realisasi;
                 } else {
                     skor = 0;
                 }
@@ -528,6 +536,30 @@
     });
 </script>
 
+<!-- alert logout -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            $(document).on('click', '.logout', function(e){
+                e.preventDefault();
+                var form = $(this).closest('form');
+
+                Swal.fire({
+                    title: "Anda ingin logout?",
+                    icon: "question",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Logout"
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = '/index';
+                    }
+                });
+            });
+        });
+    </script>
 
 </body>
 </html>
