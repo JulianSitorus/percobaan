@@ -69,14 +69,14 @@
                 oninvalid="this.setCustomValidity('Jabatan supervisor karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan jabatan supervisor"><br>
 
                 <label for="tanggal_kpi">Tanggal KPI Disetujui</label>
-                <input id="tanggal_kpi" type="date" name="tanggal_kpi" pattern=".*\S+.*" required
+                <input id="tanggal_kpi" type="date" name="tanggal_kpi" max="9999-12-31" required
                 oninvalid="this.setCustomValidity('Tanggal KPI disetujui belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan tanggal">
 
                 <label for="mulai_pelaksanaan">Periode Pelaksanaan</label>
-                <input id="mulai_pelaksanaan" type="date" name="mulai_pelaksanaan" pattern=".*\S+.*" required
+                <input id="mulai_pelaksanaan" type="date" name="mulai_pelaksanaan" max="9999-12-31" required
                 oninvalid="this.setCustomValidity('Tanggal pelaksanaan mulai belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan tanggal">
                 
-                - <input id="selesai_pelaksanaan" type="date" name="selesai_pelaksanaan" pattern=".*\S+.*" required
+                - <input id="selesai_pelaksanaan" type="date" name="selesai_pelaksanaan" max="9999-12-31" required
                 oninvalid="this.setCustomValidity('Tanggal pelaksanaan berakhir belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan tanggal"><br>
 
                 <label for="deskripsi_kpi">Deskripsi KPI</label>
@@ -136,7 +136,7 @@
                         <td class="background"><input name="target[]" id="target-{{ $i }}"></td>
                         <td class="background"><input name="realisasi[]" id="realisasi-{{ $i }}" class="realisasi" readonly></td>
                         <td class="background">
-                            <select name="jenis_perhitungan[]" id="jenis_perhitungan-{{ $i }}" class="jenis_perhitungan" disabled>
+                            <select name="jenis_perhitungan[]" id="jenis_perhitungan-{{ $i }}" class="jenis_perhitungan">
                                 <option value="skor-1">R/T</option>
                                 <option value="skor-2">T/R</option>
                             </select>
@@ -284,7 +284,6 @@
 
                 if (i === 5) {
                     newElement = document.createElement("select");
-                    newElement.disabled = true;
                     
                     newElement.setAttribute("name", "jenis_perhitungan[]");
 

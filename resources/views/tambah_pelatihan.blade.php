@@ -68,16 +68,16 @@
                 <label for="penyelanggara">Penyelanggara</label><input id="penyelenggara" type="text" name="penyelenggara" pattern=".*\S+.*" required
                 oninvalid="this.setCustomValidity('Penyelenggara pelatihan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan penyelenggara pelatihan"><br>
 
-                <label for="mulai">Mulai</label><input id="tanggal_mulai" type="date" name="tanggal_mulai" pattern=".*\S+.*" required
+                <label for="mulai">Mulai</label><input id="tanggal_mulai" type="date" name="tanggal_mulai" max="9999-12-31" required
                 oninvalid="this.setCustomValidity('Tanggal mulai pelatihan karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan tanggal mulai pelatihan"><br>
 
-                <label for="selesai">Selesai</label><input id="tanggal_selesai" type="date" name="tanggal_selesai" pattern=".*\S+.*" required
+                <label for="selesai">Selesai</label><input id="tanggal_selesai" type="date" name="tanggal_selesai" max="9999-12-31" required
                 oninvalid="this.setCustomValidity('Tanggal selesai pelatihan karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan tanggal selesai pelatihan"><br>
 
                 <div id="prov_kab">
                 <label for="provinsi">Lokasi Pelatihan <br> Dalam Negeri</label>
 
-                <select name="provinsi" id="provinsi" 
+                <select name="provinsi" id="provinsi"
                 oninvalid="this.setCustomValidity('Provinsi belum terisi!')" 
                 onInput="this.setCustomValidity('')" title="Silahkan pilih provinsi pelatihan" onchange="toggleKabupatenRequired()">
                     <option value="">--- Pilih Provinsi ---</option>

@@ -92,7 +92,7 @@
 
                 <br>
 
-                <label for="tanggal_lahir">Tanggal Lahir</label><input id="tanggal_lahir" type="date" name="tanggal_lahir" pattern=".*\S+.*" required
+                <label for="tanggal_lahir">Tanggal Lahir</label><input id="tanggal_lahir" type="date" name="tanggal_lahir" max="9999-12-31" required
                 oninvalid="this.setCustomValidity('Tanggal lahir karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan tanggal lahir"><br>
 
                 <label for="alamat">Alamat</label><input id="alamat" type="text" name="alamat" pattern=".*\S+.*" required

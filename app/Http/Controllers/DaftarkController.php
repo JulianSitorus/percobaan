@@ -305,13 +305,13 @@ class DaftarkController extends Controller
         return view('edit_kpi', compact(['kpi', 'daftark', 'kpi_items']));
     }
 
+
     // put kpi
     public function update_kpi($id, Request $request)
     {   
-        $daftark_id = session('daftark_id');
-        $daftark = Daftark::find($daftark_id);
-
         $kpi = Kpi::find($id);
+        $daftark = $kpi->daftark;
+
         $kpi->update($request->except(['area','ket','bobot','target','realisasi','skor','jenis_perhitungan','skor_akhir','_token', 'submit']));
 
         foreach ($request->area as $key => $area) {
@@ -500,7 +500,7 @@ class DaftarkController extends Controller
 
     // edit evaluasi
     public function edit_evaluasi($id){
-        // mengambil id daftark dari detail jenjang karir
+        // mengambil id daftark        
         $daftark_id = session('daftark_id');
         $daftark = Daftark::find($daftark_id);
 
@@ -511,15 +511,15 @@ class DaftarkController extends Controller
     // put evaluasi
     public function update_evaluasi($id, Request $request)
     {   
-        $daftark_id = session('daftark_id');
-        $daftark = Daftark::find($daftark_id);
-
         $evaluasi = Evaluasi::find($id);
+        $daftark = $evaluasi->daftark;
         $evaluasi->update($request->except(['_token', 'submit']));
         return redirect('/karyawan/'. $daftark->id );
     }
 
-    // hapus keahlian
+   
+
+    // hapus evaluasi
     public function destroy_evaluasi($id){
         $daftark_id = session('daftark_id');
         $daftark = Daftark::find($daftark_id);

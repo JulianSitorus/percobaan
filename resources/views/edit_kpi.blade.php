@@ -71,9 +71,9 @@
                 <label for="tanggal_kpi">Tanggal KPI Disetujui</label><input class="tanggal_kpi" value="{{$kpi->tanggal_kpi}}" type="date" name="tanggal_kpi" pattern=".*\S+.*" readonly>
 
                 <label for="mulai_pelaksanaan">Periode Pelaksanaan</label>
-                <input class="mulai_pelaksanaan" value="{{$kpi->mulai_pelaksanaan}}" type="date" name="mulai_pelaksanaan" pattern=".*\S+.*" readonly>
+                <input class="mulai_pelaksanaan" value="{{$kpi->mulai_pelaksanaan}}" type="date" name="mulai_pelaksanaan" max="9999-12-31" readonly>
                 
-                - <input class="selesai_pelaksanaan" value="{{$kpi->selesai_pelaksanaan}}" type="date" name="selesai_pelaksanaan" pattern=".*\S+.*" readonly><br>
+                - <input class="selesai_pelaksanaan" value="{{$kpi->selesai_pelaksanaan}}" type="date" name="selesai_pelaksanaan" max="9999-12-31" readonly><br>
 
                 <label for="deskripsi_kpi">Deskripsi KPI</label>
                 <textarea class="deskripsi_kpi" type="komentar" name="deskripsi_kpi" pattern=".*\S+.*" readonly>{{$kpi->deskripsi_kpi}}</textarea>

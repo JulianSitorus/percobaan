@@ -65,7 +65,7 @@
                 <label for="tempat_evaluasi">Tempat Evaluasi</label><input id="tempat_evaluasi" type="text" name="tempat_evaluasi" pattern=".*\S+.*" required
                 oninvalid="this.setCustomValidity('Tempat evaluasi karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan tempat evaluasi"><br>
 
-                <label for="tanggal_evaluasi">Tanggal Evaluasi</label><input id="tanggal_evaluasi" type="date" name="tanggal_evaluasi" pattern=".*\S+.*" required
+                <label for="tanggal_evaluasi">Tanggal Evaluasi</label><input id="tanggal_evaluasi" type="date" name="tanggal_evaluasi" max="9999-12-31" required
                 oninvalid="this.setCustomValidity('Tanggal evaluasi karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan tanggal evaluasi">
 
                 <label for="tipe_evaluasi" id="tipe_evaluasi">Tipe Evaluasi</label>

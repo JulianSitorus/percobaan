@@ -360,30 +360,7 @@
     </script>
     @endif -->
 
-    <!-- alert logout -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script type="text/javascript">
-        $(function(){
-            $(document).on('click', '.logout', function(e){
-                e.preventDefault();
-                var form = $(this).closest('form');
-
-                Swal.fire({
-                    title: "Anda ingin logout?",
-                    icon: "question",
-                    showCancelButton: true,
-                    confirmButtonColor: "#3085d6",
-                    cancelButtonColor: "#d33",
-                    confirmButtonText: "Logout"
-                    }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.location.href = '/index';
-                    }
-                });
-            });
-        });
-    </script>
+    
 
 </body>
 </html>
