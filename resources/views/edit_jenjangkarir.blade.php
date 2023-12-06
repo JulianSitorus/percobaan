@@ -68,7 +68,7 @@
 
                 <label for="departemen">Departemen</label>
                 <select name="departemen" id="departemen" onchange="updateUnitOptions()">
-                    <option value="" disabled selected>--- Pilih Departemen ---</option>
+                    <option value="" selected>--- Pilih Departemen ---</option>
                     @foreach ($departemen as $dpm)
                         <option value="{{$dpm->id}}" {{ $jenjangkarir -> departemen == $dpm->nama_departemen ? 'selected' : '' }}>
                             {{$dpm->nama_departemen}}

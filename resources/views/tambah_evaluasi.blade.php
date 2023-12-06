@@ -49,7 +49,7 @@
     </div>
 
     <div class ="tiga">
-        <h3>Karyawan > Tambah Evaluasi Karyawan</h3>
+        <h3>Tambah Evaluasi Karyawan</h3>
     </div>
 
     <div class ="empat">
@@ -124,7 +124,7 @@
                                 <input id="sangat_baik" type="radio" name="tingkat_keahlian_pertanyaan_1" value="5" required title="Silahkan pilih salah satu pilihan ini">                
                             </div>
                         </td>
-                        <td><textarea name="komentar_pertanyaan_1"></textarea></td>
+                        <td><textarea name="komentar_pertanyaan_1" placeholder="berikan alasan jika ada"></textarea></td>
                     </tr>
                     <tr>
                         <td align="center">2</td>
@@ -143,7 +143,7 @@
                                 <input id="sangat_baik" type="radio" name="tingkat_keahlian_pertanyaan_2" value="5" required title="Silahkan pilih salah satu pilihan ini">                 
                             </div>
                         </td>
-                        <td><textarea name="komentar_pertanyaan_2"></textarea></td>
+                        <td><textarea name="komentar_pertanyaan_2" placeholder="berikan alasan jika ada"></textarea></td>
                         
                     </tr>
                     <tr>
@@ -163,7 +163,7 @@
                                 <input id="sangat_baik" type="radio" name="tingkat_keahlian_pertanyaan_3" value="5" required title="Silahkan pilih salah satu pilihan ini">                
                             </div>
                         </td>
-                        <td><textarea name="komentar_pertanyaan_3"></textarea></td>
+                        <td><textarea name="komentar_pertanyaan_3" placeholder="berikan alasan jika ada"></textarea></td>
                     </tr>
                     <tr>
                         <td align="center">4</td>
@@ -182,7 +182,7 @@
                                 <input id="sangat_baik" type="radio" name="tingkat_keahlian_pertanyaan_4" value="5" required title="Silahkan pilih salah satu pilihan ini">                
                             </div>
                         </td>
-                        <td><textarea name="komentar_pertanyaan_4"></textarea></td>
+                        <td><textarea name="komentar_pertanyaan_4" placeholder="berikan alasan jika ada"></textarea></td>
                     </tr>
                     <tr>
                         <td align="center">5</td>
@@ -201,7 +201,7 @@
                                 <input id="sangat_baik" type="radio" name="tingkat_keahlian_pertanyaan_5" value="5" required title="Silahkan pilih salah satu pilihan ini">                
                             </div>
                         </td>
-                        <td><textarea name="komentar_pertanyaan_5"></textarea></td>
+                        <td><textarea name="komentar_pertanyaan_5" placeholder="berikan alasan jika ada"></textarea></td>
                     </tr>
                     <tr>
                         <td align="center">6</td>
@@ -220,7 +220,7 @@
                                 <input id="sangat_baik" type="radio" name="tingkat_keahlian_pertanyaan_6" value="5" required title="Silahkan pilih salah satu pilihan ini">                
                             </div>
                         </td>
-                        <td><textarea name="komentar_pertanyaan_6"></textarea></td>
+                        <td><textarea name="komentar_pertanyaan_6" placeholder="berikan alasan jika ada"></textarea></td>
                     </tr>
                     <tr>
                         <td align="center">7</td>
@@ -239,7 +239,7 @@
                                 <input id="sangat_baik" type="radio" name="tingkat_keahlian_pertanyaan_7" value="5" required title="Silahkan pilih salah satu pilihan ini">                
                             </div>
                         </td>
-                        <td><textarea name="komentar_pertanyaan_7"></textarea></td>
+                        <td><textarea name="komentar_pertanyaan_7" placeholder="berikan alasan jika ada"></textarea></td>
                     </tr>
                     <tr>
                         <td align="center">8</td>
@@ -258,7 +258,7 @@
                                 <input id="sangat_baik" type="radio" name="tingkat_keahlian_pertanyaan_8" value="5" required title="Silahkan pilih salah satu pilihan ini">                
                             </div>
                         </td>
-                        <td><textarea name="komentar_pertanyaan_8"></textarea></td>
+                        <td><textarea name="komentar_pertanyaan_8" placeholder="berikan alasan jika ada"></textarea></td>
                     </tr>
                     <tr>
                         <td align="center">9</td>
@@ -277,7 +277,7 @@
                                 <input id="sangat_baik" type="radio" name="tingkat_keahlian_pertanyaan_9" value="5" required title="Silahkan pilih salah satu pilihan ini">                
                             </div>
                         </td>
-                        <td><textarea name="komentar_pertanyaan_9"></textarea></td>
+                        <td><textarea name="komentar_pertanyaan_9" placeholder="berikan alasan jika ada"></textarea></td>
                     </tr>
                     <tr>
                         <td align="center">10</td>
@@ -296,7 +296,7 @@
                                 <input id="sangat_baik" type="radio" name="tingkat_keahlian_pertanyaan_10" value="5" required title="Silahkan pilih salah satu pilihan ini">                
                             </div>
                         </td>
-                        <td><textarea name="komentar_pertanyaan_10"></textarea></td>
+                        <td><textarea name="komentar_pertanyaan_10" placeholder="berikan alasan jika ada"></textarea></td>
                     </tr>
                 </table>
                 <!-- ----------------------------------- -->
@@ -327,7 +327,7 @@
                             <input id="sangat_baik" type="radio" name="tingkat_keahlian2_pertanyaan_1" value="5" required title="Silahkan pilih salah satu pilihan ini">                
                         </div>
                     </td>
-                    <td><textarea name="komentar2_pertanyaan_1"></textarea></td>
+                    <td><textarea name="komentar2_pertanyaan_1" placeholder="berikan alasan jika ada"></textarea></td>
                     </tr>
                     <tr>
                         <td align="center">2</td>
@@ -346,7 +346,7 @@
                             <input id="sangat_baik" type="radio" name="tingkat_keahlian2_pertanyaan_2" value="5" required title="Silahkan pilih salah satu pilihan ini">                
                         </div>
                     </td>
-                    <td><textarea name="komentar2_pertanyaan_2"></textarea></td>
+                    <td><textarea name="komentar2_pertanyaan_2" placeholder="berikan alasan jika ada"></textarea></td>
                     </tr>
                     <tr>
                         <td align="center">3</td>
@@ -365,7 +365,7 @@
                             <input id="sangat_baik" type="radio" name="tingkat_keahlian2_pertanyaan_3" value="5" required title="Silahkan pilih salah satu pilihan ini">                
                         </div>
                     </td>
-                    <td><textarea name="komentar2_pertanyaan_3"></textarea></td>
+                    <td><textarea name="komentar2_pertanyaan_3" placeholder="berikan alasan jika ada"></textarea></td>
                     </tr>
                     <tr>
                         <td align="center">4</td>
@@ -384,7 +384,7 @@
                             <input id="sangat_baik" type="radio" name="tingkat_keahlian2_pertanyaan_4" value="5" required title="Silahkan pilih salah satu pilihan ini">                
                         </div>
                     </td>
-                    <td><textarea name="komentar2_pertanyaan_4"></textarea></td>
+                    <td><textarea name="komentar2_pertanyaan_4" placeholder="berikan alasan jika ada"></textarea></td>
                     </tr>
                     <tr>
                         <td align="center">5</td>
@@ -403,7 +403,7 @@
                             <input id="sangat_baik" type="radio" name="tingkat_keahlian2_pertanyaan_5" value="5" required title="Silahkan pilih salah satu pilihan ini">                
                         </div>
                     </td>
-                    <td><textarea name="komentar2_pertanyaan_5"></textarea></td>
+                    <td><textarea name="komentar2_pertanyaan_5" placeholder="berikan alasan jika ada"></textarea></td>
                     </tr>
                 </table><br>
 

@@ -19,7 +19,8 @@
 
             <label for="email" class="email">Email</label><br>
             <div class="input-container">
-                <input type="email" valuen="{{ Session::get('email') }}" name="email" class="iemail">
+                <input type="email" valuen="{{ Session::get('email') }}" name="email" class="iemail"
+                required title="Silahkan masukkan email">
                 <i class="fa-solid fa-user"></i>
             </div>
 
@@ -27,7 +28,8 @@
             
             <label for="password" class="password">Password</label><br>
             <div class="input-container">
-                <input type="password" name="password" class="ipassword">
+                <input type="password" name="password" class="ipassword"
+                required oninvalid="this.setCustomValidity('Password belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan nomor telepon">
                 <i class="fa-solid fa-lock"></i>
             </div>
 

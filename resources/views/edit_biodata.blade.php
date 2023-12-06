@@ -107,12 +107,13 @@
                 oninvalid="this.setCustomValidity('Agama karyawan belum terisi!')" 
                 onInput="this.setCustomValidity('')" title="Silahkan pilih agama karyawan">
                     <option value="" disabled selected>--- Pilih Agama ---</option>
-                    <option value="islam" @if ($daftark->agama == "islam") selected @endif>Islam</option>
-                    <option value="kristen" @if ($daftark->agama == "kristen") selected @endif>Kristen</option>
-                    <option value="katolik" @if ($daftark->agama == "katolik") selected @endif>Katolik</option> 
-                    <option value="hindu" @if ($daftark->agama == "hindu") selected @endif>Hindu</option> 
-                    <option value="buddha" @if ($daftark->agama == "buddha") selected @endif>Buddha</option> 
-                    <option value="konghucu" @if ($daftark->agama == "konghucu") selected @endif>Konghucu</option> 
+                    <option value="Islam" @if ($daftark->agama == "Islam") selected @endif>Islam</option>
+                    <option value="Kristen" @if ($daftark->agama == "Kristen") selected @endif>Kristen</option>
+                    <option value="Katolik" @if ($daftark->agama == "Katolik") selected @endif>Katolik</option> 
+                    <option value="Hindu" @if ($daftark->agama == "Hindu") selected @endif>Hindu</option> 
+                    <option value="Buddha" @if ($daftark->agama == "Buddha") selected @endif>Buddha</option> 
+                    <option value="Konghucu" @if ($daftark->agama == "Konghucu") selected @endif>Konghucu</option> 
+                    <option value="Lainnya" @if ($daftark->agama == "Lainnya") selected @endif>Lainnya</option> 
                 </select><br>
 
                 <label for="jenis_kelamin">Jenis Kelamin</label>
@@ -122,6 +123,7 @@
                     <option value="" disabled selected>--- Pilih Jenis Kelamin ---</option>
                     <option value="Laki-laki" @if ($daftark->jenis_kelamin == "Laki-laki") selected @endif>Laki-laki</option>
                     <option value="Perempuan" @if ($daftark->jenis_kelamin == "Perempuan") selected @endif>Perempuan</option> 
+                    <option value="Lainnya" @if ($daftark->jenis_kelamin == "Lainnya") selected @endif>Lainnya</option> 
                 </select><br>
 
                 <label for="email">Email</label><input id="email" value="{{$daftark->email}}" type="email" name="email" required title="Silahkan masukkan email"><br>

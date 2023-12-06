@@ -63,7 +63,7 @@
         <div class="empat2">
             <p class="judul">Detail Jenjang Karir Karyawan</p>
             <hr size="3px" color="#EEEEEE">
-            <table>
+            <table id="detail">
                 <tr>
                     <th id="posisi">Posisi</th>
                     <th id="unit">Unit</th>
@@ -110,8 +110,12 @@
                 <p>{{$posisi}}: {{$hitung}}</p>
             @endforeach -->
 
-            <p class="total">Total Posisi: {{$totalHitung}}</p>
-            <div id="totalDurasi"></div>
+            <p class="total">Total Posisi : {{$totalHitung}}</p>
+
+            <div class="sekarang" id="sekarang-count-info" style="display: none;">
+                <br><p>*Terdapat <span style="font-weight: bolder;" id="sekarang-count">0</span> data yang tanggal selesainya 
+                    <span style="font-weight: bolder;">masih berlangsung hingga saat ini (Sekarang)</span> </p>
+            </div>
 
             <br>
 
@@ -121,13 +125,45 @@
 
         </div>
     </div>
+    <!-- ======================================================================================================================================== -->
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            function countSekarang() {
+                var table = document.getElementById('detail');
+                var rowCount = 0;
+
+                for (var i = 1; i < table.rows.length; i++) {
+                    var sekarangCell = table.rows[i].cells[4];
+                    var sekarangText = sekarangCell.textContent.trim();
+
+                    if (sekarangText === 'Sekarang') {
+                        rowCount++;
+                    }
+                }
+
+                // Menampilkan jumlah di dalam elemen HTML jika lebih dari 1
+                var countElement = document.getElementById('sekarang-count');
+                countElement.textContent = rowCount;
+
+                // Menampilkan elemen div hanya jika jumlahnya lebih dari 1
+                var sekarangCountInfo = document.getElementById('sekarang-count-info');
+                sekarangCountInfo.style.display = rowCount > 1 ? 'block' : 'none';
+            }
+
+            countSekarang();
+        });
+    </script>
+
+    <!-- ======================================================================================================================================== -->
+    
     <script>
         function goBack() {
             window.history.back();
         }
     </script>
 
+    <!-- ======================================================================================================================================== -->
     <!-- alert logout -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

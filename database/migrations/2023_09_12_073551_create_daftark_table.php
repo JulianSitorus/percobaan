@@ -17,8 +17,8 @@ return new class extends Migration
             $table->text('tempat_lahir');
             $table->date('tanggal_lahir');
             $table->text('alamat');
-            $table->enum('agama',['islam','kristen','katolik','hindu','buddha','konghucu']);
-            $table->enum('jenis_kelamin',['Laki-laki','Perempuan']);
+            $table->enum('agama',['Islam','Kristen','Katolik','Hindu','Buddha','Konghucu','Lainnya']);
+            $table->enum('jenis_kelamin',['Laki-laki','Perempuan','Lainnya']);
             $table->string('email');
             $table->char('no_telp');
             $table->string('pendidikan');

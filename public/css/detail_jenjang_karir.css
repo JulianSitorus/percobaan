@@ -251,6 +251,26 @@ table .hapus:hover::after{
     margin-left: 20px;
     font-weight:bolder;
 }
+
+.sekarang{
+    margin-left: 20px;
+    /* font-weight:bolder; */
+    color: red;
+    /* animation: fadeInOut 2s infinite; */
+}
+
+@keyframes fadeInOut {
+    0% {
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+
 /* -------------------------- */
 
 .empat2 .tambah{

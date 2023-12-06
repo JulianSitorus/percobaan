@@ -23,9 +23,7 @@ use App\Models\Country;
 
 use App\Models\Province;
 use App\Models\Regency;
-use App\Models\District;
-use App\Models\Village;
-use Barryvdh\DomPDF\PDF as DomPDFPDF;
+
 
 class DaftarkController extends Controller
 {
@@ -50,7 +48,7 @@ class DaftarkController extends Controller
             return redirect('daftark');
         }else{
             // return 'gagal';
-            return redirect('index')->with('success', 'Email dan password yang anda masukkan salah!');
+            return redirect('index')->with('success', 'Email atau password yang Anda masukkan salah!');
         }
     }
 
@@ -692,7 +690,8 @@ class DaftarkController extends Controller
             $daftark_id = $jenjangkarir->daftark_id; // ambil id Daftark yang terkait dengan Jenjangkarir
             $jenjangkarir->delete();
             
-            return redirect('/karyawan/'.$daftark_id. '/detail_jenjangkarir')->with('success', 'Data Jenjangkarir berhasil dihapus.');
+            return redirect('/karyawan/'.$daftark_id. '/detail_jenjangkarir')->with('success', 'Data Jenjangkarir berhasil 
+            dihapus.');
         } else {
             return redirect('/karyawan')->with('error', 'Jenjangkarir tidak ditemukan.');
         }
@@ -706,7 +705,10 @@ class DaftarkController extends Controller
         $daftark = Daftark::with('keahlian')
                     ->where('nama_karyawan', 'LIKE', '%'.$search.'%')
                     ->orWhereHas('keahlian', function($query) use($search) {
-                        $query->where('jenis_keahlian', 'LIKE', '%'.$search.'%');
+                        $query->where('nama_keahlian', 'LIKE', '%'.$search.'%');
+                    })
+                    ->orWhereHas('pelatihan', function($query) use($search) {
+                        $query->where('nama_pelatihan', 'LIKE', '%'.$search.'%');
                     })
                     ->orderBy('nama_karyawan', 'asc')
                     ->paginate(12);

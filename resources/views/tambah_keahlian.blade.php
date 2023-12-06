@@ -55,7 +55,7 @@
 
     <div class ="empat">
         <div class="empat2">
-            <p class="judul">Keahlian Karyawan</p>
+            <p class="judul">Tambah Keahlian Karyawan</p>
             <hr size="3px" color="#EEEEEE">
 
             <form action="/store_keahlian/{{$daftark->id}}" method="POST" enctype="multipart/form-data">

@@ -104,12 +104,13 @@
                 oninvalid="this.setCustomValidity('Agama karyawan belum terisi!')" 
                 onInput="this.setCustomValidity('')" title="Silahkan pilih agama karyawan">
                     <option value="" disabled selected>--- Pilih Agama ---</option>
-                    <option value="islam">Islam</option>
-                    <option value="kristen">Kristen</option>
-                    <option value="katolik">Katolik</option> 
-                    <option value="hindu">Hindu</option> 
-                    <option value="buddha">Buddha</option> 
-                    <option value="konghucu">Konghucu</option> 
+                    <option value="Islam">Islam</option>
+                    <option value="Kristen">Kristen</option>
+                    <option value="Katolik">Katolik</option> 
+                    <option value="Hindu">Hindu</option> 
+                    <option value="Buddha">Buddha</option> 
+                    <option value="Konghucu">Konghucu</option> 
+                    <option value="Lainnya">Lainnya</option> 
                 </select><br>
 
                 <label for="jenis_kelamin">Jenis Kelamin</label>
@@ -119,6 +120,7 @@
                     <option value="" disabled selected>--- Pilih Jenis Kelamin ---</option>
                     <option value="Laki-laki">Laki-laki</option>
                     <option value="Perempuan">Perempuan</option> 
+                    <option value="Lainnya">Lainnya</option> 
                 </select><br>
 
                 <label for="email">Email</label><input id="email" type="email" name="email"  required title="Silahkan masukkan email"><br>

@@ -65,7 +65,7 @@
                 
                 <label for="departemen">Departemen</label>
                 <select name="departemen" id="departemen">
-                    <option value="" disabled selected>--- Pilih Departemen ---</option>
+                    <option value="" selected>--- Pilih Departemen ---</option>
                     @foreach ($departemen as $dpm)
                         <option value="{{$dpm->id}}">{{$dpm->nama_departemen}}</option>
                     @endforeach

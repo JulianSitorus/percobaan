@@ -233,6 +233,13 @@ html, body{
     background-color: #dedede;
 }
 
+.pilih_lokasi{
+    margin-left: 250px;
+}
+#luar{
+    margin-left: 10px;
+}
+
 .empat2 span{
     font-size: 14px;
     margin-top: 10px;

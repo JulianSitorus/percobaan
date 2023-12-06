@@ -51,12 +51,12 @@
     
 
     <div class ="tiga">
-        <h3>Karyawan > </h3>
+        <h3>Edit Key Performance Indicator Karyawan</h3>
     </div>
 
     <div class ="empat">
         <div class="empat2">
-            <p class="judul">Key Performance Indicator Karyawan</p>
+            <p class="judul">Edit Key Performance Indicator Karyawan</p>
             <hr size="3px" color="#EEEEEE">
 
 
@@ -91,11 +91,11 @@
                         </tr>
                         <tr>
                             <td>Target</td>
-                            <td>Pembuatan Target bisa berupa % ( persen), jumlah hari, jumlah orang, jumlah jam</td>
+                            <td>Input angka terlebih dahulu, pembuatan Target bisa berupa % ( persen), jumlah hari, jumlah orang, jumlah jam</td>
                         </tr>
                         <tr>
                             <td>Realisasi</td>
-                            <td>Pengisian Realisasi berdasarkan kenyataan pekerjaan</td>
+                            <td>Input angka terlebih dahulu, pengisian Realisasi berdasarkan kenyataan pekerjaan</td>
                         </tr>
                         <tr>
                             <td>Skor</td>

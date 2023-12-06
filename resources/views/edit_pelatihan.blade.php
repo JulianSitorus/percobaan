@@ -74,46 +74,45 @@
                 <label for="selesai">Selesai</label><input id="tanggal_selesai" value="{{$pelatihan->tanggal_selesai}}" type="date" name="tanggal_selesai" max="9999-12-31" required
                 oninvalid="this.setCustomValidity('Tanggal selesai pelatihan karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan tanggal selesai pelatihan"><br>
 
-                <div id="prov_kab">
-                <label for="provinsi">Lokasi Pelatihan <br> Dalam Negeri</label>
-                
-                <select name="provinsi" id="provinsi" 
-                oninvalid="this.setCustomValidity('Provinsi belum terisi!')" 
-                onInput="this.setCustomValidity('')" title="Silahkan pilih provinsi pelatihan" onchange="updateKabupatenOptions()" >
-                    <option value="">--- Pilih Provinsi ---</option>
-                    @foreach ($provinces as $provinsi)
-                        <option value="{{ $provinsi->id }}" {{ $pelatihan->provinsi == $provinsi->name ? 'selected' : '' }}>
-                            {{$provinsi->name}}
-                        </option>
-                    @endforeach
-                </select>
-
-                <br>
-
-                <select name="kabupaten" id="kabupaten"
-                oninvalid="this.setCustomValidity('Kabupaten belum terisi!')" 
-                onInput="this.setCustomValidity('')" title="Silahkan pilih kabupaten pelatihan">
-                    <option value=""></option> 
-                </select>
+                <label for="">Lokasi Pelatihan</label>  
+                <br>              
+                <div class="pilih_lokasi">
+                    <input type="radio"  id="dalam" checked> Dalam Negeri
+                    <input type="radio" id="luar" > Luar Negeri
                 </div>
-                
-                <br>
 
-                <span>Apakah pelatihannya di luar negeri? <input type="checkbox" id="luarNegeriCheckbox"></span> 
+                <div id="prov_kab">                
+                    <select name="provinsi" id="provinsi" 
+                    oninvalid="this.setCustomValidity('Provinsi belum terisi!')" 
+                    onInput="this.setCustomValidity('')" title="Silahkan pilih provinsi pelatihan" onchange="updateKabupatenOptions()" >
+                        <option value="">--- Pilih Provinsi ---</option>
+                        @foreach ($provinces as $provinsi)
+                            <option value="{{ $provinsi->id }}" {{ $pelatihan->provinsi == $provinsi->name ? 'selected' : '' }}>
+                                {{$provinsi->name}}
+                            </option>
+                        @endforeach
+                    </select>
+
+                    <br>
+
+                    <select name="kabupaten" id="kabupaten"
+                    oninvalid="this.setCustomValidity('Kabupaten belum terisi!')" 
+                    onInput="this.setCustomValidity('')" title="Silahkan pilih kabupaten pelatihan">
+                        <option value=""></option> 
+                    </select>
+                </div>
 
                 <div id="negara" >
-                <label for="provinsi">Lokasi Pelatihan<br>Luar Negeri</label>
-
-                <select name="negara"
-                oninvalid="this.setCustomValidity('Negara belum terisi!')" 
-                onInput="this.setCustomValidity('')" title="Silahkan pilih negara pelatihan" >
-                    <option value="" disabled selected>--- Pilih Negara ---</option>
-                    @foreach ($countries as $negara) 
-                        <option value="{{$negara->id}}" {{ $pelatihan->negara == $negara->name ? 'selected' : '' }}>
-                            {{$negara->name}}
-                        </option>
-                    @endforeach
-                </select>
+                    <select name="negara" id="negar"
+                    oninvalid="this.setCustomValidity('Negara belum terisi!')" 
+                    onInput="this.setCustomValidity('')" title="Silahkan pilih negara pelatihan" >
+                        <option value="" disabled selected>--- Pilih Negara ---</option>
+                        @foreach ($countries as $negara) 
+                            <option value="{{$negara->id}}" {{ $pelatihan->negara == $negara->name ? 'selected' : '' }}>
+                                {{$negara->name}}
+                            </option>
+                        @endforeach
+                    </select>
                 </div>
 
                 <br><br>
@@ -126,11 +125,15 @@
         </div>
     </div>
 
+    <!-- ========================================================================================================================================== -->
+
     <script>
         function goBack() {
             window.history.back();
         }
     </script>
+
+    <!-- ========================================================================================================================================== -->
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
@@ -146,20 +149,47 @@
     });
     </script>
 
+    <!-- ========================================================================================================================================== -->
+
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            var checkbox = document.getElementById('luarNegeriCheckbox');
-            var negaraSelect = document.getElementById('negara');
-            var provKabSelect = document.getElementById('prov_kab');
-            var provinsiSelect = document.getElementById('provinsi');
+            var dalamNegeri = document.getElementById('dalam');
+            var luarNegeri = document.getElementById('luar');
+            var provKab = document.getElementById('prov_kab');
+            var negara = document.getElementById('negara');
 
-            checkbox.addEventListener('change', function () {
-                negaraSelect.style.display = this.checked ? 'block' : 'none';
-                provKabSelect.style.display = this.checked ? 'none' : 'block';
-                provinsiSelect.value = this.checked ? '' : null;
+            var negar = document.getElementById('negar');
+            var provinsi = document.getElementById('provinsi');
+            var kabupaten = document.getElementById('kabupaten');
+
+            dalamNegeri.addEventListener('change', function () {
+                if (dalamNegeri.checked) {
+                    provKab.style.display = 'block';
+                    negara.style.display = 'none';
+                    negar.value = null;
+
+                    // cara pertama menambahkan required
+                    provinsi.setAttribute('required', 'required');
+                    // cara kedua menambahkan required
+                    provinsi.required = true;
+
+                    luarNegeri.checked = !dalamNegeri.checked;
+                }
+            });
+
+            luarNegeri.addEventListener('change', function () {
+                if (luarNegeri.checked) {
+                    negara.style.display = 'block';
+                    provKab.style.display = 'none';
+                    provinsi.value = null;
+
+                    dalamNegeri.checked = !luarNegeri.checked;
+                }
             });
         });
     </script>
+
+    <!-- ========================================================================================================================================== -->
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js"></script>
@@ -170,7 +200,6 @@
             var kabupatenDropdown = document.getElementById("kabupaten");
 
             var selectedProvinsiId = provinsiDropdown.value;
-            // Hapus semua opsi saat ini di dropdown "kabupaten"
             kabupatenDropdown.innerHTML = "";
 
             // opsi default
@@ -198,6 +227,8 @@
         updateKabupatenOptions();
     </script>
 
+    <!-- ========================================================================================================================================== -->
+    
     <!-- alert logout -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

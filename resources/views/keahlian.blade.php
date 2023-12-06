@@ -82,6 +82,7 @@
                     <td class="keahlian">
                         @foreach($dk->keahlian as $keahlian)
                             &bull; {{$keahlian->nama_keahlian}} <br>
+                            &nbsp; {{$keahlian->tingkat_keahlian}} - {{$keahlian->jenis_keahlian}} <br>
                         @endforeach                    
                     </td>
                     <td class="pelatihan">

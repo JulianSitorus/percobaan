@@ -49,12 +49,12 @@
     </div>
 
     <div class ="tiga">
-        <h3>Karyawan > </h3>
+        <h3>Tambah Key Performance Indicator Karyawan</h3>
     </div>
 
     <div class ="empat">
         <div class="empat2">
-            <p class="judul">Key Performance Indicator Karyawan</p>
+            <p class="judul">Tambah Key Performance Indicator Karyawan</p>
             <hr size="3px" color="#EEEEEE">
 
             <form action="/store_kpi/{{$daftark->id}}" method="POST" enctype="multipart/form-data">

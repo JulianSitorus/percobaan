@@ -56,7 +56,7 @@
 
     <div class ="empat">
         <div class="empat2">
-            <p class="judul">Keahlian Karyawan</p>
+            <p class="judul">Edit Keahlian Karyawan</p>
             <hr size="3px" color="#EEEEEE">
             
             <form action="{{ route('keahlian.update', ['id' => $keahlian->id]) }}" method="POST" enctype="multipart/form-data">
