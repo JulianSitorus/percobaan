@@ -203,6 +203,28 @@ html, body{
     font-size: 17px;
     box-shadow: inset 1px 1px 0px rgba(0, 0, 0, 0.5);
 }
+.empat2 #sertifikat{
+    margin-left: 250px;
+    margin-top: 15px;
+}
+
+.empat2 #download{
+    margin-left: 240px;
+    background-color: rgb(0, 115, 255);
+    color: white;
+    border: none;
+    padding: 3px 7px;
+}
+.empat2 #download:hover{
+    background-color: rgb(68, 137, 255);
+    position: relative;
+}
+
+.empat2 .info_ubah{
+    font-size: small;
+    margin-left: 250px;
+    /* display: flex; */
+}
 .empat2 #foto{
     margin-left: 250px;
     margin-top: 15px;

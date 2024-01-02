@@ -115,13 +115,45 @@ class DaftarkController extends Controller
         $request->merge(['provinsi' => $nama_provinsi]);
         $request->merge(['kabupaten' => $nama_kabupaten]);
 
-        $daftark = Daftark::create($request->except(['_token','submit']));     
+        $daftark = Daftark::create($request->except(['_token','submit'])); 
+        
 
         // menambah foto
         if($request->hasFile('foto')){
             $request-> file('foto')->move('fotokaryawan/', $request->file('foto')->getClientOriginalName());
             $daftark->foto  = $request->file('foto')->getClientOriginalName();
             $daftark->save();
+        };
+
+        // menambah KTP
+        if($request->hasFile('ktp')){
+            $request-> file('ktp')->move('ktp/', $request->file('ktp')->getClientOriginalName());
+            $daftark->ktp  = $request->file('ktp')->getClientOriginalName();
+            $daftark->save();
+        };
+
+        // menambah KK
+        if($request->hasFile('kk')){
+            $request-> file('kk')->move('kk/', $request->file('kk')->getClientOriginalName());
+            $daftark->kk  = $request->file('kk')->getClientOriginalName();
+            $daftark->save();
+            
+        };
+
+        // menambah ijazah
+        if($request->hasFile('ijazah')){
+            $request-> file('ijazah')->move('ijazah/', $request->file('ijazah')->getClientOriginalName());
+            $daftark->ijazah  = $request->file('ijazah')->getClientOriginalName();
+            $daftark->save();
+            
+        };
+
+        // menambah bpjs
+        if($request->hasFile('bpjs')){
+            $request-> file('bpjs')->move('bpjs/', $request->file('bpjs')->getClientOriginalName());
+            $daftark->bpjs  = $request->file('bpjs')->getClientOriginalName();
+            $daftark->save();
+            
         };
         return redirect('daftark')->with('success', 'Data Karyawan telah ditambahkan!');
     }
@@ -158,10 +190,44 @@ class DaftarkController extends Controller
         $request->merge(['kabupaten' => $nama_kabupaten]);
         
         $daftark-> update($request->except(['_token','submit']));
+
+        // ubah foto
         if($request->hasFile('foto')){
             $request-> file('foto')->move('fotokaryawan/', $request->file('foto')->getClientOriginalName());
             $daftark->foto  = $request->file('foto')->getClientOriginalName();
             $daftark->save();
+        };
+
+        // ubah KTP
+        if($request->hasFile('ktp')){
+            $request-> file('ktp')->move('ktp/', $request->file('ktp')->getClientOriginalName());
+            $daftark->ktp  = $request->file('ktp')->getClientOriginalName();
+            $daftark->save();
+            
+        };
+
+        // ubah KK
+        if($request->hasFile('kk')){
+            $request-> file('kk')->move('kk/', $request->file('kk')->getClientOriginalName());
+            $daftark->kk  = $request->file('kk')->getClientOriginalName();
+            $daftark->save();
+            
+        };
+
+        // ubah ijazah
+        if($request->hasFile('ijazah')){
+            $request-> file('ijazah')->move('ijazah/', $request->file('ijazah')->getClientOriginalName());
+            $daftark->ijazah  = $request->file('ijazah')->getClientOriginalName();
+            $daftark->save();
+            
+        };
+
+        // ubah bpjs
+        if($request->hasFile('bpjs')){
+            $request-> file('bpjs')->move('bpjs/', $request->file('bpjs')->getClientOriginalName());
+            $daftark->bpjs  = $request->file('bpjs')->getClientOriginalName();
+            $daftark->save();
+            
         };
         return view('karyawan', ['daftark' => $daftark]);
     }
@@ -841,18 +907,28 @@ class DaftarkController extends Controller
                 'tanggal_mulai' => $request->tanggal_mulai,
                 'tanggal_selesai' => $request->tanggal_selesai,
                 'lokasi' => $request->lokasi,
+                'sertifikat' => $request->sertifikat,
 
                 'provinsi' => $nama_provinsi,
                 'kabupaten' => $nama_kabupaten,
 
                 'negara' => $nama_negara,
             ]);
-    
+
+            
             // Hubungkan pelatihan dengan Daftark
             $pelatihan->daftark_id = $daftark->id;
+
+            if($request->hasFile('sertifikat')){
+                $request-> file('sertifikat')->move('sertifikat/', $request->file('sertifikat')->getClientOriginalName());
+                $pelatihan->sertifikat  = $request->file('sertifikat')->getClientOriginalName();
+                $pelatihan->save();
+            };
+    
             // Simpan Jenjangkarir
             $pelatihan->save();
-            session(['provinsi' => $nama_provinsi, 'kabupaten' => $nama_kabupaten]);
+            session(['provinsi' => $nama_provinsi, 'kabupaten' => $nama_kabupaten]);           
+
             return redirect('/karyawan/'. $daftark->id )->with('success', 'Data pelatihan telah ditambah!');
         } else {
             return redirect('/karyawan/'. $daftark->id );

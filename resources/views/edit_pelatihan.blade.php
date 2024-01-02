@@ -33,7 +33,7 @@
                     <i class="fas fa-clipboard-list">
                         <span class="menu">&emsp; Evaluasi</span>
                     </i></a></li>
-                <li><a href="/jenjangkarirmax="9999-12-31"">
+                <li><a href="/jenjangkarir">
                     <i class="fas fa-chart-line">
                         <span class="menu">&emsp;Jenjang Karir</span>
                     </i></a></li>
@@ -71,8 +71,8 @@
                 <label for="mulai">Mulai</label><input id="tanggal_mulai" value="{{$pelatihan->tanggal_mulai}}" type="date" name="tanggal_mulai" max="9999-12-31" required
                 oninvalid="this.setCustomValidity('Tanggal mulai pelatihan karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan tanggal mulai pelatihan"><br>
 
-                <label for="selesai">Selesai</label><input id="tanggal_selesai" value="{{$pelatihan->tanggal_selesai}}" type="date" name="tanggal_selesai" max="9999-12-31" required
-                oninvalid="this.setCustomValidity('Tanggal selesai pelatihan karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan tanggal selesai pelatihan"><br>
+                <label for="selesai">Selesai</label><input id="tanggal_selesai" value="{{$pelatihan->tanggal_selesai}}" type="date" name="tanggal_selesai" max="9999-12-31" min="tanggal_mulai" required
+                oninvalid="this.setCustomValidity('Tanggal selesai tidak bisa kurang dari tanggal mulai!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan tanggal selesai pelatihan" onchange="setMinDate()"><br>
 
                 <label for="">Lokasi Pelatihan</label>  
                 <br>              
@@ -115,7 +115,20 @@
                     </select>
                 </div>
 
+                <label for="sertifikat">Sertifikat Pelatihan (PDF)</label>                
+                    <input id="sertifikat" type="file" name="sertifikat" accept=".pdf"
+                        onchange="document.getElementById('output').src = window.URL.createObjectURL(this.files[0])">
+
+                    @if(!empty($pelatihan->sertifikat)) 
+                        <a href="{{ asset('sertifikat/' . $pelatihan->sertifikat) }}" >
+                            <button id="download" type="button"><i class="fa-solid fa-download"></i> Download Sertifikat</button>
+                        </a>
+                    @endif
                 <br><br>
+
+                <p class="info_ubah">*Tidak perlu input ulang file jika tidak ada perubahan <br> *Tombol download akan ditampilkan jika terdapat file</p>
+
+                <br>
                 <hr size="3px" color="#EEEEEE">
                 <input class="simpan" type="submit" name="submit" value="Simpan">
             </form>  
@@ -131,6 +144,15 @@
         function goBack() {
             window.history.back();
         }
+    </script>
+
+    <!-- ========================================================================================================================================== -->
+
+    <script>
+    function setMinDate() {
+        var tanggalMulai = document.getElementById('tanggal_mulai').value;
+        document.getElementById('tanggal_selesai').min = tanggalMulai;
+    }
     </script>
 
     <!-- ========================================================================================================================================== -->

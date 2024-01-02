@@ -498,10 +498,10 @@
     </script>
 
     <script>
-        // Ambil elemen untuk menampilkan total
+        // mengambil elemen untuk menampilkan total
         var totalKeseluruhanElement = document.getElementById("total_keseluruhan");
 
-        // Ambil semua elemen input radio yang sesuai
+        // mengambil semua elemen input radio 
         var radioPertanyaan1 = document.querySelectorAll('input[name="tingkat_keahlian_pertanyaan_1"]');
         var radioPertanyaan2 = document.querySelectorAll('input[name="tingkat_keahlian_pertanyaan_2"]');
         var radioPertanyaan3 = document.querySelectorAll('input[name="tingkat_keahlian_pertanyaan_3"]');
@@ -513,9 +513,9 @@
         var radioPertanyaan9 = document.querySelectorAll('input[name="tingkat_keahlian_pertanyaan_9"]');
         var radioPertanyaan10 = document.querySelectorAll('input[name="tingkat_keahlian_pertanyaan_10"]');
 
-        // Fungsi untuk menghitung total keseluruhan
+        //  untuk menghitung total keseluruhan
         function hitungTotalKeseluruhan() {
-            // Inisialisasi total untuk setiap pertanyaan
+            // inisialisasi
             var totalPertanyaan1 = 0;
             var totalPertanyaan2 = 0;
             var totalPertanyaan3 = 0;
@@ -527,61 +527,61 @@
             var totalPertanyaan9 = 0;
             var totalPertanyaan10 = 0;
 
-            // Hitung total nilai untuk pertanyaan pertama
+            // hitung total nilai untuk pertanyaan
             for (var i = 0; i < radioPertanyaan1.length; i++) {
                 if (radioPertanyaan1[i].checked) {
                     totalPertanyaan1 += parseInt(radioPertanyaan1[i].value);
                 }
             }
-            // Hitung total nilai untuk pertanyaan kedua
+
             for (var i = 0; i < radioPertanyaan2.length; i++) {
                 if (radioPertanyaan2[i].checked) {
                     totalPertanyaan2 += parseInt(radioPertanyaan2[i].value);
                 }
             }
-            // Hitung total nilai untuk pertanyaan pertama
+
             for (var i = 0; i < radioPertanyaan3.length; i++) {
                 if (radioPertanyaan3[i].checked) {
                     totalPertanyaan3 += parseInt(radioPertanyaan3[i].value);
                 }
             }
-            // Hitung total nilai untuk pertanyaan kedua
+
             for (var i = 0; i < radioPertanyaan4.length; i++) {
                 if (radioPertanyaan4[i].checked) {
                     totalPertanyaan4 += parseInt(radioPertanyaan4[i].value);
                 }
             }
-            // Hitung total nilai untuk pertanyaan pertama
+   
             for (var i = 0; i < radioPertanyaan5.length; i++) {
                 if (radioPertanyaan5[i].checked) {
                     totalPertanyaan5 += parseInt(radioPertanyaan5[i].value);
                 }
             }
-            // Hitung total nilai untuk pertanyaan kedua
+            
             for (var i = 0; i < radioPertanyaan6.length; i++) {
                 if (radioPertanyaan6[i].checked) {
                     totalPertanyaan6 += parseInt(radioPertanyaan6[i].value);
                 }
             }
-            // Hitung total nilai untuk pertanyaan pertama
+      
             for (var i = 0; i < radioPertanyaan7.length; i++) {
                 if (radioPertanyaan7[i].checked) {
                     totalPertanyaan7 += parseInt(radioPertanyaan7[i].value);
                 }
             }
-            // Hitung total nilai untuk pertanyaan kedua
+        
             for (var i = 0; i < radioPertanyaan8.length; i++) {
                 if (radioPertanyaan8[i].checked) {
                     totalPertanyaan8 += parseInt(radioPertanyaan8[i].value);
                 }
             }
-            // Hitung total nilai untuk pertanyaan pertama
+        
             for (var i = 0; i < radioPertanyaan9.length; i++) {
                 if (radioPertanyaan9[i].checked) {
                     totalPertanyaan9 += parseInt(radioPertanyaan9[i].value);
                 }
             }
-            // Hitung total nilai untuk pertanyaan kedua
+      
             for (var i = 0; i < radioPertanyaan10.length; i++) {
                 if (radioPertanyaan10[i].checked) {
                     totalPertanyaan10 += parseInt(radioPertanyaan10[i].value);
@@ -592,21 +592,20 @@
             var totalKeseluruhan = totalPertanyaan1 + totalPertanyaan2 + totalPertanyaan3 + totalPertanyaan4 + totalPertanyaan5 
             + totalPertanyaan6 + totalPertanyaan7 + totalPertanyaan8 + totalPertanyaan9 + totalPertanyaan10;
             
-            // Simpan total keseluruhan di local storage
-            localStorage.setItem("totalKeseluruhan", totalKeseluruhan.toString());
+            // simpan total keseluruhan di local storage
+            localStorage.setItem("totalKeseluruhan", totalKeseluruhan.toString()); // tidak terpakai            
 
-            
-
-            // Tampilkan total keseluruhan dalam elemen HTML
+            // cara menampilkan total keseluruhan dalam elemen HTML
             totalKeseluruhanElement.textContent = totalKeseluruhan.toString();
 
+            // menyimpan ke database
             var inputTotalKeseluruhan = document.querySelector('input[name="total_keseluruhan"]');
             if (inputTotalKeseluruhan) {
                 inputTotalKeseluruhan.value = totalKeseluruhan.toString();
             }
         }
 
-        // Tambahkan event listener change pada elemen-elemen input radio
+        //  event listener change  elemen input radio
         radioPertanyaan1.forEach(function(radio) {
             radio.addEventListener("change", hitungTotalKeseluruhan);
         });
@@ -638,7 +637,7 @@
             radio.addEventListener("change", hitungTotalKeseluruhan);
         });
 
-        // Hitung total keseluruhan saat halaman dimuat
+        // hitung total keseluruhan 
         hitungTotalKeseluruhan();
 
         // soal 2-----------------------------------------------------------------------------------------------------------------------------------
@@ -650,9 +649,9 @@
         var radioPertanyaan2_4 = document.querySelectorAll('input[name="tingkat_keahlian2_pertanyaan_4"]');
         var radioPertanyaan2_5 = document.querySelectorAll('input[name="tingkat_keahlian2_pertanyaan_5"]');
 
-        // Fungsi untuk menghitung total keseluruhan
+        // menghitung total keseluruhan
         function hitungTotalKeseluruhan2() {
-            // Inisialisasi total untuk setiap pertanyaan
+            // inisialisasi 
             var totalPertanyaan2_1 = 0;
             var totalPertanyaan2_2 = 0;
             var totalPertanyaan2_3 = 0;

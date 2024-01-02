@@ -147,11 +147,31 @@
 
                 <br>
 
-                <label for="foto">Foto</label>                
-                <input id="foto" type="file" name="foto" accept="image/*"
-                onchange="document.getElementById('output').src = window.URL.createObjectURL(this.files[0])">
-                <div><img src="" id="output" width="180"></div>
+                <label for="ktp">KTP (PDF)</label>                
+                    <input id="ktp" type="file" name="ktp" accept=".pdf"
+                        onchange="document.getElementById('output').src = window.URL.createObjectURL(this.files[0])">
                 <br>
+
+                <label for="kk">Kartu Keluarga (PDF)</label>                
+                    <input id="kk" type="file" name="kk" accept=".pdf"
+                        onchange="document.getElementById('output').src = window.URL.createObjectURL(this.files[0])">
+                <br>
+
+                <label for="ijazah">Ijazah (PDF)</label>                
+                    <input id="ijazah" type="file" name="ijazah" accept=".pdf"
+                        onchange="document.getElementById('output').src = window.URL.createObjectURL(this.files[0])">
+                <br>
+
+                <label for="bpjs">BPJS Kesehatan (PDF)</label>                
+                    <input id="bpjs" type="file" name="bpjs" accept=".pdf"
+                        onchange="document.getElementById('output').src = window.URL.createObjectURL(this.files[0])">
+                <br>
+
+                <label for="foto">Foto</label>                
+                    <input id="foto" type="file" name="foto" accept="image/*"
+                        onchange="document.getElementById('outputfoto').src = window.URL.createObjectURL(this.files[0])">
+                    <div><img src="" id="outputfoto" width="180"></div>
+                <br><br>
 
                 <hr size="3px" color="#EEEEEE">
 

@@ -497,10 +497,10 @@
     </script>
 
     <script>
-        // Ambil elemen untuk menampilkan total
+        // mengambil elemen untuk menampilkan total
         var totalKeseluruhanElement = document.getElementById("total_keseluruhan");
 
-        // Ambil semua elemen input radio yang sesuai
+        // mengambil semua elemen input radio 
         var radioPertanyaan1 = document.querySelectorAll('input[name="tingkat_keahlian_pertanyaan_1"]');
         var radioPertanyaan2 = document.querySelectorAll('input[name="tingkat_keahlian_pertanyaan_2"]');
         var radioPertanyaan3 = document.querySelectorAll('input[name="tingkat_keahlian_pertanyaan_3"]');
@@ -514,7 +514,7 @@
 
         // Fungsi untuk menghitung total keseluruhan
         function hitungTotalKeseluruhan() {
-            // Inisialisasi total untuk setiap pertanyaan
+            // inisialisasi
             var totalPertanyaan1 = 0;
             var totalPertanyaan2 = 0;
             var totalPertanyaan3 = 0;
@@ -526,7 +526,7 @@
             var totalPertanyaan9 = 0;
             var totalPertanyaan10 = 0;
 
-            // Hitung total nilai untuk pertanyaan 
+            // hitung total nilai untuk pertanyaan 
             for (var i = 0; i < radioPertanyaan1.length; i++) {
                 if (radioPertanyaan1[i].checked) {
                     totalPertanyaan1 += parseInt(radioPertanyaan1[i].value);
@@ -587,14 +587,14 @@
                 }
             }
 
-            // Hitung total keseluruhan
+            // hitung total keseluruhan
             var totalKeseluruhan = totalPertanyaan1 + totalPertanyaan2 + totalPertanyaan3 + totalPertanyaan4 + totalPertanyaan5 
             + totalPertanyaan6 + totalPertanyaan7 + totalPertanyaan8 + totalPertanyaan9 + totalPertanyaan10;
             
-            // Simpan total keseluruhan di local storage
-            localStorage.setItem("totalKeseluruhan", totalKeseluruhan.toString());
+            // simpan total keseluruhan di local storage
+            localStorage.setItem("totalKeseluruhan", totalKeseluruhan.toString()); // tidak dipakai
 
-            // Tampilkan total keseluruhan dalam elemen HTML
+            // cara menampilkan total keseluruhan dalam elemen HTML
             totalKeseluruhanElement.textContent = totalKeseluruhan.toString();
 
             // menyimpan nilai ke database
@@ -604,7 +604,7 @@
             }
         }
 
-        // Tambahkan event listener change pada elemen-elemen input radio
+        //  event listener change elemen input radio
         radioPertanyaan1.forEach(function(radio) {
             radio.addEventListener("change", hitungTotalKeseluruhan);
         });
@@ -636,7 +636,7 @@
             radio.addEventListener("change", hitungTotalKeseluruhan);
         });
 
-        // Hitung total keseluruhan saat halaman dimuat
+        // hitung total keseluruhan 
         hitungTotalKeseluruhan();
 
         // soal 2-----------------------------------------------------------------------------------------------------------------------------------
@@ -648,9 +648,9 @@
         var radioPertanyaan2_4 = document.querySelectorAll('input[name="tingkat_keahlian2_pertanyaan_4"]');
         var radioPertanyaan2_5 = document.querySelectorAll('input[name="tingkat_keahlian2_pertanyaan_5"]');
 
-        // Fungsi untuk menghitung total keseluruhan
+        // menghitung total keseluruhan
         function hitungTotalKeseluruhan2() {
-            // Inisialisasi total untuk setiap pertanyaan
+            // inisialisasi 
             var totalPertanyaan2_1 = 0;
             var totalPertanyaan2_2 = 0;
             var totalPertanyaan2_3 = 0;

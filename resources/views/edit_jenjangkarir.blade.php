@@ -87,8 +87,8 @@
                 <label for="tanggal_mulai">Mulai</label><input id="tanggal_mulai" value="{{$jenjangkarir->tanggal_mulai}}" type="date" name="tanggal_mulai" max="9999-12-31" required
                 oninvalid="this.setCustomValidity('Tanngal mulai karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan tanggal mulai"><br>
 
-                <label for="tanggal_selesai">Selesai</label><input id="tanggal_selesai" value="{{$jenjangkarir->tanggal_selesai}}" type="date" name="tanggal_selesai" max="9999-12-31"
-                oninvalid="this.setCustomValidity('Tanggal selesai karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan tanggal selesai">
+                <label for="tanggal_selesai">Selesai</label><input id="tanggal_selesai" value="{{$jenjangkarir->tanggal_selesai}}" type="date" name="tanggal_selesai" max="9999-12-31" min="tanggal_mulai"
+                oninvalid="this.setCustomValidity('Tanggal selesai tidak bisa kurang dari tanggal mulai!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan tanggal selesai" onchange="setMinDate()">
                 <p id="tanggal_selesai2">*Jika tanggal selesai dikosongkan maka outputnya "Sekarang"</p>
 
                 <br>
@@ -107,6 +107,15 @@
                 
         </div>
     </div>
+
+    <!-- ========================================================================================================================================== -->
+
+    <script>
+        function setMinDate() {
+            var tanggalMulai = document.getElementById('tanggal_mulai').value;
+            document.getElementById('tanggal_selesai').min = tanggalMulai;
+        }
+    </script>
 
     <script>
         function goBack() {

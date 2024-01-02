@@ -466,6 +466,13 @@ table textarea{
     background-color: rgb(68, 137, 255);
 }
 
+.pesanpdf{
+    font-size: 10px;
+    float: right;
+    margin-right: 30px;
+    margin-bottom: 10px;
+}
+
 .pdf{
     margin: 0px 0px 10px 88.5%;
     padding: 5px 10px;

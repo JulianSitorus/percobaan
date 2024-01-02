@@ -31,6 +31,10 @@ return new class extends Migration
             $table->string('kabupaten');
             
             $table->string('foto');
+            $table->string('ktp');
+            $table->string('kk');
+            $table->string('ijazah');
+            $table->string('bpjs');
             $table->timestamps();
             
         });

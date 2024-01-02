@@ -160,8 +160,21 @@
                     
                 </table>
 
-                <a href="{{ route('export_pdf', ['id' => $kpi->id]) }}">
-                    <button type="button" class="pdf"><i class="fas fa-file-pdf"> <span> Export PDF</span></i></button>
+                <div id="hiddenpdf">
+                    <button type="button" class="pdf">
+                        <i class="fas fa-file-pdf"> 
+                            <span> Export PDF</span>
+                        </i>
+                    </button>
+                    <br><p class="pesanpdf">Nilai skor akhir harus tersimpan sebelum melakukan export PDF*</p>
+                </div>
+
+                <a href="{{ route('export_pdf', ['id' => $kpi->id]) }}" id="exportPdfLink" >
+                    <button type="button" class="pdf" id="exportPdfButton" >
+                        <i class="fas fa-file-pdf"> 
+                            <span> Export PDF</span>
+                        </i>
+                    </button>
                 </a>
 
                 <!-- jika dihilangkan fungsi js ga berjalan -->
@@ -184,16 +197,39 @@
         </div>
     </div>
 
+    <!-- ============================================ HIDDEN PDF ======================================================= -->
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Dapatkan elemen total_skor_akhir
+            var totalSkorAkhir = document.getElementById('total_skor_akhir');
+
+            // Dapatkan elemen tombol export PDF
+            var exportPdfButton = document.getElementById('exportPdfButton');
+            var hiddenpdf = document.getElementById('hiddenpdf');
+
+            // Sembunyikan tombol jika total_skor_akhir adalah 0 atau null
+            if (totalSkorAkhir && (totalSkorAkhir.value === '0' || totalSkorAkhir.value === '')) {
+                exportPdfButton.style.display = 'none';
+                hiddenpdf.style.display = 'contents';
+            }else{
+                exportPdfButton.style.display = '';
+                hiddenpdf.style.display = 'none';
+            }
+        });
+    </script>
+
+    <!-- ================================================================================================================= -->
+
     <script>
         function goBack() {
             window.history.back();
         }
     </script>
     
-    <script>
-    
-    // ============================================ TAMBAH BARIS =======================================================
-    
+    <!-- ============================================ TAMBAH BARIS ======================================================= -->
+
+    <script>    
     var tombolTambahBaris = document.getElementById("tambah-baris");
     var tabel = document.querySelector(".tabel_kpi");
     var total_skor_akhir = 0;
@@ -282,7 +318,7 @@
             newRow.appendChild(newCell);
         }
 
-        // Set up event listeners for the new row
+        // event listeners untuk row baru
         var bobotInput = newRow.querySelector(".bobot");
         var realisasiInput = newRow.querySelector(".realisasi");
         var targetInput = newRow.querySelector(".target");
@@ -346,25 +382,25 @@
 
     // ============================================ MENAMPILKAN % di BOBOT =======================================================
 
-    // Ambil semua elemen input dengan class "bobot-input"
+    // ambil semua input class "bobot-input"
     var inputBobotList = document.querySelectorAll(".bobot-input");
 
-    // Tambahkan event listener untuk memantau perubahan input
+    // event listener untuk memantau perubahan input
     inputBobotList.forEach(function(inputBobot) {
         inputBobot.addEventListener("input", function() {
-            // Ambil nilai yang dimasukkan oleh pengguna
+            // ambil nilai yang dimasukkan oleh pengguna
             var inputValue = inputBobot.value;
             
-            // Hapus semua karakter "%" dari nilai yang dimasukkan
+            // hapus semua karakter "%" dari nilai yang dimasukkan
             var cleanedValue = inputValue.replace("%", "");
             
-            // Pastikan nilainya adalah angka (gunakan regular expression)
+            // memastikan nilainya adalah angka ( regular expression)
             if (/^\d+$/.test(cleanedValue)) {
-                // Tambahkan tanda "%" pada ujung kanan nilai yang dimasukkan
+                // %  ujung kanan nilai yang diinput
                 inputBobot.value = cleanedValue + "%";
                 
             } else {
-                // Jika bukan angka, tampilkan pesan kesalahan atau lakukan tindakan lain sesuai kebutuhan
+                // jika bukan angka langsung rest
                 inputBobot.value = "";
             }
             hitungTotalBobot();
@@ -381,16 +417,23 @@
             var inputValue = input.value.replace("%", "");
             if (!isNaN(inputValue) && inputValue !== "") {
                 totalBobot += parseFloat(inputValue);
-                var numericValue = parseFloat(inputValue);
             }
         });
+
         var inputTotalBobot = document.getElementById("total_bobot");
 
-        var totalBobot = totalBobot + "%";
-
-        var inputTotalBobot = document.querySelector('input[name="total_bobot"]');
         if (inputTotalBobot) {
-            inputTotalBobot.value = totalBobot.toString();
+            var totalBobot = totalBobot;  // Remove '%' here, as it's added later
+            inputTotalBobot.value = totalBobot + "%";
+
+            // ubah warna latar belakang jika totalBobot lebih dari 100
+            if (totalBobot > 100) {
+                inputTotalBobot.style.backgroundColor = "red";
+                inputTotalBobot.style.color = "white";
+            } else {
+                inputTotalBobot.style.backgroundColor = "";
+                inputTotalBobot.style.color = "black"; // Reset background color
+            }
         }
     }
 
@@ -398,7 +441,7 @@
 
     var skorInputs = document.querySelectorAll(".skor, .skor_akhir");
 
-    // Loop melalui setiap elemen input skor
+    // loop melalui setiap elemen input skor
     skorInputs.forEach(function(skorInput, index) {
         var bobotInput = document.getElementById("bobot-" + index);
         var realisasiInput = document.getElementById("realisasi-" + index);
@@ -433,13 +476,13 @@
                 if (target !== 0) {
                     skor = realisasi / target; 
                 } else {
-                    skor = 0; // Atur skor menjadi 0 jika target = 0
+                    skor = 0; // atur skor menjadi 0 jika target = 0
                 }
             } else if (jenisPerhitungan === "skor-2") {
                 if (realisasi !== 0) {
                     skor = target / realisasi; 
                 } else {
-                    skor = 0; // Atur skor menjadi 0 jika realisasi = 0
+                    skor = 0; // atur skor menjadi 0 jika realisasi = 0
                 }
             }
             document.getElementById("skor-" + index).value = skor % 1 === 0 ? skor.toFixed(0) : skor.toFixed(2);
@@ -484,7 +527,7 @@
         //     totalSkorAkhir += skorAkhir;
         // }
 
-        // Update total skor akhir di tempat yang Anda inginkan (misalnya, sebuah input dengan ID "total_skor_akhir")
+        // update total skor akhir 
         var totalSkorAkhirInput = document.getElementById("total_skor_akhir");
         if (totalSkorAkhirInput) {
             totalSkorAkhirInput.value = totalSkorAkhir % 1 === 0 ? totalSkorAkhir.toFixed(0) : totalSkorAkhir.toFixed(1);
@@ -496,7 +539,7 @@
         }
     }
 
-    // Panggil fungsi hitungTotalSkorAkhir setiap kali ada perubahan pada skor akhir
+    // panggil fungsi hitungTotalSkorAkhir setiap kali ada perubahan di skor akhir
     var skorAkhirInputs = document.querySelectorAll(".skor_akhir");
     skorAkhirInputs.forEach(function(skorAkhirInput) {
         skorAkhirInput.addEventListener("input", hitungTotalSkorAkhir);

@@ -69,10 +69,10 @@
                 oninvalid="this.setCustomValidity('Penyelenggara pelatihan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan penyelenggara pelatihan"><br>
 
                 <label for="mulai">Mulai</label><input id="tanggal_mulai" type="date" name="tanggal_mulai" max="9999-12-31" required
-                oninvalid="this.setCustomValidity('Tanggal mulai pelatihan karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan tanggal mulai pelatihan"><br>
+                oninvalid="this.setCustomValidity('Tanggal mulai pelatihan karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan tanggal mulai pelatihan" onchange="setMinDate()"><br>
 
                 <label for="selesai">Selesai</label><input id="tanggal_selesai" type="date" name="tanggal_selesai" max="9999-12-31" required
-                oninvalid="this.setCustomValidity('Tanggal selesai pelatihan karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan tanggal selesai pelatihan"><br>
+                oninvalid="this.setCustomValidity('')" onInput="this.setCustomValidity('')" title="Silahkan masukkan tanggal selesai pelatihan" disabled> <br>
 
                 <label for="">Lokasi Pelatihan</label>  
                 <br>              
@@ -110,8 +110,13 @@
                         @endforeach
                     </select>
                 </div>
+
+                <label for="sertifikat">Sertifikat Pelatihan (PDF)</label>                
+                    <input id="sertifikat" type="file" name="sertifikat" accept=".pdf"
+                        onchange="document.getElementById('output').src = window.URL.createObjectURL(this.files[0])">
+                <br>            
                 
-                <br><br>
+                <br>
                 <hr size="3px" color="#EEEEEE">
                 <input class="simpan" type="submit" name="submit" value="Simpan">
             </form> 
@@ -127,6 +132,21 @@
     <script>
         function goBack() {
             window.history.back();
+        }
+    </script>
+
+    <!-- ========================================================================================================================================== -->
+
+    <script>
+        function setMinDate() {
+            var tanggalMulai = document.getElementById('tanggal_mulai').value;
+            var tanggalSelesai = document.getElementById('tanggal_selesai');
+
+            // Enable tanggal_selesai jika tanggal_mulai diisi
+            tanggalSelesai.disabled = tanggalMulai === '';
+
+            // Set minimum date pada tanggal_selesai
+            tanggalSelesai.min = tanggalMulai;
         }
     </script>
 

@@ -317,6 +317,8 @@
         
     </div>
 
+    <!-- ======================================================================================================================================== -->
+
     <!-- alert memghapus karyawan -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -347,6 +349,41 @@
             });
         });
     </script>
+
+    <!-- ======================================================================================================================================== -->
+
+    <!-- alert memghapus data -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            $(document).on('click', '.hapus', function(e){
+                e.preventDefault();
+                var form = $(this).closest('form');
+
+                Swal.fire({
+                    title: "Hapus Data?",
+                    text: "Anda tidak akan dapat mengembalikan ini!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Ya, Hapus Saja!"
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        Swal.fire({
+                        title: "Deleted!",
+                        text: "Data telah dihapus!",
+                        icon: "success"
+                        });
+                        form.submit();
+                    }
+                });
+            });
+        });
+    </script>
+
+    <!-- ======================================================================================================================================== -->
 
     <!-- alert logout -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

@@ -149,12 +149,67 @@
                 </select>
                 <br>
 
-                <label for="foto">Foto</label>                
-                <input id="foto" value="{{$daftark->foto}}" type="file" name="foto" accept="image/*"
-                onchange="document.getElementById('output').src = window.URL.createObjectURL(this.files[0])">
-                <div><img src="" id="output" width="180"></div>
-                <p class="info_ubah">*Tidak perlu input ulang foto jika tidak ada perubahan</p>
+                <label for="ktp">KTP (PDF)</label>                
+                    <input id="ktp" value="{{$daftark->ktp}}" type="file" name="ktp" accept=".pdf"
+                    onchange="document.getElementById('output').src = window.URL.createObjectURL(this.files[0])">
+
+                    @if(!empty($daftark->ktp)) <!-- Periksa apakah file KTP ada -->
+                        <a href="{{ asset('ktp/' . $daftark->ktp) }}" >
+                            <button id="download" type="button">
+                                <i class="fa-solid fa-download"></i> Download KTP</button>
+                        </a>
+                    @endif
                 <br>
+
+                <label for="kk">Kartu Keluarga (PDF)</label>                
+                    <input id="kk" value="{{$daftark->kk}}" type="file" name="kk" accept=".pdf"
+                    onchange="document.getElementById('output').src = window.URL.createObjectURL(this.files[0])">
+
+                    @if(!empty($daftark->kk)) 
+                        <a href="{{ asset('kk/' . $daftark->kk) }}" >
+                            <button id="download" type="button"><i class="fa-solid fa-download"></i> Download KK</button>
+                        </a>
+                    @endif
+                <br>
+
+                <label for="ijazah">Ijazah (PDF)</label>                
+                    <input id="ijazah" value="{{$daftark->ijazah}}" type="file" name="ijazah" accept=".pdf"
+                    onchange="document.getElementById('output').src = window.URL.createObjectURL(this.files[0])">
+
+                    @if(!empty($daftark->ijazah)) 
+                        <a href="{{ asset('ijazah/' . $daftark->ijazah) }}" >
+                            <button id="download" type="button"><i class="fa-solid fa-download"></i> Download Ijazah</button>
+                        </a>
+                    @endif
+                <br>
+
+                <label for="bpjs">BPJS Kesehatan (PDF)</label>                
+                    <input id="bpjs" value="{{$daftark->bpjs}}" type="file" name="bpjs" accept=".pdf"
+                    onchange="document.getElementById('output').src = window.URL.createObjectURL(this.files[0])">
+
+                    @if(!empty($daftark->bpjs)) 
+                        <a href="{{ asset('bpjs/' . $daftark->bpjs) }}" >
+                            <button id="download" type="button"><i class="fa-solid fa-download"></i> Download BPJS</button>
+                        </a>
+                    @endif
+                <br>
+
+                <label for="foto">Foto</label>                
+                    <input id="foto" value="{{$daftark->foto}}" type="file" name="foto" accept="image/*"
+                    onchange="document.getElementById('outputfoto').src = window.URL.createObjectURL(this.files[0])">
+
+                    @if(!empty($daftark->foto)) 
+                        <a href="{{ asset('fotokaryawan/' . $daftark->foto) }}" download>
+                            <button id="download" type="button"><i class="fa-solid fa-download"></i> Download Foto</button>
+                        </a>
+                    @endif
+                    <div><img src="" id="outputfoto" width="180"></div>                    
+                <br><br>
+
+                <p class="info_ubah">*Tidak perlu input ulang file jika tidak ada perubahan <br> *Tombol download akan ditampilkan jika terdapat file</p>
+
+                <br>               
+
                 <hr size="3px" color="#EEEEEE">
                 
                 <!-- <a href="/daftark/"><button class="simpan" type="submit" name="submit" value="Simpan">Simpan</button></a> -->

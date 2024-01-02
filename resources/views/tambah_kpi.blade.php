@@ -44,7 +44,6 @@
                     <i class="fas fa-right-from-bracket">
                         <span class="menu">&emsp; Keluar</span>
                     </i></a></li>
-                
             </ul>
     </div>
 
@@ -70,14 +69,14 @@
 
                 <label for="tanggal_kpi">Tanggal KPI Disetujui</label>
                 <input id="tanggal_kpi" type="date" name="tanggal_kpi" max="9999-12-31" required
-                oninvalid="this.setCustomValidity('Tanggal KPI disetujui belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan tanggal">
+                oninvalid="this.setCustomValidity('Tanggal KPI disetujui belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan tanggal" onchange="setMinDate1()">
 
                 <label for="mulai_pelaksanaan">Periode Pelaksanaan</label>
-                <input id="mulai_pelaksanaan" type="date" name="mulai_pelaksanaan" max="9999-12-31" required
-                oninvalid="this.setCustomValidity('Tanggal pelaksanaan mulai belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan tanggal">
+                <input id="mulai_pelaksanaan" type="date" name="mulai_pelaksanaan" max="9999-12-31" required min="tanggal_kpi" disabled
+                oninvalid="this.setCustomValidity('')" onInput="this.setCustomValidity('')" title="Silahkan masukkan tanggal" onchange="setMinDate2()">
                 
-                - <input id="selesai_pelaksanaan" type="date" name="selesai_pelaksanaan" max="9999-12-31" required
-                oninvalid="this.setCustomValidity('Tanggal pelaksanaan berakhir belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan tanggal"><br>
+                - <input id="selesai_pelaksanaan" type="date" name="selesai_pelaksanaan" max="9999-12-31" required min="mulai_pelaksanaan" disabled
+                oninvalid="this.setCustomValidity('')" onInput="this.setCustomValidity('')" title="Silahkan masukkan tanggal"><br>
 
                 <label for="deskripsi_kpi">Deskripsi KPI</label>
                 <textarea id="deskripsi_kpi" type="komentar" name="deskripsi_kpi" pattern=".*\S+.*" required
@@ -154,7 +153,9 @@
                             <div class="total" ><b>Total</b></div>
                         </td>
 
-                        <td class="background"><input name="total_bobot" id="total_bobot" class="total_bobot" readonly></td>
+                        <td class="background"><input name="total_bobot" id="total_bobot" class="total_bobot" readonly 
+                        oninvalid="this.setCustomValidity('')"
+                        oninput="this.setCustomValidity('')"></td>
 
                         <td class="background1">
                             <div class="total" ><b></b></div>
@@ -165,6 +166,9 @@
                 </table>
 
                 <button type="button" class="tambah" id="tambah-baris"><i class="fas fa-plus"><span> Tambah Baris</span></i></button>
+
+                <td><span id="totalBobotError" class="error-message"></span></td>
+
 
                 <div class="catatan">
                     <p class="judul2">*Catatan</p>
@@ -181,14 +185,48 @@
         </div>
     </div>
 
+    <!-- ========================================================================================================================================== -->
+
+    <script>
+        function setMinDate1() {
+            var tanggalKpi = document.getElementById('tanggal_kpi').value;
+            var mulaiPelaksanaan = document.getElementById('mulai_pelaksanaan');
+
+            // Enable tanggal_selesai jika tanggal_mulai diisi
+            mulaiPelaksanaan.disabled = tanggalKpi === '';
+
+            // Set minimum date pada tanggal_selesai
+            mulaiPelaksanaan.min = tanggalKpi;
+        }
+    </script>
+
+    <!-- ========================================================================================================================================== -->
+
+    <script>
+        function setMinDate2() {
+            var mulaiPelaksanaan = document.getElementById('mulai_pelaksanaan').value;
+            var selesaiPelaksanaan = document.getElementById('selesai_pelaksanaan');
+
+            // Enable tanggal_selesai jika tanggal_mulai diisi
+            selesaiPelaksanaan.disabled = mulaiPelaksanaan === '';
+
+            // Set minimum date pada tanggal_selesai
+            selesaiPelaksanaan.min = mulaiPelaksanaan;
+        }
+    </script>
+
+    <!-- ========================================================================================================================================== -->
+
     <script>
         function goBack() {
             window.history.back();
         }
     </script>
 
+    <!-- ========================================================================================================================================== -->
+
     <!-- alert simpan kpi -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="text/javascript">
         $(function(){
@@ -222,10 +260,11 @@
                 });
             });
         });
-    </script>
-    
+    </script> -->
+
+    <!-- =========================================== TAMBAH BARIS ======================================================= -->
+
     <script>
-    // ============================================ TAMBAH BARIS =======================================================
     
     var tombolTambahBaris = document.getElementById("tambah-baris");
     var tabel = document.querySelector(".tabel_kpi");
@@ -262,7 +301,11 @@
 
                     if (this.classList.contains("bobot")) {
                         if (/^\d+$/.test(cleanedValue)) {
-                            this.value = cleanedValue + "%";
+                            // Pastikan nilai tidak melebihi 100
+                            var numericValue = parseInt(cleanedValue, 10);
+                            var finalValue = numericValue > 100 ? 100 : numericValue;
+                            
+                            this.value = finalValue + "%";
                         } else {
                             this.value = "";
                         }
@@ -321,7 +364,7 @@
             newRow.appendChild(newCell);
         }
 
-        // Set up event listeners for the new row
+        // event listeners untuk row baru
         var bobotInput = newRow.querySelector(".bobot");
         var realisasiInput = newRow.querySelector(".realisasi");
         var targetInput = newRow.querySelector(".target");
@@ -385,25 +428,28 @@
 
     // ============================================ MENAMPILKAN % di BOBOT =======================================================
 
-    // Ambil semua elemen input dengan class "bobot-input"
+    // ambil semua input class "bobot-input"
     var inputBobotList = document.querySelectorAll(".bobot-input");
 
-    // Tambahkan event listener untuk memantau perubahan input
+    // event listener untuk memantau perubahan input
     inputBobotList.forEach(function(inputBobot) {
         inputBobot.addEventListener("input", function() {
-            // Ambil nilai yang dimasukkan oleh pengguna
+            // ambil nilai yang dimasukkan oleh pengguna
             var inputValue = inputBobot.value;
             
-            // Hapus semua karakter "%" dari nilai yang dimasukkan
+            // hapus semua karakter "%" dari nilai yang dimasukkan
             var cleanedValue = inputValue.replace("%", "");
             
-            // Pastikan nilainya adalah angka (gunakan regular expression)
+            // memastikan nilainya adalah angka (regular expression)
             if (/^\d+$/.test(cleanedValue)) {
-                // Tambahkan tanda "%" pada ujung kanan nilai yang dimasukkan
-                inputBobot.value = cleanedValue + "%";
+                // pastikan nilai tidak melebihi 100
+                var numericValue = parseInt(cleanedValue, 10);
+                var finalValue = numericValue > 100 ? 100 : numericValue;
+                // %  ujung kanan nilai yang diinput
+                inputBobot.value = finalValue + "%";
                 
             } else {
-                // Jika bukan angka, tampilkan pesan kesalahan atau lakukan tindakan lain sesuai kebutuhan
+                // jika bukan angka langsung rest
                 inputBobot.value = "";
             }
             hitungTotalBobot();
@@ -420,24 +466,49 @@
             var inputValue = input.value.replace("%", "");
             if (!isNaN(inputValue) && inputValue !== "") {
                 totalBobot += parseFloat(inputValue);
-                var numericValue = parseFloat(inputValue);
             }
         });
+
         var inputTotalBobot = document.getElementById("total_bobot");
 
-        var totalBobot = totalBobot + "%";
-
-        var inputTotalBobot = document.querySelector('input[name="total_bobot"]');
         if (inputTotalBobot) {
-            inputTotalBobot.value = totalBobot.toString();
+            var totalBobot = totalBobot;  // Remove '%' here, as it's added later
+            inputTotalBobot.value = totalBobot + "%";
+
+            // ubah warna latar belakang jika totalBobot lebih dari 100
+            if (totalBobot > 100 ||  totalBobot < 100) {
+                inputTotalBobot.style.backgroundColor = "red";
+                inputTotalBobot.style.color = "white";
+            } else{
+                inputTotalBobot.style.backgroundColor = "";
+                inputTotalBobot.style.color = "black"; // Reset background color
+            }
         }
     }
+
+    document.querySelector("form").addEventListener("submit", function (event) {
+    // Memanggil fungsi hitungTotalBobot sebelum submit
+        hitungTotalBobot();
+
+        var inputTotalBobot = document.getElementById("total_bobot");
+        var numericValue = parseFloat(inputTotalBobot.value.replace("%", ""));
+        // var totalBobotError = document.getElementById("totalBobotError");
+
+        if (numericValue > 100) {
+            // totalBobotError.textContent = "Total bobot tidak boleh lebih dari 100. Periksa kembali input Anda.";
+            alert("Total bobot tidak boleh lebih dari 100. Periksa kembali input Anda.");
+            event.preventDefault(); 
+        } else if (numericValue < 100) {
+            alert("Total bobot tidak boleh kurang dari 100. Periksa kembali input Anda.");
+            event.preventDefault(); //
+        }
+    });
 
     // ============================================= SKOR ==========================================================
 
     var skorInputs = document.querySelectorAll(".skor, .skor_akhir");
 
-    // Loop melalui setiap elemen input skor
+    // loop melalui setiap elemen input skor
     skorInputs.forEach(function(skorInput, index) {
         var bobotInput = document.getElementById("bobot-" + index);
         var realisasiInput = document.getElementById("realisasi-" + index);
@@ -472,13 +543,13 @@
                 if (target !== 0) {
                     skor = realisasi / target; 
                 } else {
-                    skor = 0; // Atur skor menjadi 0 jika target = 0
+                    skor = 0; // atur skor menjadi 0 jika target = 0
                 }
             } else if (jenisPerhitungan === "skor-2") {
                 if (realisasi !== 0) {
                     skor = target / realisasi; 
                 } else {
-                    skor = 0; // Atur skor menjadi 0 jika realisasi = 0
+                    skor = 0; // atur skor menjadi 0 jika realisasi = 0
                 }
             }
             document.getElementById("skor-" + index).value = skor % 1 === 0 ? skor.toFixed(0) : skor.toFixed(2);
@@ -516,7 +587,7 @@
             totalSkorAkhir += skorAkhir;
         });
 
-        // Update total skor akhir di tempat yang Anda inginkan (misalnya, sebuah input dengan ID "total_skor_akhir")
+        // update total skor akhir 
         var totalSkorAkhirInput = document.getElementById("total_skor_akhir");
         if (totalSkorAkhirInput) {
             totalSkorAkhirInput.value = totalSkorAkhir % 1 === 0 ? totalSkorAkhir.toFixed(0) : totalSkorAkhir.toFixed(1);
@@ -528,7 +599,7 @@
         }
     }
 
-    // Panggil fungsi hitungTotalSkorAkhir setiap kali ada perubahan pada skor akhir
+    // panggil fungsi hitungTotalSkorAkhir setiap kali ada perubahan di skor akhir
     var skorAkhirInputs = document.querySelectorAll(".skor_akhir");
     skorAkhirInputs.forEach(function(skorAkhirInput) {
         skorAkhirInput.addEventListener("input", hitungTotalSkorAkhir);

@@ -80,10 +80,11 @@
                 oninvalid="this.setCustomValidity('Posisi karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan posisi"><br>                
 
                 <label for="tanggal_mulai">Mulai</label><input id="tanggal_mulai" type="date" name="tanggal_mulai" max="9999-12-31" required
-                oninvalid="this.setCustomValidity('Tanngal mulai karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan tanggal mulai"><br>
+                oninvalid="this.setCustomValidity('Tanngal mulai karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan tanggal mulai" onchange="setMinDate()"><br>
 
-                <label for="tanggal_selesai">Selesai</label><input id="tanggal_selesai" type="date" name="tanggal_selesai" value="" max="9999-12-31"
-                oninvalid="this.setCustomValidity('Tanggal selesai karyawan belum terisi!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan tanggal selesai">
+                <label for="tanggal_selesai">Selesai</label><input id="tanggal_selesai" type="date" name="tanggal_selesai" value="" max="9999-12-31" min="tanggal_mulai"
+                oninvalid="this.setCustomValidity('Tanggal selesai tidak bisa kurang dari tanggal mulai!')" onInput="this.setCustomValidity('')" title="Silahkan masukkan tanggal selesai" disabled >
+
                 <p id="tanggal_selesai2">*Jika tanggal selesai dikosongkan maka outputnya "Sekarang"</p><br>
                 
                 <p class="durasi">Durasi Posisi  <span id="durasi" name="durasi" ></span></p>
@@ -106,6 +107,21 @@
                 </div>
         </div>
     </div>
+
+    <!-- ========================================================================================================================================== -->
+
+    <script>
+        function setMinDate() {
+            var tanggalMulai = document.getElementById('tanggal_mulai').value;
+            var tanggalSelesai = document.getElementById('tanggal_selesai');
+
+            // Enable tanggal_selesai jika tanggal_mulai diisi
+            tanggalSelesai.disabled = tanggalMulai === '';
+
+            // Set minimum date pada tanggal_selesai
+            tanggalSelesai.min = tanggalMulai;
+        }
+    </script>
 
     <!-- =============================================================================================================== -->
     <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>

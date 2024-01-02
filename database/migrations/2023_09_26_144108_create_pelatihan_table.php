@@ -24,6 +24,9 @@ return new class extends Migration
             $table->string('kabupaten')->nullable();
 
             $table->string('negara');
+
+            $table->string('sertifikat');
+
             $table->timestamps();
         });
     }
