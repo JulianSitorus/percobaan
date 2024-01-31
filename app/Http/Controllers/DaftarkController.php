@@ -248,7 +248,7 @@ class DaftarkController extends Controller
             $daftark->delete();
 
             // Redirect atau berikan respons yang sesuai
-            return redirect('daftark')->with('success', 'Data karyawan berhasil dihapus.');;
+            return redirect('daftark')->with('success', 'Data karyawan berhasil dihapus.');
         } else {
             // Handle jika Karyawan tidak ditemukan
             return redirect('daftark')->with('error', 'Karyawan tidak ditemukan.');
@@ -366,7 +366,7 @@ class DaftarkController extends Controller
 
         $kpi_items = $kpi->kpi_items;
 
-        return view('edit_kpi', compact(['kpi', 'daftark', 'kpi_items']));
+        return view('edit_kpi', compact(['kpi', 'daftark', 'kpi_items']))->with('success', 'Data KPI berhasil diupdate');
     }
 
 
@@ -396,7 +396,7 @@ class DaftarkController extends Controller
             $kpi->kpi_items()->save($kpi_items);
         }
 
-        return redirect('/karyawan/'. $daftark->id );
+        return redirect('/karyawan/'. $kpi->id.'/edit_kpi/');
     }
 
     // Export KPI

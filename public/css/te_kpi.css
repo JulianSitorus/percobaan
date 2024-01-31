@@ -349,7 +349,7 @@ table th{
     width: 20.5%;
     background-color: #EEEEEE;
 }
- #total_skor_akhir, .skor, .skor_akhir {
+ .skor, .skor_akhir {
     background-color: #eeeeee9f;
 }
 .total_bobot{
@@ -365,7 +365,7 @@ table th{
     margin-top: -4px;
     height: 40px;  
     margin-left: -9px; 
-    background-color: #eeeeee9f; 
+    /* background-color: #eeeeee9f;  */
 }
 .skor{
     width: 120%;
@@ -381,7 +381,9 @@ table th{
     margin-left: -9px; 
 }
 
-
+#total_skor_akhir{
+    background-color: #eeeeee9f;
+}
 
 table .detail{
     background-color: #18b84e;
