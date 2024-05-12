@@ -61,21 +61,22 @@ class DaftarkController extends Controller
     // ======================================================= DAFTARK ===========================================================
 
     // halaman daftark dan fungsi search
+    
     public function index(Request $request){
-        $search = $request->search;
+        $search = strtolower($request->search);
         $daftark = Daftark::with('jenjangkarir')
-                    ->where('nama_karyawan', 'LIKE', '%'.$search.'%')
-                    ->orWhere('no_telp', 'LIKE', '%'.$search.'%')
-                    ->orWhere('email', 'LIKE', '%'.$search.'%')
-                    ->orWhere('status', 'LIKE', '%'.$search.'%')
+                    ->where('nama_karyawan', 'ILIKE', '%'.$search.'%')
+                    ->orWhere('no_telp', 'ILIKE', '%'.$search.'%')
+                    ->orWhere('email', 'ILIKE', '%'.$search.'%')
+                    ->orWhere('status', 'ILIKE', '%'.$search.'%')
                     ->orWhereHas('jenjangkarir', function($query) use($search) {
-                        $query->where('departemen', 'LIKE', '%'.$search.'%');
+                        $query->where('departemen', 'ILIKE', '%'.$search.'%');
                     })
                     ->orWhereHas('jenjangkarir', function($query) use($search) {
-                        $query->where('unit', 'LIKE', '%'.$search.'%');
+                        $query->where('unit', 'ILIKE', '%'.$search.'%');
                     })
                     ->orWhereHas('jenjangkarir', function($query) use($search) {
-                        $query->where('posisi', 'LIKE', '%'.$search.'%');
+                        $query->where('posisi', 'ILIKE', '%'.$search.'%');
                     })
                     ->orderBy('nama_karyawan', 'asc')
                     ->paginate(12);
@@ -117,7 +118,6 @@ class DaftarkController extends Controller
 
         $daftark = Daftark::create($request->except(['_token','submit'])); 
         
-
         // menambah foto
         if($request->hasFile('foto')){
             $request-> file('foto')->move('fotokaryawan/', $request->file('foto')->getClientOriginalName());
@@ -211,7 +211,6 @@ class DaftarkController extends Controller
             $request-> file('kk')->move('kk/', $request->file('kk')->getClientOriginalName());
             $daftark->kk  = $request->file('kk')->getClientOriginalName();
             $daftark->save();
-            
         };
 
         // ubah ijazah
@@ -257,36 +256,36 @@ class DaftarkController extends Controller
     // ======================================================= KPI ===========================================================
 
     public function kpi(Request $request){
-        $search = $request->search;
+        $search = strtolower($request->search);
         $daftark = Daftark::with('kpi')
-                    ->where('nama_karyawan', 'LIKE', '%'.$search.'%')
-                    // ->orWhere('no_telp', 'LIKE', '%'.$search.'%')
+                    ->where('nama_karyawan', 'ILIKE', '%'.$search.'%')
+                    // ->orWhere('no_telp', 'ILIKE', '%'.$search.'%')
                     ->orWhereHas('jenjangkarir', function($query) use($search) {
-                        $query->where('departemen', 'LIKE', '%'.$search.'%');
+                        $query->where('departemen', 'ILIKE', '%'.$search.'%');
                     })
                     ->orWhereHas('jenjangkarir', function($query) use($search) {
-                        $query->where('posisi', 'LIKE', '%'.$search.'%');
+                        $query->where('posisi', 'ILIKE', '%'.$search.'%');
                     })
                     ->orWhereHas('kpi', function($query) use($search) {
-                        $query->where('tanggal_kpi', 'LIKE', '%'.$search.'%');
+                        $query->where('tanggal_kpi', 'ILIKE', '%'.$search.'%');
                     })
                     ->orWhereHas('kpi', function($query) use($search) {
-                        $query->where('supervisor', 'LIKE', '%'.$search.'%');
+                        $query->where('supervisor', 'ILIKE', '%'.$search.'%');
                     })
                     ->orWhereHas('kpi', function($query) use($search) {
-                        $query->where('mulai_pelaksanaan', 'LIKE', '%'.$search.'%');
+                        $query->where('mulai_pelaksanaan', 'ILIKE', '%'.$search.'%');
                     })
                     ->orWhereHas('kpi', function($query) use($search) {
-                        $query->where('selesai_pelaksanaan', 'LIKE', '%'.$search.'%');
+                        $query->where('selesai_pelaksanaan', 'ILIKE', '%'.$search.'%');
                     })
                     ->orWhereHas('kpi', function($query) use($search) {
-                        $query->where('deskripsi_kpi', 'LIKE', '%'.$search.'%');
+                        $query->where('deskripsi_kpi', 'ILIKE', '%'.$search.'%');
                     })
                     ->orWhereHas('kpi', function($query) use($search) {
-                        $query->where('total_bobot', 'LIKE', '%'.$search.'%');
+                        $query->where('total_bobot', 'ILIKE', '%'.$search.'%');
                     })
                     ->orWhereHas('kpi', function($query) use($search) {
-                        $query->where('total_skor_akhir', 'LIKE', '%'.$search.'%');
+                        $query->where('total_skor_akhir', 'ILIKE', '%'.$search.'%');
                     })
                     ->orderBy('nama_karyawan', 'asc')
                     ->paginate(12);
@@ -333,7 +332,7 @@ class DaftarkController extends Controller
             
             $kpi->daftark_id = $daftark->id;
 
-            // Simpan evaluasi
+            // Simpan kpi
             $kpi->save();
 
             for ($i = 0; $i < count($request->area); $i++) {
@@ -396,7 +395,10 @@ class DaftarkController extends Controller
             $kpi->kpi_items()->save($kpi_items);
         }
 
-        return redirect('/karyawan/'. $kpi->id.'/edit_kpi/');
+        return redirect('/karyawan/'. $daftark->id );
+
+        // jika ingin kembali ke halaman edit
+        // return redirect('/karyawan/'. $kpi->id.'/edit_kpi/');
     }
 
     // Export KPI
@@ -434,38 +436,38 @@ class DaftarkController extends Controller
 
     public function evaluasi(Request $request){
         
-        $search = $request->search;
+        $search = strtolower($request->search);
         $daftark = Daftark::with('evaluasi', 'jenjangkarir')
-                    ->where('nama_karyawan', 'LIKE', '%'.$search.'%')
+                    ->where('nama_karyawan', 'ILIKE', '%'.$search.'%')
                     ->orWhereHas('jenjangkarir', function($query) use($search) {
-                        $query->where('departemen', 'LIKE', '%'.$search.'%');
+                        $query->where('departemen', 'ILIKE', '%'.$search.'%');
                     })
                     ->orWhereHas('jenjangkarir', function($query) use($search) {
-                        $query->where('posisi', 'LIKE', '%'.$search.'%');
+                        $query->where('posisi', 'ILIKE', '%'.$search.'%');
                     })
                     ->orWhereHas('evaluasi', function($query) use($search) {
-                        $query->where('tanggal_evaluasi', 'LIKE', '%'.$search.'%');
+                        $query->where('tanggal_evaluasi', 'ILIKE', '%'.$search.'%');
                     })
                     ->orWhereHas('evaluasi', function($query) use($search) {
-                        $query->where('total_keseluruhan', 'LIKE', '%'.$search.'%');
+                        $query->where('total_keseluruhan', 'ILIKE', '%'.$search.'%');
                     })
                     ->orWhereHas('evaluasi', function($query) use($search) {
-                        $query->where('total_keseluruhan2', 'LIKE', '%'.$search.'%');
+                        $query->where('total_keseluruhan2', 'ILIKE', '%'.$search.'%');
                     })
                     ->orWhereHas('evaluasi', function($query) use($search) {
-                        $query->where('kerja', 'LIKE', '%'.$search.'%');
+                        $query->where('kerja', 'ILIKE', '%'.$search.'%');
                     })
                     ->orWhereHas('evaluasi', function($query) use($search) {
-                        $query->where('rekomendasi', 'LIKE', '%'.$search.'%');
+                        $query->where('rekomendasi', 'ILIKE', '%'.$search.'%');
                     })
                     ->orWhereHas('evaluasi', function($query) use($search) {
-                        $query->where('komentar_kekuatan', 'LIKE', '%'.$search.'%');
+                        $query->where('komentar_kekuatan', 'ILIKE', '%'.$search.'%');
                     })
                     ->orWhereHas('evaluasi', function($query) use($search) {
-                        $query->where('komentar_kelemahan', 'LIKE', '%'.$search.'%');
+                        $query->where('komentar_kelemahan', 'ILIKE', '%'.$search.'%');
                     })
                     ->orWhereHas('evaluasi', function($query) use($search) {
-                        $query->where('komentar_pelatihan', 'LIKE', '%'.$search.'%');
+                        $query->where('komentar_pelatihan', 'ILIKE', '%'.$search.'%');
                     })
                     ->orderBy('nama_karyawan', 'asc')
                     ->paginate(12);  
@@ -597,26 +599,26 @@ class DaftarkController extends Controller
 
     // relation ke jenjang karir    
     public function jenjangkarir(Request $request){
-        $search = $request->search;
+        $search = strtolower($request->search);
         $daftark = Daftark::with('jenjangkarir')
-                    ->where('nama_karyawan', 'LIKE', '%'.$search.'%')
+                    ->where('nama_karyawan', 'ILIKE', '%'.$search.'%')
                     ->orWhereHas('jenjangkarir', function($query) use($search) {
-                        $query->where('departemen', 'LIKE', '%'.$search.'%');
+                        $query->where('departemen', 'ILIKE', '%'.$search.'%');
                     })
                     ->orWhereHas('jenjangkarir', function($query) use($search) {
-                        $query->where('unit', 'LIKE', '%'.$search.'%');
+                        $query->where('unit', 'ILIKE', '%'.$search.'%');
                     })
                     ->orWhereHas('jenjangkarir', function($query) use($search) {
-                        $query->where('posisi', 'LIKE', '%'.$search.'%');
+                        $query->where('posisi', 'ILIKE', '%'.$search.'%');
                     })
                     ->orWhereHas('jenjangkarir', function($query) use($search) {
-                        $query->where('tanggal_mulai', 'LIKE', '%'.$search.'%');
+                        $query->where('tanggal_mulai', 'ILIKE', '%'.$search.'%');
                     })
                     ->orWhereHas('jenjangkarir', function($query) use($search) {
-                        $query->where('tanggal_selesai', 'LIKE', '%'.$search.'%');
+                        $query->where('tanggal_selesai', 'ILIKE', '%'.$search.'%');
                     })
                     ->orWhereHas('jenjangkarir', function($query) use($search) {
-                        $query->where('durasi', 'LIKE', '%'.$search.'%');
+                        $query->where('durasi', 'ILIKE', '%'.$search.'%');
                     })
                     ->orderBy('nama_karyawan', 'asc')
                     ->paginate(12);
@@ -767,14 +769,14 @@ class DaftarkController extends Controller
 
     // relation ke keahlian
     public function keahlian(Request $request){
-        $search = $request->search;
+        $search = strtolower($request->search);
         $daftark = Daftark::with('keahlian')
-                    ->where('nama_karyawan', 'LIKE', '%'.$search.'%')
+                    ->where('nama_karyawan', 'ILIKE', '%'.$search.'%')
                     ->orWhereHas('keahlian', function($query) use($search) {
-                        $query->where('nama_keahlian', 'LIKE', '%'.$search.'%');
+                        $query->where('nama_keahlian', 'ILIKE', '%'.$search.'%');
                     })
                     ->orWhereHas('pelatihan', function($query) use($search) {
-                        $query->where('nama_pelatihan', 'LIKE', '%'.$search.'%');
+                        $query->where('nama_pelatihan', 'ILIKE', '%'.$search.'%');
                     })
                     ->orderBy('nama_karyawan', 'asc')
                     ->paginate(12);
@@ -848,11 +850,11 @@ class DaftarkController extends Controller
 
     // relation ke pelatihan
     public function pelatihan(Request $request){
-        $search = $request->search;
+        $search = strtolower($request->search);
         $daftark = Daftark::with('pelatihan')
-                    ->where('nama_karyawan', 'LIKE', '%'.$search.'%')
+                    ->where('nama_karyawan', 'ILIKE', '%'.$search.'%')
                     ->orWhereHas('keahlian', function($query) use($search) {
-                        $query->where('nama_pelatihan', 'LIKE', '%'.$search.'%');
+                        $query->where('nama_pelatihan', 'ILIKE', '%'.$search.'%');
                     })
                     ->orderBy('nama_karyawan', 'asc')
                     ->paginate(12);
@@ -915,17 +917,21 @@ class DaftarkController extends Controller
                 'negara' => $nama_negara,
             ]);
 
-            
             // Hubungkan pelatihan dengan Daftark
             $pelatihan->daftark_id = $daftark->id;
 
-            if($request->hasFile('sertifikat')){
-                $request-> file('sertifikat')->move('sertifikat/', $request->file('sertifikat')->getClientOriginalName());
-                $pelatihan->sertifikat  = $request->file('sertifikat')->getClientOriginalName();
-                $pelatihan->save();
-            };
-    
-            // Simpan Jenjangkarir
+            // Maks 1 mb tidak berfungsi
+            if ($request->hasFile('sertifikat')) {
+                $file = $request->file('sertifikat');
+                if ($file->getSize() > 1000000) { // Check if file size is greater than 1 MB
+                    echo "<script>alert('Ukuran file tidak boleh melebihi 1 MB');</script>";
+                } else {
+                    $file->move('sertifikat/', $file->getClientOriginalName());
+                    $pelatihan->sertifikat = $file->getClientOriginalName();
+                    $pelatihan->save();
+                }
+            }
+
             $pelatihan->save();
             session(['provinsi' => $nama_provinsi, 'kabupaten' => $nama_kabupaten]);           
 
@@ -973,6 +979,13 @@ class DaftarkController extends Controller
         $pelatihan->daftark_id = $daftark->id;
         
         $pelatihan->update($request->except(['_token', 'submit']));
+
+        if($request->hasFile('sertifikat')){
+            $request-> file('sertifikat')->move('sertifikat/', $request->file('sertifikat')->getClientOriginalName());
+            $pelatihan->sertifikat  = $request->file('sertifikat')->getClientOriginalName();
+            $pelatihan->save();
+        };
+
         return redirect('/karyawan/'. $daftark->id );
     }
 

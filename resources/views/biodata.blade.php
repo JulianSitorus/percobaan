@@ -149,28 +149,30 @@
 
                 <label for="ktp">KTP (PDF)</label>                
                     <input id="ktp" type="file" name="ktp" accept=".pdf"
-                        onchange="document.getElementById('output').src = window.URL.createObjectURL(this.files[0])">
+                    onchange="checkFileSize(this)">
                 <br>
 
                 <label for="kk">Kartu Keluarga (PDF)</label>                
                     <input id="kk" type="file" name="kk" accept=".pdf"
-                        onchange="document.getElementById('output').src = window.URL.createObjectURL(this.files[0])">
+                        onchange="checkFileSize(this)">
                 <br>
 
                 <label for="ijazah">Ijazah (PDF)</label>                
                     <input id="ijazah" type="file" name="ijazah" accept=".pdf"
-                        onchange="document.getElementById('output').src = window.URL.createObjectURL(this.files[0])">
+                        onchange="checkFileSize(this)">
+                        <!-- onchange="document.getElementById('output').src = window.URL.createObjectURL(this.files[0])"> -->
                 <br>
 
                 <label for="bpjs">BPJS Kesehatan (PDF)</label>                
                     <input id="bpjs" type="file" name="bpjs" accept=".pdf"
-                        onchange="document.getElementById('output').src = window.URL.createObjectURL(this.files[0])">
+                        onchange="checkFileSize(this)">
                 <br>
 
                 <label for="foto">Foto</label>                
                     <input id="foto" type="file" name="foto" accept="image/*"
-                        onchange="document.getElementById('outputfoto').src = window.URL.createObjectURL(this.files[0])">
-                    <div><img src="" id="outputfoto" width="180"></div>
+                        onchange="checkFileSize(this)">
+
+                    <div id="fotoContainer" style="display:none;"><img src="" id="outputfoto" width="180"></div>                    
                 <br><br>
 
                 <hr size="3px" color="#EEEEEE">
@@ -185,6 +187,24 @@
                     
         </div>
     </div>
+
+    <!-- ========================================================================================================================================== -->
+
+    <script>
+        function checkFileSize(input) {
+            if (input.files.length > 0) {
+                var fileSize = input.files[0].size / 1024; // Ukuran dalam KB
+                if (fileSize > 1024) { // Maksimal 1 MB (1024 KB)
+                    alert('Ukuran file tidak bisa melebihi batas maksimum (1 MB)');
+                    input.value = ''; // Reset input file
+                    document.getElementById('fotoContainer').style.display = 'none'; // Sembunyikan gambar
+                } else {
+                    document.getElementById('fotoContainer').style.display = 'block'; // Tampilkan gambar
+                    document.getElementById('outputfoto').src = window.URL.createObjectURL(input.files[0]);
+                }
+            }
+        }
+    </script>
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>

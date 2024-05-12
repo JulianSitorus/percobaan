@@ -73,7 +73,7 @@
                     <th id="durasi">Durasi</th>
                     <th class="aksi">Aksi</th>
                 </tr>
-                @foreach($daftark->jenjangkarir->reverse() as $dkr)
+                @foreach($daftark->jenjangkarir->sortByDesc('created_at') as $dkr)
                 <tr>
                     <td>{{$dkr->posisi}}</td>
                     <td>{{$dkr->unit}}</td>
@@ -113,7 +113,7 @@
             <p class="total">Total Posisi : {{$totalHitung}}</p>
 
             <div class="sekarang" id="sekarang-count-info" style="display: none;">
-                <br><p>*Terdapat <span style="font-weight: bolder;" id="sekarang-count">0</span> data yang tanggal selesainya 
+                <br><p>*Terdapat <span style="font-weight: bolder;" id="sekarang-count">0</span> posisi yang 
                     <span style="font-weight: bolder;">masih berlangsung hingga saat ini (Sekarang)</span> </p>
             </div>
 

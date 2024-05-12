@@ -75,25 +75,25 @@
                     <th class="kanan">Aksi</th>
                 </tr>
                 @foreach($daftark as $key => $dk)
-                <tr>
-                    <td align="center">{{$daftark-> firstItem() + $key}}</td>
-                    <td align="center"><img src="{{ asset('fotokaryawan/'.$dk->foto) }}" style="width: 60px; max-height: 60px" alt=""></td>
-                    <td>{{$dk->nama_karyawan}} </td>
-                    <td class="keahlian">
-                        @foreach($dk->keahlian as $keahlian)
-                            &bull; {{$keahlian->nama_keahlian}} <br>
-                            &nbsp; {{$keahlian->tingkat_keahlian}} - {{$keahlian->jenis_keahlian}} <br>
-                        @endforeach                    
-                    </td>
-                    <td class="pelatihan">
-                        @foreach($dk->pelatihan as $pelatihan)
-                            &bull; {{$pelatihan->nama_pelatihan}} <br>
-                        @endforeach 
-                    </td>
-                    <td align="center">
-                        <a href="karyawan/{{$dk->id}}#keahlian"><button class="detail"><i class="fa fa-pen-to-square fa-sm" ></i></button></a>
-                    </td>
-                </tr>
+                    <tr>
+                        <td align="center">{{$daftark-> firstItem() + $key}}</td>
+                        <td align="center"><img src="{{ asset('fotokaryawan/'.$dk->foto) }}" style="width: 60px; max-height: 60px" alt=""></td>
+                        <td>{{$dk->nama_karyawan}} </td>
+                        <td class="keahlian">
+                            @foreach($dk->keahlian->sortByDesc('created_at') as $keahlian)
+                                &bull; <b>{{$keahlian->nama_keahlian}}</b> <br>
+                                &nbsp; {{$keahlian->tingkat_keahlian}} - {{$keahlian->jenis_keahlian}}<br>
+                            @endforeach                    
+                        </td>
+                        <td class="pelatihan">
+                            @foreach($dk->pelatihan->sortByDesc('created_at') as $pelatihan)
+                                &bull; {{$pelatihan->nama_pelatihan}} <br>
+                            @endforeach 
+                        </td>
+                        <td align="center">
+                            <a href="karyawan/{{$dk->id}}#keahlian"><button class="detail"><i class="fa fa-pen-to-square fa-sm" ></i></button></a>
+                        </td>
+                    </tr>
                 @endforeach
             </div>
             </table>

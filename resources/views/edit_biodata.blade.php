@@ -151,7 +151,7 @@
 
                 <label for="ktp">KTP (PDF)</label>                
                     <input id="ktp" value="{{$daftark->ktp}}" type="file" name="ktp" accept=".pdf"
-                    onchange="document.getElementById('output').src = window.URL.createObjectURL(this.files[0])">
+                    onchange="checkFileSize(this)">
 
                     @if(!empty($daftark->ktp)) <!-- Periksa apakah file KTP ada -->
                         <a href="{{ asset('ktp/' . $daftark->ktp) }}" >
@@ -163,7 +163,7 @@
 
                 <label for="kk">Kartu Keluarga (PDF)</label>                
                     <input id="kk" value="{{$daftark->kk}}" type="file" name="kk" accept=".pdf"
-                    onchange="document.getElementById('output').src = window.URL.createObjectURL(this.files[0])">
+                    onchange="checkFileSize(this)">
 
                     @if(!empty($daftark->kk)) 
                         <a href="{{ asset('kk/' . $daftark->kk) }}" >
@@ -174,7 +174,7 @@
 
                 <label for="ijazah">Ijazah (PDF)</label>                
                     <input id="ijazah" value="{{$daftark->ijazah}}" type="file" name="ijazah" accept=".pdf"
-                    onchange="document.getElementById('output').src = window.URL.createObjectURL(this.files[0])">
+                    onchange="checkFileSize(this)">
 
                     @if(!empty($daftark->ijazah)) 
                         <a href="{{ asset('ijazah/' . $daftark->ijazah) }}" >
@@ -185,7 +185,8 @@
 
                 <label for="bpjs">BPJS Kesehatan (PDF)</label>                
                     <input id="bpjs" value="{{$daftark->bpjs}}" type="file" name="bpjs" accept=".pdf"
-                    onchange="document.getElementById('output').src = window.URL.createObjectURL(this.files[0])">
+                    onchange="checkFileSize(this)">
+
 
                     @if(!empty($daftark->bpjs)) 
                         <a href="{{ asset('bpjs/' . $daftark->bpjs) }}" >
@@ -196,14 +197,15 @@
 
                 <label for="foto">Foto</label>                
                     <input id="foto" value="{{$daftark->foto}}" type="file" name="foto" accept="image/*"
-                    onchange="document.getElementById('outputfoto').src = window.URL.createObjectURL(this.files[0])">
+                    onchange="checkFileSize(this)">
 
                     @if(!empty($daftark->foto)) 
                         <a href="{{ asset('fotokaryawan/' . $daftark->foto) }}" download>
                             <button id="download" type="button"><i class="fa-solid fa-download"></i> Download Foto</button>
                         </a>
                     @endif
-                    <div><img src="" id="outputfoto" width="180"></div>                    
+                    
+                    <div id="fotoContainer" style="display:none;"><img src="" id="outputfoto" width="180"></div>                    
                 <br><br>
 
                 <p class="info_ubah">*Tidak perlu input ulang file jika tidak ada perubahan <br> *Tombol download akan ditampilkan jika terdapat file</p>
@@ -223,6 +225,24 @@
                 
         </div>
     </div>
+
+    <!-- ========================================================================================================================================== -->
+
+    <script>
+        function checkFileSize(input) {
+            if (input.files.length > 0) {
+                var fileSize = input.files[0].size / 1024; // Ukuran dalam KB
+                if (fileSize > 1024) { // Maksimal 1 MB (1024 KB)
+                    alert('Ukuran file tidak bisa melebihi batas maksimum (1 MB)');
+                    input.value = ''; // Reset input file
+                    document.getElementById('fotoContainer').style.display = 'none'; // Sembunyikan gambar
+                } else {
+                    document.getElementById('fotoContainer').style.display = 'block'; // Tampilkan gambar
+                    document.getElementById('outputfoto').src = window.URL.createObjectURL(input.files[0]);
+                }
+            }
+        }
+    </script>
     
     <script>
         function goBack() {

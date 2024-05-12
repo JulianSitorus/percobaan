@@ -113,7 +113,7 @@
 
                 <label for="sertifikat">Sertifikat Pelatihan (PDF)</label>                
                     <input id="sertifikat" type="file" name="sertifikat" accept=".pdf"
-                        onchange="document.getElementById('output').src = window.URL.createObjectURL(this.files[0])">
+                        onchange="checkFileSize(this)">
                 <br>            
                 
                 <br>
@@ -126,6 +126,20 @@
             </div>
         </div>
     </div>
+
+    <!-- ========================================================================================================================================== -->
+
+    <script>
+        function checkFileSize(input) {
+            if (input.files.length > 0) {
+                var fileSize = input.files[0].size / 1024; // Ukuran dalam KB
+                if (fileSize > 1024) { // Maksimal 1 MB (1024 KB)
+                    alert('Ukuran file tidak bisa melebihi batas maksimum (1 MB)');
+                    input.value = ''; // Reset input file
+                }
+            }
+        }
+    </script>
 
     <!-- ========================================================================================================================================== -->
 

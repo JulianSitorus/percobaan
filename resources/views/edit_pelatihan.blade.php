@@ -116,8 +116,8 @@
                 </div>
 
                 <label for="sertifikat">Sertifikat Pelatihan (PDF)</label>                
-                    <input id="sertifikat" type="file" name="sertifikat" accept=".pdf"
-                        onchange="document.getElementById('output').src = window.URL.createObjectURL(this.files[0])">
+                    <input id="sertifikat" value="{{$pelatihan->sertifikat}}" type="file" name="sertifikat" accept=".pdf"
+                        onchange="checkFileSize(this)">
 
                     @if(!empty($pelatihan->sertifikat)) 
                         <a href="{{ asset('sertifikat/' . $pelatihan->sertifikat) }}" >
@@ -141,6 +141,20 @@
     <!-- ========================================================================================================================================== -->
 
     <script>
+        function checkFileSize(input) {
+            if (input.files.length > 0) {
+                var fileSize = input.files[0].size / 1024; // Ukuran dalam KB
+                if (fileSize > 1024) { // Maksimal 1 MB (1024 KB)
+                    alert('Ukuran file tidak bisa melebihi batas maksimum (1 MB)');
+                    input.value = ''; // Reset input file
+                }
+            }
+        }
+    </script></script>
+
+    <!-- ========================================================================================================================================== -->
+
+    <script>
         function goBack() {
             window.history.back();
         }
@@ -149,26 +163,26 @@
     <!-- ========================================================================================================================================== -->
 
     <script>
-    function setMinDate() {
-        var tanggalMulai = document.getElementById('tanggal_mulai').value;
-        document.getElementById('tanggal_selesai').min = tanggalMulai;
-    }
+        function setMinDate() {
+            var tanggalMulai = document.getElementById('tanggal_mulai').value;
+            document.getElementById('tanggal_selesai').min = tanggalMulai;
+        }
     </script>
 
     <!-- ========================================================================================================================================== -->
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
-    $(document).ready(function () {
-        // disable opsi pertama pada dropdown kabupaten
-        $('#kabupaten option:first-child').prop('disabled', true);
+        $(document).ready(function () {
+            // disable opsi pertama pada dropdown kabupaten
+            $('#kabupaten option:first-child').prop('disabled', true);
 
-        // properti required pada dropdown kabupaten
-        $('#provinsi').change(function () {
-            var selectedProvinsi = $(this).val();
-            $('#kabupaten').prop('required', selectedProvinsi !== '');
+            // properti required pada dropdown kabupaten
+            $('#provinsi').change(function () {
+                var selectedProvinsi = $(this).val();
+                $('#kabupaten').prop('required', selectedProvinsi !== '');
+            });
         });
-    });
     </script>
 
     <!-- ========================================================================================================================================== -->

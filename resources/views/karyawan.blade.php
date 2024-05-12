@@ -133,7 +133,7 @@
             <div class="karir">
                 <p class="judul">Jenjang Karir</p>
                 <div style="overflow: auto; height: 390px;">
-                @foreach($daftark->jenjangkarir->reverse() as $dkr)
+                @foreach($daftark->jenjangkarir->sortByDesc('created_at') as $dkr)
                     <ul>
                         <li class="key">
                             {{$dkr->posisi}}
@@ -177,7 +177,7 @@
                     <th class="j_skor_a">Total Skor Akhir</th>
                     <th class="aksi">Aksi</th>
                 </tr>
-                @foreach($daftark->kpi->reverse() as $dkpi)
+                @foreach($daftark->kpi->sortByDesc('created_at') as $dkpi)
                 <tr>
                     <!-- <td>Wakil Departemen HRD</td> -->
                     <td>{{ \Carbon\Carbon::parse($dkpi->tanggal_kpi)->format('d/m/Y') }}</td>
@@ -214,7 +214,7 @@
                     <th>Rekomendasi Pelatihan</th>
                     <th class="aksi">Aksi</th>
                 </tr>
-                @foreach($daftark->evaluasi->reverse() as $dke)
+                @foreach($daftark->evaluasi->sortByDesc('created_at') as $dke)
                 <tr>
                     <td align="center">{{ \Carbon\Carbon::parse($dke->tanggal_evaluasi)->format('d/m/Y') }}</td>
                     <td align="center">{{ $dke->total_keseluruhan }}</td>
@@ -248,7 +248,7 @@
                     <th>Jenis Keahlian</th>
                     <th class="aksi">Aksi</th>
                 </tr>
-                @foreach($daftark->keahlian->reverse() as $dkk)
+                @foreach($daftark->keahlian->sortByDesc('created_at') as $dkk)
                 <tr>
                     <td>{{$dkk->nama_keahlian}}</td>
                     <td class="tingkat_keahlian">{{$dkk->tingkat_keahlian}}</td>
@@ -279,29 +279,29 @@
                     <th class="lokasi">Lokasi</th>
                     <th class="aksi1">Aksi</th>
                 </tr>
-                @foreach($daftark->pelatihan->reverse() as $dkp)
-                <tr>
-                    <td>{{$dkp->nama_pelatihan}}</td>
-                    <td>{{$dkp->penyelenggara}}</td>
-                    <td>{{ \Carbon\Carbon::parse($dkp->tanggal_mulai)->format('d/m/Y') }}</td>   
-                    <td>{{ \Carbon\Carbon::parse($dkp->tanggal_selesai)->format('d/m/Y') }}</td>
-                    <td>
-                        @if ($dkp->provinsi && $dkp->kabupaten && $dkp->kabupaten !== 'Pilih Kota atau Kabupaten')
-                            {{ ucwords(strtolower(implode(' ', (explode(' ', $dkp->provinsi))))) }}, 
-                            {{ ucwords(strtolower(implode(' ', array_slice(explode(' ', $dkp->kabupaten), 1)))) }}
-                        @else
-                            {{ $dkp->negara }}
-                        @endif
-                    </td>
-                    <td align="center" class="button-container">
-                        <a href="/karyawan/{{$dkp->id}}/edit_pelatihan"><button class="detail"><i class="fa fa-pen-to-square fa-sm" ></i></button></a>
-                        <form action="{{ route('pelatihan.destroy', ['id' => $dkp->id]) }}" method="POST">
-                            @csrf
-                            @method('delete')
-                            <button class="hapus" type="submit"><i class="fa fa-trash-can fa-sm"></i></button>
-                        </form>
-                    </td>
-                </tr>
+                @foreach($daftark->pelatihan->sortByDesc('created_at') as $dkp)
+                    <tr>
+                        <td>{{$dkp->nama_pelatihan}}</td>
+                        <td>{{$dkp->penyelenggara}}</td>
+                        <td>{{ \Carbon\Carbon::parse($dkp->tanggal_mulai)->format('d/m/Y') }}</td>   
+                        <td>{{ \Carbon\Carbon::parse($dkp->tanggal_selesai)->format('d/m/Y') }}</td>
+                        <td>
+                            @if ($dkp->provinsi && $dkp->kabupaten && $dkp->kabupaten !== 'Pilih Kota atau Kabupaten')
+                                {{ ucwords(strtolower(implode(' ', (explode(' ', $dkp->provinsi))))) }}, 
+                                {{ ucwords(strtolower(implode(' ', array_slice(explode(' ', $dkp->kabupaten), 1)))) }}
+                            @else
+                                {{ $dkp->negara }}
+                            @endif
+                        </td>
+                        <td align="center" class="button-container">
+                            <a href="/karyawan/{{$dkp->id}}/edit_pelatihan"><button class="detail"><i class="fa fa-pen-to-square fa-sm" ></i></button></a>
+                            <form action="{{ route('pelatihan.destroy', ['id' => $dkp->id]) }}" method="POST">
+                                @csrf
+                                @method('delete')
+                                <button class="hapus" type="submit"><i class="fa fa-trash-can fa-sm"></i></button>
+                            </form>
+                        </td>
+                    </tr>
                 @endforeach
             </table>
             <a href="{{$daftark->id}}/tambah_pelatihan"><button class="tambah"><i class="fa-solid fa-plus"></i> Tambah Data</button></a>
