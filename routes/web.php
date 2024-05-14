@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\DaftarkController;
+use App\Http\Controllers\FirebaseAuthSSO;
 use App\Http\Controllers\IndoregionController;
 use App\Http\Controllers\JenjangkarirController;
 use App\Http\Controllers\Keahlian;
@@ -19,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 // -------------------------------------------- LOGIN ---------------------------------------------------
-
+Route::get('/sso-auth', [FirebaseAuthSSO::class, 'sso_auth'])->name('sso-auth');
 // halaman login
 Route::get('/index',[DaftarkController::class,'index_login']); 
 // post data login
