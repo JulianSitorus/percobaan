@@ -60,8 +60,7 @@ class DaftarkController extends Controller
 
     // ======================================================= DAFTARK ===========================================================
 
-    // halaman daftark dan fungsi search
-    
+    // halaman menu karyawan dan fungsi search
     public function index(Request $request){
         $search = strtolower($request->search);
         $daftark = Daftark::with('jenjangkarir')
@@ -255,6 +254,7 @@ class DaftarkController extends Controller
     }
     // ======================================================= KPI ===========================================================
 
+    // halaman menu kpi dan fungsi search
     public function kpi(Request $request){
         $search = strtolower($request->search);
         $daftark = Daftark::with('kpi')

@@ -172,7 +172,7 @@
 
                 <div class="catatan">
                     <p class="judul2">*Catatan</p>
-                    <textarea id="catatan" type="komentar" placeholder="berikan catatan tambahan jika ada"></textarea>
+                    <textarea name="komentar_catatan" id="catatan" type="komentar" placeholder="berikan catatan tambahan jika ada"></textarea>
                 </div><br>
 
                 <hr size="3px" color="#EEEEEE">
